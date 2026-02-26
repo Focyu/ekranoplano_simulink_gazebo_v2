@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+    <gravity>0 0 0</gravity>
+
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <ros>
+        <namespace>/gazebo</namespace>
+      </ros>
+      <update_rate>100.0</update_rate>
+      <publish_model_states>false</publish_model_states>
+      <publish_link_states>false</publish_link_states>
+    </plugin>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Tu modelo cargado desde la carpeta local -->
+    <include>
+      <name>ekranoplano</name>
+      <uri>model://mi_ekranoplano</uri>
+      <pose>0 0 2 0 0 0</pose> 
+    </include>
+  </world>
+</sdf>
