@@ -6,9 +6,9 @@
  *
  * Code generation for model "open_loop_V1".
  *
- * Model version              : 12.16
+ * Model version              : 12.20
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Thu Feb 26 12:25:33 2026
+ * C++ source code generated on : Thu Feb 26 18:13:08 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -66,7 +66,7 @@ void open_loop_V1::rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
   real_T *f2 = id->f[2];
   real_T hB[3];
   int_T i;
-  int_T nXc = 13;
+  int_T nXc = 17;
   rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
 
   /* Save the state values at time t in y, we'll use x as ynew. */
@@ -155,9 +155,9 @@ real_T open_loop_V1::open_loop_V1_rt_atan2d_snf(real_T u0, real_T u1)
     y = (rtNaN);
   } else if (rtIsInf(u0) && rtIsInf(u1)) {
     if (u0 > 0.0) {
-      open_loop_V1_B.i_f = 1;
+      open_loop_V1_B.i_g = 1;
     } else {
-      open_loop_V1_B.i_f = -1;
+      open_loop_V1_B.i_g = -1;
     }
 
     if (u1 > 0.0) {
@@ -166,7 +166,7 @@ real_T open_loop_V1::open_loop_V1_rt_atan2d_snf(real_T u0, real_T u1)
       open_loop_V1_B.i1 = -1;
     }
 
-    y = atan2(static_cast<real_T>(open_loop_V1_B.i_f), static_cast<real_T>
+    y = atan2(static_cast<real_T>(open_loop_V1_B.i_g), static_cast<real_T>
               (open_loop_V1_B.i1));
   } else if (u1 == 0.0) {
     if (u0 > 0.0) {
@@ -240,6 +240,8 @@ void open_loop_V1::step()
   static const uint8_T b[11] = { 101U, 107U, 114U, 97U, 110U, 111U, 112U, 108U,
     97U, 110U, 111U };
 
+  static const uint8_T b_0[5] = { 119U, 111U, 114U, 108U, 100U };
+
   static const real_T a_0[9] = { 0.0256247963, 0.0, -0.0020093863, 0.0,
     0.0116945386, 0.0, -0.0020093863, 0.0, 0.0088954752 };
 
@@ -267,29 +269,139 @@ void open_loop_V1::step()
   open_loop_V1_B.b = rtmIsMajorTimeStep((&open_loop_V1_M));
   if (open_loop_V1_B.b) {
     /* MATLAB Function: '<Root>/MATLAB Function' */
-    memset(&open_loop_V1_B.stringOut[0], 0, sizeof(uint8_T) << 7U);
+    memset(&open_loop_V1_B.stringOut_l[0], 0, sizeof(uint8_T) << 7U);
     for (open_loop_V1_B.i = 0; open_loop_V1_B.i < 11; open_loop_V1_B.i++) {
-      open_loop_V1_B.stringOut[open_loop_V1_B.i] = b[open_loop_V1_B.i];
+      open_loop_V1_B.stringOut_l[open_loop_V1_B.i] = b[open_loop_V1_B.i];
     }
 
-    open_loop_V1_B.lengthOut = 11U;
+    open_loop_V1_B.lengthOut_e = 11U;
 
     /* End of MATLAB Function: '<Root>/MATLAB Function' */
+
+    /* MATLAB Function: '<Root>/MATLAB Function1' */
+    memset(&open_loop_V1_B.stringOut[0], 0, sizeof(uint8_T) << 7U);
+    for (open_loop_V1_B.i = 0; open_loop_V1_B.i < 5; open_loop_V1_B.i++) {
+      open_loop_V1_B.stringOut[open_loop_V1_B.i] = b_0[open_loop_V1_B.i];
+    }
+
+    open_loop_V1_B.lengthOut = 5U;
+
+    /* End of MATLAB Function: '<Root>/MATLAB Function1' */
   }
 
-  /* Integrator: '<S4>/Integrator' */
+  /* Integrator: '<S7>/Integrator' */
   memcpy(&open_loop_V1_B.x[0], &open_loop_V1_X.Integrator_CSTATE[0], 12U *
          sizeof(real_T));
 
-  /* MATLAB Function: '<S4>/MATLAB Function' */
+  /* Gain: '<S97>/Filter Coefficient' incorporates:
+   *  Constant: '<Root>/Constant2'
+   *  Gain: '<S87>/Derivative Gain'
+   *  Integrator: '<S89>/Filter'
+   *  Sum: '<Root>/Sum2'
+   *  Sum: '<S89>/SumD'
+   */
+  open_loop_V1_B.FilterCoefficient = ((1.0 - open_loop_V1_B.x[11]) * 0.0001 -
+    open_loop_V1_X.Filter_CSTATE) * 100.0;
+
+  /* Sum: '<S103>/Sum' incorporates:
+   *  Constant: '<Root>/Constant2'
+   *  Gain: '<S99>/Proportional Gain'
+   *  Integrator: '<S94>/Integrator'
+   *  Sum: '<Root>/Sum2'
+   */
+  open_loop_V1_B.Saturation = ((1.0 - open_loop_V1_B.x[11]) * 1.0E-5 +
+    open_loop_V1_X.Integrator_CSTATE_b) + open_loop_V1_B.FilterCoefficient;
+
+  /* Saturate: '<S101>/Saturation' */
+  if (open_loop_V1_B.Saturation > 0.000125) {
+    /* Sum: '<S103>/Sum' incorporates:
+     *  Saturate: '<S101>/Saturation'
+     */
+    open_loop_V1_B.Saturation = 0.000125;
+  } else if (open_loop_V1_B.Saturation < 0.0) {
+    /* Sum: '<S103>/Sum' incorporates:
+     *  Saturate: '<S101>/Saturation'
+     */
+    open_loop_V1_B.Saturation = 0.0;
+  }
+
+  /* End of Saturate: '<S101>/Saturation' */
+
+  /* Gain: '<S45>/Filter Coefficient' incorporates:
+   *  Constant: '<Root>/Constant1'
+   *  Gain: '<S35>/Derivative Gain'
+   *  Integrator: '<S37>/Filter'
+   *  Sum: '<Root>/Sum1'
+   *  Sum: '<S37>/SumD'
+   */
+  open_loop_V1_B.FilterCoefficient_m = ((-0.034906585039886591 -
+    open_loop_V1_B.x[7]) * 0.5 - open_loop_V1_X.Filter_CSTATE_m) * 100.0;
+
+  /* Sum: '<S51>/Sum' incorporates:
+   *  Constant: '<Root>/Constant1'
+   *  Gain: '<S47>/Proportional Gain'
+   *  Integrator: '<S42>/Integrator'
+   *  Sum: '<Root>/Sum1'
+   */
+  open_loop_V1_B.Saturation_f = ((-0.034906585039886591 - open_loop_V1_B.x[7]) *
+    2.5 + open_loop_V1_X.Integrator_CSTATE_p) +
+    open_loop_V1_B.FilterCoefficient_m;
+
+  /* Saturate: '<S49>/Saturation' */
+  if (open_loop_V1_B.Saturation_f > 0.3490658503988659) {
+    /* Sum: '<S51>/Sum' incorporates:
+     *  Saturate: '<S49>/Saturation'
+     */
+    open_loop_V1_B.Saturation_f = 0.3490658503988659;
+  } else if (open_loop_V1_B.Saturation_f < -0.3490658503988659) {
+    /* Sum: '<S51>/Sum' incorporates:
+     *  Saturate: '<S49>/Saturation'
+     */
+    open_loop_V1_B.Saturation_f = -0.3490658503988659;
+  }
+
+  /* End of Saturate: '<S49>/Saturation' */
+
+  /* SignalConversion generated from: '<S112>/ SFunction ' incorporates:
+   *  Constant: '<Root>/nominal_control'
+   *  MATLAB Function: '<S7>/MATLAB Function'
+   */
+  open_loop_V1_B.control_vector[0] = 0.0;
+  open_loop_V1_B.control_vector[1] = open_loop_V1_B.Saturation_f;
+  open_loop_V1_B.control_vector[2] = 0.0;
+  open_loop_V1_B.control_vector[3] = open_loop_V1_B.Saturation;
+  open_loop_V1_B.control_vector[4] = open_loop_V1_B.Saturation;
+
+  /* MATLAB Function: '<S7>/MATLAB Function' */
+  open_loop_V1_B.u2 = open_loop_V1_B.control_vector[1];
+  open_loop_V1_B.u4 = open_loop_V1_B.control_vector[3];
+  open_loop_V1_B.u5 = open_loop_V1_B.control_vector[4];
+  if (open_loop_V1_B.control_vector[1] > 0.3490658503988659) {
+    open_loop_V1_B.u2 = 0.3490658503988659;
+  } else if (open_loop_V1_B.control_vector[1] < -0.3490658503988659) {
+    open_loop_V1_B.u2 = -0.3490658503988659;
+  }
+
+  if (open_loop_V1_B.control_vector[3] > 0.000125) {
+    open_loop_V1_B.u4 = 0.000125;
+  } else if (open_loop_V1_B.control_vector[3] < 0.0) {
+    open_loop_V1_B.u4 = 0.0;
+  }
+
+  if (open_loop_V1_B.control_vector[4] > 0.000125) {
+    open_loop_V1_B.u5 = 0.000125;
+  } else if (open_loop_V1_B.control_vector[4] < 0.0) {
+    open_loop_V1_B.u5 = 0.0;
+  }
+
   open_loop_V1_B.c_phi = cos(open_loop_V1_B.x[6]);
   open_loop_V1_B.s_phi = sin(open_loop_V1_B.x[6]);
   open_loop_V1_B.c_theta = cos(open_loop_V1_B.x[7]);
   open_loop_V1_B.s_theta = sin(open_loop_V1_B.x[7]);
   open_loop_V1_B.c_psi = cos(open_loop_V1_B.x[8]);
   open_loop_V1_B.s_psi = sin(open_loop_V1_B.x[8]);
-  open_loop_V1_B.Va_b_idx_0 = open_loop_V1_B.c_theta * open_loop_V1_B.c_psi;
-  open_loop_V1_B.c_theta_g[0] = open_loop_V1_B.Va_b_idx_0;
+  open_loop_V1_B.c_theta_tmp_f = open_loop_V1_B.c_theta * open_loop_V1_B.c_psi;
+  open_loop_V1_B.c_theta_g[0] = open_loop_V1_B.c_theta_tmp_f;
   open_loop_V1_B.c_theta_tmp_cv = open_loop_V1_B.c_theta * open_loop_V1_B.s_psi;
   open_loop_V1_B.c_theta_g[3] = open_loop_V1_B.c_theta_tmp_cv;
   open_loop_V1_B.c_theta_g[6] = -open_loop_V1_B.s_theta;
@@ -332,7 +444,7 @@ void open_loop_V1::step()
                    (&open_loop_V1_B.Vb_w[0]));
   _mm_storeu_pd(&open_loop_V1_B.dv[0], tmp);
 
-  /* MATLAB Function: '<S4>/MATLAB Function' */
+  /* MATLAB Function: '<S7>/MATLAB Function' */
   open_loop_V1_B.Va_b_idx_2 = open_loop_V1_B.x[2] - open_loop_V1_B.Vb_w[2];
   open_loop_V1_B.Va = sqrt((open_loop_V1_B.dv[0] * open_loop_V1_B.dv[0] +
     open_loop_V1_B.dv[1] * open_loop_V1_B.dv[1]) + open_loop_V1_B.Va_b_idx_2 *
@@ -354,10 +466,11 @@ void open_loop_V1::step()
     (open_loop_V1_B.CD_iw_IGE, 0.327)) * 0.97986308862072491 /
     5.9129476540958859 + 1.0) * open_loop_V1_B.CL_w_OGE;
   open_loop_V1_B.CD_ih_IGE = fabs((-open_loop_V1_B.x[11] + 0.72) / 2.74);
-  open_loop_V1_B.CL_h_IGE = (288.0 * open_loop_V1_rt_powd_snf
-    (open_loop_V1_B.CD_ih_IGE, 0.787) * exp(-9.14 * open_loop_V1_rt_powd_snf
-    (open_loop_V1_B.CD_ih_IGE, 0.327)) * 0.95628590200128227 / 5.35300902982722
-    + 1.0) * open_loop_V1_B.CL_h_OGE;
+  open_loop_V1_B.u2 = (288.0 * open_loop_V1_rt_powd_snf(open_loop_V1_B.CD_ih_IGE,
+    0.787) * exp(-9.14 * open_loop_V1_rt_powd_snf(open_loop_V1_B.CD_ih_IGE,
+    0.327)) * 0.95628590200128227 / 5.35300902982722 + 1.0) *
+    ((open_loop_V1_B.u2 * open_loop_V1_B.u2 * -0.00141 + 0.0307 *
+      open_loop_V1_B.u2) + open_loop_V1_B.CL_h_OGE);
   open_loop_V1_B.CD_iw_IGE = open_loop_V1_B.CL_w_OGE * open_loop_V1_B.CL_w_OGE /
     21.205750411731103 * (1.0 - exp(-10.1 * open_loop_V1_rt_powd_snf
     (open_loop_V1_B.CD_iw_IGE, 0.686)));
@@ -372,11 +485,11 @@ void open_loop_V1::step()
   open_loop_V1_B.c_theta_g[2] = open_loop_V1_B.FA_b_tmp;
   open_loop_V1_B.c_theta_g[5] = 0.0;
   open_loop_V1_B.c_theta_g[8] = open_loop_V1_B.FA_b_tmp_m;
-  open_loop_V1_B.CD_iw_IGE_g[0] = -(((open_loop_V1_B.CD_iw_IGE + 0.0306) +
+  open_loop_V1_B.CD_iw_IGE_m[0] = -(((open_loop_V1_B.CD_iw_IGE + 0.0306) +
     (open_loop_V1_B.CD_ih_IGE + 0.0306)) * open_loop_V1_B.Va_b_idx_2 * 3.334);
-  open_loop_V1_B.CD_iw_IGE_g[1] = 0.0 * open_loop_V1_B.Va_b_idx_2 * 3.334;
-  open_loop_V1_B.CD_iw_IGE_g[2] = -((open_loop_V1_B.CL_w_IGE * 3.334 +
-    open_loop_V1_B.CL_h_IGE * 1.128) * open_loop_V1_B.Va_b_idx_2);
+  open_loop_V1_B.CD_iw_IGE_m[1] = 0.0 * open_loop_V1_B.Va_b_idx_2 * 3.334;
+  open_loop_V1_B.CD_iw_IGE_m[2] = -((open_loop_V1_B.CL_w_IGE * 3.334 +
+    open_loop_V1_B.u2 * 1.128) * open_loop_V1_B.Va_b_idx_2);
   open_loop_V1_B.c_theta_g[1] = 0.0;
   open_loop_V1_B.FA_b_idx_0 = 0.0;
   open_loop_V1_B.c_theta_g[4] = 1.0;
@@ -386,36 +499,39 @@ void open_loop_V1::step()
   for (open_loop_V1_B.i = 0; open_loop_V1_B.i < 3; open_loop_V1_B.i++) {
     tmp = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&open_loop_V1_B.c_theta_g[3 *
       open_loop_V1_B.i]), _mm_set1_pd
-      (open_loop_V1_B.CD_iw_IGE_g[open_loop_V1_B.i])), _mm_set_pd
+      (open_loop_V1_B.CD_iw_IGE_m[open_loop_V1_B.i])), _mm_set_pd
                      (open_loop_V1_B.FA_b_idx_1, open_loop_V1_B.FA_b_idx_0));
     _mm_storeu_pd(&open_loop_V1_B.dv[0], tmp);
     open_loop_V1_B.FA_b_idx_0 = open_loop_V1_B.dv[0];
     open_loop_V1_B.FA_b_idx_1 = open_loop_V1_B.dv[1];
     open_loop_V1_B.FA_b_idx_2 += open_loop_V1_B.c_theta_g[3 * open_loop_V1_B.i +
-      2] * open_loop_V1_B.CD_iw_IGE_g[open_loop_V1_B.i];
+      2] * open_loop_V1_B.CD_iw_IGE_m[open_loop_V1_B.i];
   }
 
   open_loop_V1_B.Cl = -0.0005 * open_loop_V1_B.s_psi * 180.0 /
     3.1415926535897931;
   open_loop_V1_B.Cm = -0.02 * open_loop_V1_B.c_psi * 180.0 / 3.1415926535897931;
   open_loop_V1_B.Cn = -0.002 * open_loop_V1_B.s_psi * 180.0 / 3.1415926535897931;
-  open_loop_V1_B.Vd1 = (37.42 - open_loop_V1_B.Va) + open_loop_V1_B.Va;
-  open_loop_V1_B.Vb_w_tmp = 0.11056515539994617 * open_loop_V1_B.Vd1 *
-    (open_loop_V1_B.Vd1 - open_loop_V1_B.Va) * 0.99619469809174555;
-  open_loop_V1_B.Va = 0.0;
-  open_loop_V1_B.Vd1 = -9.81 * open_loop_V1_B.s_theta * 112.0;
+  open_loop_V1_B.u4 = open_loop_V1_B.u4 / 0.000125 * (37.42 - open_loop_V1_B.Va)
+    + open_loop_V1_B.Va;
+  open_loop_V1_B.u5 = open_loop_V1_B.u5 / 0.000125 * (37.42 - open_loop_V1_B.Va)
+    + open_loop_V1_B.Va;
+  open_loop_V1_B.Vb_w[0] = 0.11056515539994617 * open_loop_V1_B.u4 *
+    (open_loop_V1_B.u4 - open_loop_V1_B.Va) * 0.99619469809174555;
+  open_loop_V1_B.u5 = 0.11056515539994617 * open_loop_V1_B.u5 *
+    (open_loop_V1_B.u5 - open_loop_V1_B.Va) * 0.99619469809174555;
+  open_loop_V1_B.u4 = 0.0;
+  open_loop_V1_B.Va = -9.81 * open_loop_V1_B.s_theta * 112.0;
   open_loop_V1_B.c_theta *= 9.81;
   open_loop_V1_B.s_phi = open_loop_V1_B.c_theta * open_loop_V1_B.s_phi * 112.0;
   open_loop_V1_B.c_phi = open_loop_V1_B.c_theta * open_loop_V1_B.c_phi * 112.0;
   open_loop_V1_B.Mcg_b_idx_2 = 5.02 * open_loop_V1_B.Va_b_idx_2 * 3.334;
   open_loop_V1_B.c_theta = open_loop_V1_B.Mcg_b_idx_2 * open_loop_V1_B.Cl;
-  open_loop_V1_B.Mcg_b_idx_1 = -0.285 * open_loop_V1_B.Vb_w_tmp -
-    0.04523383048603459;
   open_loop_V1_B.Mcg_b_idx_1 = 0.646 * open_loop_V1_B.Va_b_idx_2 * 3.334 *
-    open_loop_V1_B.Cm + (open_loop_V1_B.Mcg_b_idx_1 + open_loop_V1_B.Mcg_b_idx_1);
-  open_loop_V1_B.Mcg_b_idx_2 = ((0.0 - 0.6 * open_loop_V1_B.Vb_w_tmp) + (0.0 -
-    -0.6 * open_loop_V1_B.Vb_w_tmp)) + open_loop_V1_B.Mcg_b_idx_2 *
-    open_loop_V1_B.Cn;
+    open_loop_V1_B.Cm + ((-0.285 * open_loop_V1_B.Vb_w[0] - 0.04523383048603459)
+    + (-0.285 * open_loop_V1_B.u5 - 0.04523383048603459));
+  open_loop_V1_B.Mcg_b_idx_2 = ((0.0 - 0.6 * open_loop_V1_B.Vb_w[0]) + (0.0 -
+    -0.6 * open_loop_V1_B.u5)) + open_loop_V1_B.Mcg_b_idx_2 * open_loop_V1_B.Cn;
   open_loop_V1_B.c_theta_g[0] = open_loop_V1_B.c_theta_tmp_k;
   open_loop_V1_B.c_theta_g[1] = open_loop_V1_B.c_theta_tmp_c;
   open_loop_V1_B.c_theta_g[2] = open_loop_V1_B.c_theta_tmp_cx;
@@ -424,14 +540,14 @@ void open_loop_V1::step()
   open_loop_V1_B.c_theta_g[5] = open_loop_V1_B.c_theta_tmp_p;
   open_loop_V1_B.c_theta_g[6] = -open_loop_V1_B.s_theta;
   open_loop_V1_B.c_theta_g[7] = open_loop_V1_B.c_theta_tmp_cv;
-  open_loop_V1_B.c_theta_g[8] = open_loop_V1_B.Va_b_idx_0;
-  open_loop_V1_B.CD_iw_IGE_g[0] = open_loop_V1_B.x[0];
-  open_loop_V1_B.CD_iw_IGE_g[1] = open_loop_V1_B.x[1];
-  open_loop_V1_B.CD_iw_IGE_g[2] = open_loop_V1_B.x[2];
-  open_loop_V1_B.s_theta = open_loop_V1_B.Vb_w_tmp + open_loop_V1_B.Vb_w_tmp;
-  open_loop_V1_B.F_b[0] = (open_loop_V1_B.Vd1 + open_loop_V1_B.s_theta) +
+  open_loop_V1_B.c_theta_g[8] = open_loop_V1_B.c_theta_tmp_f;
+  open_loop_V1_B.CD_iw_IGE_m[0] = open_loop_V1_B.x[0];
+  open_loop_V1_B.CD_iw_IGE_m[1] = open_loop_V1_B.x[1];
+  open_loop_V1_B.CD_iw_IGE_m[2] = open_loop_V1_B.x[2];
+  open_loop_V1_B.s_theta = open_loop_V1_B.Vb_w[0] + open_loop_V1_B.u5;
+  open_loop_V1_B.F_b[0] = (open_loop_V1_B.Va + open_loop_V1_B.s_theta) +
     open_loop_V1_B.FA_b_idx_0;
-  open_loop_V1_B.Va_b_idx_0 = 0.0;
+  open_loop_V1_B.u5 = 0.0;
   open_loop_V1_B.F_b[1] = open_loop_V1_B.s_phi + open_loop_V1_B.FA_b_idx_1;
   open_loop_V1_B.F_b[2] = (open_loop_V1_B.c_phi + 0.17431148549531633) +
     open_loop_V1_B.FA_b_idx_2;
@@ -444,21 +560,21 @@ void open_loop_V1::step()
   for (open_loop_V1_B.i = 0; open_loop_V1_B.i < 3; open_loop_V1_B.i++) {
     tmp = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&open_loop_V1_B.c_theta_g[3 *
       open_loop_V1_B.i]), _mm_set1_pd
-      (open_loop_V1_B.CD_iw_IGE_g[open_loop_V1_B.i])), _mm_set_pd
-                     (open_loop_V1_B.Va, open_loop_V1_B.Va_b_idx_0));
+      (open_loop_V1_B.CD_iw_IGE_m[open_loop_V1_B.i])), _mm_set_pd
+                     (open_loop_V1_B.u4, open_loop_V1_B.u5));
     _mm_storeu_pd(&open_loop_V1_B.dv[0], tmp);
-    open_loop_V1_B.Va_b_idx_0 = open_loop_V1_B.dv[0];
-    open_loop_V1_B.Va = open_loop_V1_B.dv[1];
+    open_loop_V1_B.u5 = open_loop_V1_B.dv[0];
+    open_loop_V1_B.u4 = open_loop_V1_B.dv[1];
     open_loop_V1_B.Va_b_idx_2 += open_loop_V1_B.c_theta_g[3 * open_loop_V1_B.i +
-      2] * open_loop_V1_B.CD_iw_IGE_g[open_loop_V1_B.i];
+      2] * open_loop_V1_B.CD_iw_IGE_m[open_loop_V1_B.i];
   }
 
   tmp = _mm_set_pd(open_loop_V1_B.x[3], open_loop_V1_B.x[5]);
   tmp_2 = _mm_sub_pd(_mm_mul_pd(_mm_set_pd(open_loop_V1_B.x[0],
     open_loop_V1_B.x[2]), _mm_loadu_pd(&open_loop_V1_B.x[4])), _mm_mul_pd
                      (_mm_loadu_pd(&open_loop_V1_B.x[1]), tmp));
-  _mm_storeu_pd(&open_loop_V1_B.CD_iw_IGE_g[0], tmp_2);
-  open_loop_V1_B.CD_iw_IGE_g[2] = open_loop_V1_B.x[1] * open_loop_V1_B.x[3] -
+  _mm_storeu_pd(&open_loop_V1_B.CD_iw_IGE_m[0], tmp_2);
+  open_loop_V1_B.CD_iw_IGE_m[2] = open_loop_V1_B.x[1] * open_loop_V1_B.x[3] -
     open_loop_V1_B.x[0] * open_loop_V1_B.x[4];
   tmp = _mm_sub_pd(_mm_set_pd(open_loop_V1_B.Mcg_b_idx_1, open_loop_V1_B.c_theta),
                    _mm_sub_pd(_mm_mul_pd(_mm_set_pd(open_loop_V1_B.Vb_w[0],
@@ -467,54 +583,54 @@ void open_loop_V1::step()
   _mm_storeu_pd(&open_loop_V1_B.Mcg_b[0], tmp);
   open_loop_V1_B.Mcg_b[2] = open_loop_V1_B.Mcg_b_idx_2 - (open_loop_V1_B.Vb_w[1]
     * open_loop_V1_B.x[3] - open_loop_V1_B.Vb_w[0] * open_loop_V1_B.x[4]);
+  open_loop_V1_B.c_theta_tmp_f = 0.0;
   open_loop_V1_B.c_theta_tmp_cv = 0.0;
   open_loop_V1_B.c_theta_tmp = 0.0;
-  open_loop_V1_B.c_theta_tmp_p = 0.0;
   for (open_loop_V1_B.i = 0; open_loop_V1_B.i < 3; open_loop_V1_B.i++) {
     _mm_storeu_pd(&open_loop_V1_B.dv[0], _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&a[3
       * open_loop_V1_B.i]), _mm_set1_pd(open_loop_V1_B.Mcg_b[open_loop_V1_B.i])),
-      _mm_set_pd(open_loop_V1_B.c_theta_tmp, open_loop_V1_B.c_theta_tmp_cv)));
-    open_loop_V1_B.c_theta_tmp_cv = open_loop_V1_B.dv[0];
-    open_loop_V1_B.c_theta_tmp = open_loop_V1_B.dv[1];
-    open_loop_V1_B.c_theta_tmp_p += a_0[3 * open_loop_V1_B.i + 2] *
+      _mm_set_pd(open_loop_V1_B.c_theta_tmp_cv, open_loop_V1_B.c_theta_tmp_f)));
+    open_loop_V1_B.c_theta_tmp_f = open_loop_V1_B.dv[0];
+    open_loop_V1_B.c_theta_tmp_cv = open_loop_V1_B.dv[1];
+    open_loop_V1_B.c_theta_tmp += a_0[3 * open_loop_V1_B.i + 2] *
       open_loop_V1_B.Mcg_b[open_loop_V1_B.i];
     open_loop_V1_B.c_theta_g[3 * open_loop_V1_B.i] = c[open_loop_V1_B.i];
   }
 
-  open_loop_V1_B.Vb_w[2] = open_loop_V1_B.c_theta_tmp_p;
-  open_loop_V1_B.Vb_w[1] = open_loop_V1_B.c_theta_tmp;
-  open_loop_V1_B.Vb_w[0] = open_loop_V1_B.c_theta_tmp_cv;
+  open_loop_V1_B.Vb_w[2] = open_loop_V1_B.c_theta_tmp;
+  open_loop_V1_B.Vb_w[1] = open_loop_V1_B.c_theta_tmp_cv;
+  open_loop_V1_B.Vb_w[0] = open_loop_V1_B.c_theta_tmp_f;
   open_loop_V1_B.c_theta_g[1] = 0.0;
   open_loop_V1_B.c_theta_g[4] = open_loop_V1_B.FA_b_tmp_m;
   open_loop_V1_B.c_theta_g[7] = -sin(open_loop_V1_B.s_psi);
   open_loop_V1_B.c_theta_g[2] = 0.0;
   open_loop_V1_B.c_theta_g[5] = open_loop_V1_B.FA_b_tmp;
   open_loop_V1_B.c_theta_g[8] = open_loop_V1_B.FA_b_tmp_m;
-  open_loop_V1_B.FA_b_tmp = 0.0;
-  open_loop_V1_B.FA_b_tmp_m = 0.0;
+  open_loop_V1_B.c_theta_tmp_f = 0.0;
   open_loop_V1_B.c_theta_tmp_cv = 0.0;
+  open_loop_V1_B.c_theta_tmp = 0.0;
   for (open_loop_V1_B.i = 0; open_loop_V1_B.i < 3; open_loop_V1_B.i++) {
     tmp = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&open_loop_V1_B.c_theta_g[3 *
       open_loop_V1_B.i]), _mm_set1_pd(open_loop_V1_B.wbe_b[open_loop_V1_B.i])),
-                     _mm_set_pd(open_loop_V1_B.FA_b_tmp_m,
-      open_loop_V1_B.FA_b_tmp));
+                     _mm_set_pd(open_loop_V1_B.c_theta_tmp_cv,
+      open_loop_V1_B.c_theta_tmp_f));
     _mm_storeu_pd(&open_loop_V1_B.dv[0], tmp);
-    open_loop_V1_B.FA_b_tmp = open_loop_V1_B.dv[0];
-    open_loop_V1_B.FA_b_tmp_m = open_loop_V1_B.dv[1];
+    open_loop_V1_B.c_theta_tmp_f = open_loop_V1_B.dv[0];
+    open_loop_V1_B.c_theta_tmp_cv = open_loop_V1_B.dv[1];
     _mm_storeu_pd(&open_loop_V1_B.dv[0], _mm_add_pd(_mm_mul_pd(_mm_set_pd
       (0.0089285714285714281, open_loop_V1_B.c_theta_g[3 * open_loop_V1_B.i + 2]),
       _mm_set_pd(open_loop_V1_B.F_b[open_loop_V1_B.i],
                  open_loop_V1_B.wbe_b[open_loop_V1_B.i])), _mm_mul_pd(_mm_set_pd
-      (open_loop_V1_B.CD_iw_IGE_g[open_loop_V1_B.i],
-       open_loop_V1_B.c_theta_tmp_cv), _mm_set_pd(-1.0, 1.0))));
-    open_loop_V1_B.c_theta_tmp_cv = open_loop_V1_B.dv[0];
+      (open_loop_V1_B.CD_iw_IGE_m[open_loop_V1_B.i], open_loop_V1_B.c_theta_tmp),
+      _mm_set_pd(-1.0, 1.0))));
+    open_loop_V1_B.c_theta_tmp = open_loop_V1_B.dv[0];
     open_loop_V1_B.XDOT[open_loop_V1_B.i] = open_loop_V1_B.dv[1];
     open_loop_V1_B.XDOT[open_loop_V1_B.i + 3] =
       open_loop_V1_B.Vb_w[open_loop_V1_B.i];
   }
 
-  open_loop_V1_B.XDOT[9] = open_loop_V1_B.Va_b_idx_0;
-  open_loop_V1_B.XDOT[10] = open_loop_V1_B.Va;
+  open_loop_V1_B.XDOT[9] = open_loop_V1_B.u5;
+  open_loop_V1_B.XDOT[10] = open_loop_V1_B.u4;
   open_loop_V1_B.XDOT[11] = open_loop_V1_B.Va_b_idx_2;
   open_loop_V1_B.XDOT[12] = open_loop_V1_B.CL_w_IGE / (open_loop_V1_B.CD_iw_IGE
     + 0.0306);
@@ -527,27 +643,32 @@ void open_loop_V1::step()
   open_loop_V1_B.XDOT[25] = open_loop_V1_B.CL_w_OGE;
   open_loop_V1_B.XDOT[26] = open_loop_V1_B.CL_h_OGE;
   open_loop_V1_B.XDOT[27] = open_loop_V1_B.CL_w_IGE;
-  open_loop_V1_B.XDOT[28] = open_loop_V1_B.CL_h_IGE;
+  open_loop_V1_B.XDOT[28] = open_loop_V1_B.u2;
   open_loop_V1_B.XDOT[29] = open_loop_V1_B.CD_iw_IGE;
   open_loop_V1_B.XDOT[30] = open_loop_V1_B.CD_ih_IGE;
-  open_loop_V1_B.XDOT[6] = open_loop_V1_B.FA_b_tmp;
+  open_loop_V1_B.XDOT[6] = open_loop_V1_B.c_theta_tmp_f;
   open_loop_V1_B.XDOT[13] = open_loop_V1_B.F_b[0];
   open_loop_V1_B.XDOT[16] = open_loop_V1_B.c_theta;
-  open_loop_V1_B.XDOT[31] = open_loop_V1_B.Vd1;
+  open_loop_V1_B.XDOT[31] = open_loop_V1_B.Va;
   open_loop_V1_B.XDOT[34] = open_loop_V1_B.s_theta;
   open_loop_V1_B.XDOT[37] = open_loop_V1_B.FA_b_idx_0;
-  open_loop_V1_B.XDOT[7] = open_loop_V1_B.FA_b_tmp_m;
+  open_loop_V1_B.XDOT[7] = open_loop_V1_B.c_theta_tmp_cv;
   open_loop_V1_B.XDOT[14] = open_loop_V1_B.F_b[1];
   open_loop_V1_B.XDOT[17] = open_loop_V1_B.Mcg_b_idx_1;
   open_loop_V1_B.XDOT[32] = open_loop_V1_B.s_phi;
   open_loop_V1_B.XDOT[35] = 0.0;
   open_loop_V1_B.XDOT[38] = open_loop_V1_B.FA_b_idx_1;
-  open_loop_V1_B.XDOT[8] = open_loop_V1_B.c_theta_tmp_cv;
+  open_loop_V1_B.XDOT[8] = open_loop_V1_B.c_theta_tmp;
   open_loop_V1_B.XDOT[15] = open_loop_V1_B.F_b[2];
   open_loop_V1_B.XDOT[18] = open_loop_V1_B.Mcg_b_idx_2;
   open_loop_V1_B.XDOT[33] = open_loop_V1_B.c_phi;
   open_loop_V1_B.XDOT[36] = 0.17431148549531633;
   open_loop_V1_B.XDOT[39] = open_loop_V1_B.FA_b_idx_2;
+  if (open_loop_V1_B.b) {
+  }
+
+  /* Gain: '<Root>/Gain' */
+  open_loop_V1_B.Gain = -open_loop_V1_B.x[11];
   if (open_loop_V1_B.b) {
   }
 
@@ -566,21 +687,20 @@ void open_loop_V1::step()
    *  Constant: '<Root>/Constant'
    *  Sum: '<Root>/Sum'
    */
-  open_loop_V1_B.CL_h_IGE = (open_loop_V1_B.x[6] + 1.5707963267948966) / 2.0;
+  open_loop_V1_B.u2 = (open_loop_V1_B.x[6] + 1.5707963267948966) / 2.0;
   open_loop_V1_B.c_psi = sin(open_loop_V1_B.dv[0]);
   open_loop_V1_B.s_psi = sin(open_loop_V1_B.dv[1]);
-  open_loop_V1_B.CL_w_OGE = sin(open_loop_V1_B.CL_h_IGE);
+  open_loop_V1_B.CL_w_OGE = sin(open_loop_V1_B.u2);
   open_loop_V1_B.CL_h_OGE = cos(open_loop_V1_B.dv[0]);
   open_loop_V1_B.CL_w_IGE = cos(open_loop_V1_B.dv[1]);
-  open_loop_V1_B.CL_h_IGE = cos(open_loop_V1_B.CL_h_IGE);
+  open_loop_V1_B.u2 = cos(open_loop_V1_B.u2);
 
   /* BusAssignment: '<Root>/Bus Assignment' incorporates:
-   *  Gain: '<Root>/Gain'
    *  Gain: '<Root>/Gain3'
    */
   open_loop_V1_B.BusAssignment.state.pose.position.x = open_loop_V1_B.x[9];
   open_loop_V1_B.BusAssignment.state.pose.position.y = -open_loop_V1_B.x[10];
-  open_loop_V1_B.BusAssignment.state.pose.position.z = -open_loop_V1_B.x[11];
+  open_loop_V1_B.BusAssignment.state.pose.position.z = open_loop_V1_B.Gain;
 
   /* Start for MATLABSystem: '<Root>/Coordinate Transformation Conversion' */
   open_loop_V1_B.CD_iw_IGE = open_loop_V1_B.CL_h_OGE * open_loop_V1_B.CL_w_IGE;
@@ -590,25 +710,24 @@ void open_loop_V1::step()
    * */
   open_loop_V1_B.BusAssignment.state.pose.orientation.w = open_loop_V1_B.c_psi *
     open_loop_V1_B.s_psi * open_loop_V1_B.CL_w_OGE + open_loop_V1_B.CD_iw_IGE *
-    open_loop_V1_B.CL_h_IGE;
+    open_loop_V1_B.u2;
   open_loop_V1_B.BusAssignment.state.pose.orientation.z =
-    open_loop_V1_B.CD_iw_IGE * open_loop_V1_B.CL_w_OGE - open_loop_V1_B.CL_h_IGE
-    * open_loop_V1_B.c_psi * open_loop_V1_B.s_psi;
+    open_loop_V1_B.CD_iw_IGE * open_loop_V1_B.CL_w_OGE - open_loop_V1_B.u2 *
+    open_loop_V1_B.c_psi * open_loop_V1_B.s_psi;
   open_loop_V1_B.BusAssignment.state.pose.orientation.y =
-    open_loop_V1_B.CL_h_OGE * open_loop_V1_B.CL_h_IGE * open_loop_V1_B.s_psi +
+    open_loop_V1_B.CL_h_OGE * open_loop_V1_B.u2 * open_loop_V1_B.s_psi +
     open_loop_V1_B.CL_w_IGE * open_loop_V1_B.c_psi * open_loop_V1_B.CL_w_OGE;
   open_loop_V1_B.BusAssignment.state.pose.orientation.x =
-    open_loop_V1_B.CL_w_IGE * open_loop_V1_B.CL_h_IGE * open_loop_V1_B.c_psi -
+    open_loop_V1_B.CL_w_IGE * open_loop_V1_B.u2 * open_loop_V1_B.c_psi -
     open_loop_V1_B.CL_h_OGE * open_loop_V1_B.s_psi * open_loop_V1_B.CL_w_OGE;
-  for (open_loop_V1_B.i = 0; open_loop_V1_B.i < 128; open_loop_V1_B.i++) {
-    open_loop_V1_B.BusAssignment.state.name[open_loop_V1_B.i] =
-      open_loop_V1_B.stringOut[open_loop_V1_B.i];
-    open_loop_V1_B.BusAssignment.state.reference_frame[open_loop_V1_B.i] = 0U;
-  }
-
+  memcpy(&open_loop_V1_B.BusAssignment.state.name[0],
+         &open_loop_V1_B.stringOut_l[0], sizeof(uint8_T) << 7U);
+  memcpy(&open_loop_V1_B.BusAssignment.state.reference_frame[0],
+         &open_loop_V1_B.stringOut[0], sizeof(uint8_T) << 7U);
   open_loop_V1_B.BusAssignment.state.name_SL_Info.CurrentLength =
+    open_loop_V1_B.lengthOut_e;
+  open_loop_V1_B.BusAssignment.state.reference_frame_SL_Info.CurrentLength =
     open_loop_V1_B.lengthOut;
-  open_loop_V1_B.BusAssignment.state.reference_frame_SL_Info.CurrentLength = 0U;
 
   /* Outputs for Atomic SubSystem: '<Root>/Call Service' */
   /* MATLABSystem: '<S2>/ServiceCaller' */
@@ -622,37 +741,54 @@ void open_loop_V1::step()
   /* End of MATLABSystem: '<S2>/ServiceCaller' */
   /* End of Outputs for SubSystem: '<Root>/Call Service' */
 
-  /* Product: '<S4>/Product2' incorporates:
-   *  Math: '<S4>/Square'
-   *  Math: '<S4>/Square1'
-   *  Math: '<S4>/Square2'
-   *  Sqrt: '<S4>/Sqrt'
-   *  Sum: '<S4>/Sum2'
+  /* Product: '<S7>/Product2' incorporates:
+   *  Math: '<S7>/Square'
+   *  Math: '<S7>/Square1'
+   *  Math: '<S7>/Square2'
+   *  Sqrt: '<S7>/Sqrt'
+   *  Sum: '<S7>/Sum2'
    */
   open_loop_V1_B.Power = sqrt((open_loop_V1_B.x[0] * open_loop_V1_B.x[0] +
     open_loop_V1_B.x[1] * open_loop_V1_B.x[1]) + open_loop_V1_B.x[2] *
     open_loop_V1_B.x[2]) * open_loop_V1_B.XDOT[34];
 
-  /* Gain: '<S4>/Gain3' */
+  /* Gain: '<S7>/Gain3' */
   open_loop_V1_B.Gain3 = 0.001 * open_loop_V1_B.Power;
   if (open_loop_V1_B.b) {
   }
 
-  /* Product: '<S4>/Divide' incorporates:
-   *  Constant: '<S4>/thrust efficiency Cp?'
+  /* Product: '<S7>/Divide' incorporates:
+   *  Constant: '<S7>/thrust efficiency Cp?'
    */
   open_loop_V1_B.powerdemand = open_loop_V1_B.Gain3 / 0.248;
   if (open_loop_V1_B.b) {
   }
 
-  /* Product: '<S4>/Divide1' */
+  /* Product: '<S7>/Divide1' */
   open_loop_V1_B.loadtorque = open_loop_V1_B.powerdemand /
     open_loop_V1_ConstB.motorspeed;
   if (open_loop_V1_B.b) {
   }
 
-  /* Gain: '<S4>/Gain1' incorporates:
-   *  Integrator: '<S4>/Integrator1'
+  /* Sum: '<Root>/Sum2' incorporates:
+   *  Constant: '<Root>/Constant1'
+   *  Constant: '<Root>/Constant2'
+   *  Gain: '<S39>/Integral Gain'
+   *  Gain: '<S91>/Integral Gain'
+   *  Sum: '<Root>/Sum1'
+   */
+  _mm_storeu_pd(&open_loop_V1_B.dv[0], _mm_mul_pd(_mm_sub_pd(_mm_set_pd(1.0,
+    -0.034906585039886591), _mm_set_pd(open_loop_V1_B.x[11], open_loop_V1_B.x[7])),
+    _mm_set_pd(1.0E-6, 0.01)));
+
+  /* Gain: '<S39>/Integral Gain' */
+  open_loop_V1_B.IntegralGain = open_loop_V1_B.dv[0];
+
+  /* Gain: '<S91>/Integral Gain' */
+  open_loop_V1_B.IntegralGain_m = open_loop_V1_B.dv[1];
+
+  /* Gain: '<S7>/Gain1' incorporates:
+   *  Integrator: '<S7>/Integrator1'
    */
   open_loop_V1_B.EnergykWh = 2.7777777777777776E-7 *
     open_loop_V1_X.Integrator1_CSTATE;
@@ -679,9 +815,9 @@ void open_loop_V1::step()
       ->solverInfo);
 
     {
-      /* Update absolute timer for sample time: [0.025s, 0.0s] */
+      /* Update absolute timer for sample time: [0.01s, 0.0s] */
       /* The "clockTick1" counts the number of times the code of this task has
-       * been executed. The resolution of this integer timer is 0.025, which is the step size
+       * been executed. The resolution of this integer timer is 0.01, which is the step size
        * of the task. Size of "clockTick1" ensures timer will not overflow during the
        * application lifespan selected.
        * Timer of this task consists of two 32 bit unsigned integers.
@@ -702,11 +838,23 @@ void open_loop_V1::open_loop_V1_derivatives()
   XDot_open_loop_V1_T *_rtXdot;
   _rtXdot = ((XDot_open_loop_V1_T *) (&open_loop_V1_M)->derivs);
 
-  /* Derivatives for Integrator: '<S4>/Integrator' */
+  /* Derivatives for Integrator: '<S7>/Integrator' */
   memcpy(&_rtXdot->Integrator_CSTATE[0], &open_loop_V1_B.XDOT[0], 12U * sizeof
          (real_T));
 
-  /* Derivatives for Integrator: '<S4>/Integrator1' */
+  /* Derivatives for Integrator: '<S94>/Integrator' */
+  _rtXdot->Integrator_CSTATE_b = open_loop_V1_B.IntegralGain_m;
+
+  /* Derivatives for Integrator: '<S89>/Filter' */
+  _rtXdot->Filter_CSTATE = open_loop_V1_B.FilterCoefficient;
+
+  /* Derivatives for Integrator: '<S42>/Integrator' */
+  _rtXdot->Integrator_CSTATE_p = open_loop_V1_B.IntegralGain;
+
+  /* Derivatives for Integrator: '<S37>/Filter' */
+  _rtXdot->Filter_CSTATE_m = open_loop_V1_B.FilterCoefficient_m;
+
+  /* Derivatives for Integrator: '<S7>/Integrator1' */
   _rtXdot->Integrator1_CSTATE = open_loop_V1_B.Power;
 }
 
@@ -758,7 +906,7 @@ void open_loop_V1::initialize()
                     (&(&open_loop_V1_M)->intgData));
   rtsiSetSolverName(&(&open_loop_V1_M)->solverInfo,"ode3");
   rtmSetTPtr((&open_loop_V1_M), &(&open_loop_V1_M)->Timing.tArray[0]);
-  (&open_loop_V1_M)->Timing.stepSize0 = 0.025;
+  (&open_loop_V1_M)->Timing.stepSize0 = 0.01;
 
   /* Start for MATLABSystem: '<Root>/Coordinate Transformation Conversion' */
   open_loop_V1_DW.objisempty = true;
@@ -776,11 +924,23 @@ void open_loop_V1::initialize()
 
   /* End of Start for SubSystem: '<Root>/Call Service' */
 
-  /* InitializeConditions for Integrator: '<S4>/Integrator' */
+  /* InitializeConditions for Integrator: '<S7>/Integrator' */
   memcpy(&open_loop_V1_X.Integrator_CSTATE[0],
          &open_loop_V1_ConstP.Integrator_IC[0], 12U * sizeof(real_T));
 
-  /* InitializeConditions for Integrator: '<S4>/Integrator1' */
+  /* InitializeConditions for Integrator: '<S94>/Integrator' */
+  open_loop_V1_X.Integrator_CSTATE_b = 0.0;
+
+  /* InitializeConditions for Integrator: '<S89>/Filter' */
+  open_loop_V1_X.Filter_CSTATE = 0.0;
+
+  /* InitializeConditions for Integrator: '<S42>/Integrator' */
+  open_loop_V1_X.Integrator_CSTATE_p = 0.0;
+
+  /* InitializeConditions for Integrator: '<S37>/Filter' */
+  open_loop_V1_X.Filter_CSTATE_m = 0.0;
+
+  /* InitializeConditions for Integrator: '<S7>/Integrator1' */
   open_loop_V1_X.Integrator1_CSTATE = 0.0;
 }
 

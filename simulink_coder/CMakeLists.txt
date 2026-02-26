@@ -64,7 +64,7 @@ target_compile_options(open_loop_V1 PRIVATE
   $<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:
   -DMODEL=open_loop_V1
   -DNUMST=2
-  -DNCSTATES=13
+  -DNCSTATES=17
   -DHAVESTDIO
   -DMODEL_HAS_DYNAMICALLY_LOADED_SFCNS=0
   -DCLASSIC_INTERFACE=0
@@ -116,4 +116,4 @@ add_custom_command(
 				   )				   
 endforeach(file_i)
 ament_package()
-# Generated on Thu Feb 26 12:25:53 2026
+# Generated on Thu Feb 26 18:13:34 2026

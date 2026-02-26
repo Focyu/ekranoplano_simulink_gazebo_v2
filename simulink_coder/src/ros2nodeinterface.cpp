@@ -4,9 +4,9 @@
 //
 // Code generated for Simulink model 'open_loop_V1'.
 //
-// Model version                  : 12.16
+// Model version                  : 12.20
 // Simulink Coder version         : 25.2 (R2025b) 28-Jul-2025
-// C/C++ source code generated on : Thu Feb 26 12:25:42 2026
+// C/C++ source code generated on : Thu Feb 26 18:13:20 2026
 //
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -156,7 +156,7 @@ void NodeInterface::terminate(void) {
 void NodeInterface::rosClockSubscriberCallback(const rosgraph_msgs::msg::Clock::SharedPtr msg)
 {
   static uint64_t lastEndTime = 0;
-  const uint64_t baseRateNanoSec = 25000000;
+  const uint64_t baseRateNanoSec = 10000000;
   const uint64_t currentTime = static_cast<uint64_t>(msg->clock.nanosec) + static_cast<uint64_t>(msg->clock.sec) * 1E9;
   if (lastEndTime == 0) {
     RCLCPP_INFO(SLROSNodePtr->get_logger(),"** Unblocking base-rate at %.6f", (double)currentTime/1E9);
