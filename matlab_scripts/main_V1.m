@@ -7,10 +7,10 @@ Tp = 0.125e-03; % motor PWM switching frequency
 max_thrust_force_per_motor =  Tp;
 
 % Test 1
-tsim = 1000;
+tsim = 15;
 step = 0.1;
 x_nom = zeros(12,1);
-x_nom(1) = 28;
+x_nom(1) = 10;
 x_nom(12) = -0.8;
 u_nom = zeros(5,1);
 u_nom(2) = 0*pi/180; % elevator - range [-20,20]*pi/180
@@ -18,6 +18,28 @@ u_nom(4:5) = Tp;  % thrust - range [0,Tp]
 x0 = x_nom;
 % file_name = 'test_1.csv';
 % [XDOT] = Model(x_nom,u_nom) % debug
+%% PARAMETROS DE CONTROL PID (Lazo Cerrado)
+
+% 1. Lazo de Elevador (Control de Cabeceo / Pitch)
+theta_sp = -2 * (pi/180); % Setpoint: 0 grados (vuelo horizontal)
+% Ganancias iniciales sugeridas (requerirán sintonización fina):
+Kp_pitch = 2.5;   
+Ki_pitch = 0.01;  
+Kd_pitch = 0.5;   
+
+% 2. Lazo de Acelerador (Control de Altura / h)
+% Recordar que Altura h = -z_NED
+h_sp = 1.0; % Setpoint: 0.5 metros de altura sobre el agua
+% Ganancias iniciales:
+% Nota: El empuje máximo Tp es muy pequeño (1.25e-04), 
+% por lo que estas ganancias serán correspondientemente pequeñas o puedes
+% escalar el PID para que entregue de 0 a 1 y multiplicar por Tp en Simulink.
+Kp_h = 1e-5;   
+Ki_h = 1e-6;  
+Kd_h = 1e-4;   
+
+
+
 %% Simulation
 sim = sim('open_loop_V1.slx');
 
