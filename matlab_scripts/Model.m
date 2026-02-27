@@ -21,7 +21,7 @@ u4 = U(4); %d_th1 (throttle 1)
 u5 = U(5); %d_th2 (throttle 2)
 
 %-----------SYSTEM PARAMETERS------------------------------
-m = 112; % Aircraft mass (Kg)
+m = 160; % Aircraft mass (Kg)
 vc = 28; % cruise speed
 bw = 5.02; % Span (Wing)
 bh = 2.74; % Span (HTP)
@@ -59,7 +59,7 @@ e0w = 0.9; % Oswald's efficiency Factor (Wing)
 e0h = 0.9; % Oswald's efficiency Factor (HTP)
 alpha_0w = -3.75*pi/180; % Zero Lift Angle of Attack (Wing)
 alpha_0h = -4.25*pi/180; % Zero Lift Angle of Attack (HTP)
-iw = 2.0 * pi/180; % Angle of incidence (Wing)
+iw = 1.0 * pi/180; % Angle of incidence (Wing)
 ih = 0.5 * pi/180; % Angle of Incidence (HTP)
 eps = 0; % Downwash Angle
 zw = 0.363; % Wing Offset
@@ -364,13 +364,13 @@ x1to3dot = (1/m)*F_b - cross(wbe_b,V_b);
 Mcg_b = MAcg_b + MEcg_b;
 x4to6dot = invIb*(Mcg_b - cross(wbe_b,Ib*wbe_b));
 
-% H_phi = [1 sin(x7)*tan(x8) cos(x7)*tan(x8);
-%          0 cos(x7) -sin(x7);
-%          0 sin(x7)/cos(x8) cos(x7)/cos(x8)];
+H_phi = [1 sin(x7)*tan(x8) cos(x7)*tan(x8);
+         0 cos(x7) -sin(x7);
+         0 sin(x7)/cos(x8) cos(x7)/cos(x8)];
 %MFS
-H_phi = [1 0 0;
-         0 cos(alpha) -sin(beta);
-         0 sin(alpha) cos(alpha)];
+% H_phi = [1 0 0;
+%          0 cos(alpha) -sin(beta);
+%          0 sin(alpha) cos(alpha)];
 x7to9dot = H_phi*wbe_b;
 x10to12dot = rot_body_to_ned(X(1:9));
 XDOT = [x1to3dot;
