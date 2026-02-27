@@ -1,8 +1,3 @@
-%------------------------------------%
-%parche para Conectar el elevador al Momento de Cabeceo ($C_m$)%
-%Tenemos que darle "vida" al elevador en las ecuaciones de momento. 
-%Reemplazado la definición de Cm.
-%------------------------------------%
 function [XDOT] = Model(X,U)
 
 %-----------STATE AND CONTROL VECTORS-------------
@@ -76,7 +71,6 @@ Tp = 0.125*10^(-3); % motor PWM switching frequency
 % aileron
 u1min = -20*pi/180;
 u1max =  15*pi/180;
-
 % elevator
 u2min = -20*pi/180;
 u2max =  20*pi/180;
@@ -282,19 +276,23 @@ FA_b = C_bs*FA_s;
 % Cl = -0.0005*beta*180/pi;
 % Cm = -0.02*alpha*180/pi;
 % Cn = -0.002*beta*180/pi;
+%------------------ Cálculo de Torques Aerodinámicos ------------------
+% Parámetros de estabilidad longitudinal (usando Radianes para la dinámica pura)
+Cm_alpha = -1.14; % Equivalente aproximado a -0.02 * 180/pi
+Cm_q = -5.0;      % Amortiguación del cabeceo 
+Cm_de = -1.2;     % Autoridad del elevador (mantenemos esto en radianes también para consistencia)
 
-% steady-state (y control)
-% Parametros tipicos de estabilidad longitudinal:
-Cm_alpha = -0.02; % Estabilidad estatica natural (Pitch down)
-Cm_q = -5.0;      % Amortiguacion natural del cabeceo (freno aerodinamico)
-Cm_de = -1.2;     % Autoridad del elevador (Pitch moment due to elevator)
+% Factor de Momento por Efecto Suelo (Pitch-down moment debido al AC shift)
+% A medida que hw/bw se acerca a 0, el momento de cabeceo negativo aumenta.
+Cm_h = 0.05;      % Constante empírica del desplazamiento del AC
+Delta_Cm_IGE = -Cm_h * exp(-4.0 * abs(hw/bw)); % Momento inducido por el suelo
 
-% Re-calculamos Cm incluyendo el elevador (u2) y la velocidad de cabeceo (x5 o q)
-Cl = -0.0005*beta*180/pi;
-% Cm = (Momento por alfa) + (Momento por velocidad de cabeceo) + (Momento por elevador)
-Cm = Cm_alpha*(alpha*180/pi) + Cm_q*(x5*cbar/(2*Va)) + Cm_de*(u2*180/pi); 
-Cn = -0.002*beta*180/pi;
+Cl = -0.0005*beta*180/pi; % Eje de alabeo (Roll)
 
+% Nuevo Cm: Momento por alfa + Momento por IGE + Momento de velocidad de cabeceo (q) + Elevador
+Cm = Cm_alpha*alpha + Delta_Cm_IGE + Cm_q*(x5*cbar/(2*Va)) + Cm_de*u2; 
+
+Cn = -0.002*beta*180/pi; % Eje de guiñada (Yaw)
 
 CMac_b = [Cl;Cm;Cn];% steady-state
 %-------------------------6. Aero moment about CG--------------------------

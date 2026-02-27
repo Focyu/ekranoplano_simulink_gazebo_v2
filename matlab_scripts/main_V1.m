@@ -7,45 +7,54 @@ Tp = 0.125e-03; % motor PWM switching frequency
 max_thrust_force_per_motor =  Tp;
 
 % Test 1
-tsim = 15;
-step = 0.1;
+tsim = 10;
+step = 0.01;
 x_nom = zeros(12,1);
-x_nom(1) = 10;
-x_nom(12) = -0.8;
+% 1. Velocidad inicial de crucero (basada en vc del Model.m)
+x_nom(1) = 28;     % 'u' = 28 m/s (Velocidad de sustentación adecuada)
+x_nom(3) = 0;      % 'w' = 0 (Sin velocidad vertical inicial)
+
+% 2. Ángulo de ataque de equilibrio (Pitch trim inicial)
+x_nom(8) = 2.5 * (pi/180);  % Theta (Pitch) inicial de 2.5 grados para generar Lift
+
+% 3. Posición inicial
+x_nom(10) = 0;     % x_NED
+x_nom(11) = 0;     % y_NED
+x_nom(12) = -1.0;  % h = 1.0 metros (Cercano a tu h_sp = 1.0)
+
 u_nom = zeros(5,1);
-u_nom(2) = 0*pi/180; % elevator - range [-20,20]*pi/180
-u_nom(4:5) = Tp;  % thrust - range [0,Tp]
+u_nom(2) = -1.5 * pi/180; % Ligero elevador hacia arriba para compensar el Pitch-down del IGE
+u_nom(4:5) = Tp * 0.6;      % Acelerador al 60% inicial (No al máximo)
+
 x0 = x_nom;
 % file_name = 'test_1.csv';
 % [XDOT] = Model(x_nom,u_nom) % debug
 %% PARAMETROS DE CONTROL PID (Lazo Cerrado)
 
 % 1. Lazo de Elevador (Control de Cabeceo / Pitch)
-theta_sp = -2 * (pi/180); % Setpoint: 0 grados (vuelo horizontal)
-% Ganancias iniciales sugeridas (requerirán sintonización fina):
-Kp_pitch = 2.5;   
-Ki_pitch = 0.01;  
+theta_sp = 2.5 * (pi/180); % IGE, necesita ángulo de ataque.
+% Ganancias iniciales sugeridas:
+Kp_pitch = 1.0;   
+Ki_pitch = 0.005;  
 Kd_pitch = 0.5;   
 
 % 2. Lazo de Acelerador (Control de Altura / h)
 % Recordar que Altura h = -z_NED
-h_sp = 1.0; % Setpoint: 0.5 metros de altura sobre el agua
+h_sp = 1.0; % Setpoint: 1 metros de altura sobre el agua
 % Ganancias iniciales:
-% Nota: El empuje máximo Tp es muy pequeño (1.25e-04), 
-% por lo que estas ganancias serán correspondientemente pequeñas o puedes
-% escalar el PID para que entregue de 0 a 1 y multiplicar por Tp en Simulink.
 Kp_h = 1e-5;   
 Ki_h = 1e-6;  
-Kd_h = 1e-4;   
+Kd_h = 5e-5;   
 
 
 
 %% Simulation
-sim = sim('open_loop_V1.slx');
+sim = sim('pid_control_V1.slx');
 
 S = sim.states;
 t = sim.tout;
-C = sim.control.*ones(length(t),5);
+% C = sim.control.*ones(length(t),5); %antes se transformaba
+C = sim.control_out; %sim.control_out será directamente una matriz de dimensión
 
 LD_ratio = sim.LD;
 Fbx = sim.Fbx;
