@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>open_loop_v1</name>
+  <name>pid_control_v1</name>
   <version>1.0.0</version>
   <description>TODO</description>
   <maintainer email="ros2user@test.com">ROS User</maintainer>
@@ -17,4 +17,4 @@
     <build_type>ament_cmake</build_type>
   </export>
 </package>
-<!-- Generated on Thu Feb 26 18:13:34 2026 -->
+<!-- Generated on Fri Feb 27 01:11:06 2026 -->

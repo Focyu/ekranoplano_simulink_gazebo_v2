@@ -9,7 +9,7 @@
 #include <geometry_msgs/msg/quaternion.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <geometry_msgs/msg/vector3.hpp>
-#include "open_loop_V1_types.h"
+#include "pid_control_V1_types.h"
 #include "slros_msgconvert_utils.h"
 
 

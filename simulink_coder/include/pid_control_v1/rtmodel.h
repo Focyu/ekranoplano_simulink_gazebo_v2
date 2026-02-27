@@ -1,10 +1,10 @@
 /*
  * rtmodel.h
  *
- * Code generation for Simulink model "open_loop_V1".
+ * Code generation for Simulink model "pid_control_V1".
  *
  * Simulink Coder version                : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Thu Feb 26 18:13:08 2026
+ * C++ source code generated on : Fri Feb 27 01:10:45 2026
  *
  * Note that the generated code is not dependent on this header file.
  * The file is used in cojuction with the automatic build procedure.
@@ -15,8 +15,8 @@
 
 #ifndef rtmodel_h_
 #define rtmodel_h_
-#include "open_loop_V1.h"
-#define MODEL_CLASSNAME                open_loop_V1
+#include "pid_control_V1.h"
+#define MODEL_CLASSNAME                pid_control_V1
 #define MODEL_STEPNAME                 step
 
 /*

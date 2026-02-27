@@ -2,11 +2,11 @@
 //
 // File ros2nodeinterface.cpp
 //
-// Code generated for Simulink model 'open_loop_V1'.
+// Code generated for Simulink model 'pid_control_V1'.
 //
-// Model version                  : 12.20
+// Model version                  : 12.24
 // Simulink Coder version         : 25.2 (R2025b) 28-Jul-2025
-// C/C++ source code generated on : Thu Feb 26 18:13:20 2026
+// C/C++ source code generated on : Fri Feb 27 01:10:55 2026
 //
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -26,7 +26,7 @@
 #pragma GCC diagnostic ignored "-Wshadow"
 #endif //_MSC_VER
 #include "rclcpp/rclcpp.hpp"
-#include "open_loop_V1.h"
+#include "pid_control_V1.h"
 #include "ros2nodeinterface.h"
 #include <thread>
 #include <chrono>
@@ -81,13 +81,13 @@ void NodeInterface::initialize(int argc, char * const argv[]) {
         std::vector<char *> args(argv, argv + argc);
         rclcpp::init(static_cast<int>(args.size()), args.data());
         //create the Node specified in Model
-        std::string NodeName("open_loop_V1");
+        std::string NodeName("pid_control_V1");
         SLROSNodePtr = std::make_shared<rclcpp::Node>(NodeName);
-        RCLCPP_INFO(SLROSNodePtr->get_logger(),"** Starting the model \"open_loop_V1\" **\n");
+        RCLCPP_INFO(SLROSNodePtr->get_logger(),"** Starting the model \"pid_control_V1\" **\n");
         mExec = std::make_shared<rclcpp::executors::SLMultiThreadedExecutor>();
         mExec->add_node(SLROSNodePtr);
         //initialize the model which will initialize the publishers and subscribers
-        mModel = std::make_shared<open_loop_V1>(
+        mModel = std::make_shared<pid_control_V1>(
         );
         ROS_SET_RTM_ERROR_STATUS(NULL);
         mModel->initialize();

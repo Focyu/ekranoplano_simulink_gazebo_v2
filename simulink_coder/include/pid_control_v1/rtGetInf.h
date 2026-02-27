@@ -4,11 +4,11 @@
  * Trial License - for use to evaluate programs for possible purchase as
  * an end-user only.
  *
- * Code generation for model "open_loop_V1".
+ * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.20
+ * Model version              : 12.24
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Thu Feb 26 18:13:08 2026
+ * C++ source code generated on : Fri Feb 27 01:10:45 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping

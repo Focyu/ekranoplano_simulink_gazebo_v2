@@ -1,8 +1,8 @@
 // Copyright 2022-2025 The MathWorks, Inc.
-// Generated 26-Feb-2026 18:13:18
+// Generated 27-Feb-2026 01:10:53
 #ifndef _SLROS2_INITIALIZE_H_
 #define _SLROS2_INITIALIZE_H_
-#include "open_loop_V1_types.h"
+#include "pid_control_V1_types.h"
 // Generic pub-sub header
 #include "slros2_generic_pubsub.h"
 // Generic service header
@@ -33,6 +33,6 @@ inline rclcpp::QoS getQOSSettingsFromRMW(const rmw_qos_profile_t& qosProfile) {
   rclcpp::QoS qos(init, qosProfile);
   return qos;
 }
-// open_loop_V1/Call Service
-extern SimulinkServiceCaller<gazebo_msgs::srv::SetEntityState,SL_Bus_gazebo_msgs_SetEntityStateRequest,SL_Bus_gazebo_msgs_SetEntityStateResponse> ServCall_open_loop_V1_326;
+// pid_control_V1/Call Service
+extern SimulinkServiceCaller<gazebo_msgs::srv::SetEntityState,SL_Bus_gazebo_msgs_SetEntityStateRequest,SL_Bus_gazebo_msgs_SetEntityStateResponse> ServCall_pid_control_V1_326;
 #endif

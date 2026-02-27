@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(open_loop_v1)
+project(pid_control_v1)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 # Set CMAKE_BUILD_TYPE
 set(CMAKE_BUILD_TYPE Debug)
@@ -37,16 +37,16 @@ find_package( rclcpp REQUIRED)
 find_package( rosgraph_msgs REQUIRED)
 find_package( std_msgs REQUIRED)
 # Add package include directories
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/open_loop_v1")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/pid_control_v1")
 set (CMAKE_SKIP_BUILD_RPATH false)
 set (CMAKE_BUILD_WITH_INSTALL_RPATH true)
 set (CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 set (CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 # Node
-add_executable(open_loop_V1 
+add_executable(pid_control_V1 
 src/main.cpp
-src/open_loop_V1.cpp
-src/open_loop_V1_data.cpp
+src/pid_control_V1.cpp
+src/pid_control_V1_data.cpp
 src/ros2nodeinterface.cpp
 src/rtGetInf.cpp
 src/rtGetNaN.cpp
@@ -55,14 +55,14 @@ src/slros2_initialize.cpp
 src/slros2_multi_threaded_executor.cpp
 )
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-target_compile_options(open_loop_V1 PUBLIC 
+target_compile_options(pid_control_V1 PUBLIC 
   $<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:
   -Wall -Wextra -Wpedantic
   >)
 endif()
-target_compile_options(open_loop_V1 PRIVATE
+target_compile_options(pid_control_V1 PRIVATE
   $<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:
-  -DMODEL=open_loop_V1
+  -DMODEL=pid_control_V1
   -DNUMST=2
   -DNCSTATES=17
   -DHAVESTDIO
@@ -82,20 +82,20 @@ target_compile_options(open_loop_V1 PRIVATE
   -fpermissive  >
   )
 ament_target_dependencies(
-  open_loop_V1
+  pid_control_V1
   "gazebo_msgs"
   "rclcpp"
   "rosgraph_msgs"
   "std_msgs"
 )
-target_include_directories(open_loop_V1 PUBLIC
+target_include_directories(pid_control_V1 PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_link_libraries(open_loop_V1 
+target_link_libraries(pid_control_V1 
     "/usr/local/MATLAB/R2025b/sys/os/glnxa64/orig/libstdc++.so.6"
 	${CMAKE_DL_LIBS}
     )
-install(TARGETS open_loop_V1
+install(TARGETS pid_control_V1
   EXPORT export_${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
 ament_export_include_directories(
@@ -103,17 +103,17 @@ ament_export_include_directories(
 )
 foreach(file_i ${CUDA_BINS})
 add_custom_command(
-                   TARGET open_loop_V1
+                   TARGET pid_control_V1
                    POST_BUILD
                    COMMAND ${CMAKE_COMMAND}
-                   ARGS -E copy ${PROJECT_SOURCE_DIR}/src/${file_i} ${CMAKE_INSTALL_PREFIX}/open_loop_V1_ert_rtw/${file_i}
+                   ARGS -E copy ${PROJECT_SOURCE_DIR}/src/${file_i} ${CMAKE_INSTALL_PREFIX}/pid_control_V1_ert_rtw/${file_i}
 				   )
 add_custom_command(
-                   TARGET open_loop_V1
+                   TARGET pid_control_V1
                    POST_BUILD
                    COMMAND ${CMAKE_COMMAND}
-                   ARGS -E copy ${PROJECT_SOURCE_DIR}/src/${file_i} ${CMAKE_INSTALL_PREFIX}/codegen/exe/open_loop_V1/${file_i}
+                   ARGS -E copy ${PROJECT_SOURCE_DIR}/src/${file_i} ${CMAKE_INSTALL_PREFIX}/codegen/exe/pid_control_V1/${file_i}
 				   )				   
 endforeach(file_i)
 ament_package()
-# Generated on Thu Feb 26 18:13:34 2026
+# Generated on Fri Feb 27 01:11:06 2026

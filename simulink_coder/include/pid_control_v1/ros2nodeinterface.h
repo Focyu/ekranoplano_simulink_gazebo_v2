@@ -2,11 +2,11 @@
 //
 // File ros2nodeinterface.h
 //
-// Code generated for Simulink model 'open_loop_V1'.
+// Code generated for Simulink model 'pid_control_V1'.
 //
-// Model version                  : 12.20
+// Model version                  : 12.24
 // Simulink Coder version         : 25.2 (R2025b) 28-Jul-2025
-// C/C++ source code generated on : Thu Feb 26 18:13:20 2026
+// C/C++ source code generated on : Fri Feb 27 01:10:55 2026
 //
 #ifndef _ROS2_MATLAB_NODEINTERFACE_
 #define _ROS2_MATLAB_NODEINTERFACE_
@@ -31,8 +31,8 @@ namespace executors{
 class SLMultiThreadedExecutor;
 }
 }
-class open_loop_V1;
-#include "open_loop_V1_types.h"
+class pid_control_V1;
+#include "pid_control_V1_types.h"
 #include "rtwtypes.h"
 #include "gazebo_msgs/srv/set_entity_state.hpp"
 #include "std_msgs/msg/bool.hpp"
@@ -72,7 +72,7 @@ namespace matlab {
     NodeInterface& operator=(const NodeInterface& );
     //
     rclcpp::Node::SharedPtr mNode;
-    std::shared_ptr<open_loop_V1> mModel;
+    std::shared_ptr<pid_control_V1> mModel;
     std::shared_ptr<rclcpp::executors::SLMultiThreadedExecutor> mExec;
     //
     Semaphore mBaseRateSem;
@@ -100,7 +100,7 @@ namespace matlab {
       return mNode;
     }
     //
-    std::shared_ptr<open_loop_V1> getModel() {
+    std::shared_ptr<pid_control_V1> getModel() {
       return mModel;
     }
   }; //class NodeInterface
