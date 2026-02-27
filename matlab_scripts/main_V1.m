@@ -7,7 +7,7 @@ Tp = 0.125e-03; % motor PWM switching frequency
 max_thrust_force_per_motor =  Tp;
 
 % Test 1
-tsim = 10;
+tsim = 100;
 step = 0.01;
 x_nom = zeros(12,1);
 % 1. Velocidad inicial de crucero (basada en vc del Model.m)
@@ -42,9 +42,9 @@ Kd_pitch = 0.5;
 % Recordar que Altura h = -z_NED
 h_sp = 1.0; % Setpoint: 1 metros de altura sobre el agua
 % Ganancias iniciales:
-Kp_h = 1e-5;   
-Ki_h = 1e-6;  
-Kd_h = 5e-5;   
+Kp_h = 0.08;
+Ki_h = 0.008;
+Kd_h = 0.4;
 
 
 
