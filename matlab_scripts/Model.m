@@ -1,3 +1,8 @@
+%------------------------------------%
+%parche para Conectar el elevador al Momento de Cabeceo ($C_m$)%
+%Tenemos que darle "vida" al elevador en las ecuaciones de momento. 
+%Reemplazado la definición de Cm.
+%------------------------------------%
 function [XDOT] = Model(X,U)
 
 %-----------STATE AND CONTROL VECTORS-------------
@@ -273,10 +278,23 @@ FA_b = C_bs*FA_s;
 % % CM = [Cl;Cm;Cn] about Aero center in F_b
 % CMac_b = eta + dCMdx*wbe_b + dCMdu*[u1;u2;u3];
 
-% steady-state
+% % steady-state version Sim
+% Cl = -0.0005*beta*180/pi;
+% Cm = -0.02*alpha*180/pi;
+% Cn = -0.002*beta*180/pi;
+
+% steady-state (y control)
+% Parametros tipicos de estabilidad longitudinal:
+Cm_alpha = -0.02; % Estabilidad estatica natural (Pitch down)
+Cm_q = -5.0;      % Amortiguacion natural del cabeceo (freno aerodinamico)
+Cm_de = -1.2;     % Autoridad del elevador (Pitch moment due to elevator)
+
+% Re-calculamos Cm incluyendo el elevador (u2) y la velocidad de cabeceo (x5 o q)
 Cl = -0.0005*beta*180/pi;
-Cm = -0.02*alpha*180/pi;
+% Cm = (Momento por alfa) + (Momento por velocidad de cabeceo) + (Momento por elevador)
+Cm = Cm_alpha*(alpha*180/pi) + Cm_q*(x5*cbar/(2*Va)) + Cm_de*(u2*180/pi); 
 Cn = -0.002*beta*180/pi;
+
 
 CMac_b = [Cl;Cm;Cn];% steady-state
 %-------------------------6. Aero moment about CG--------------------------
