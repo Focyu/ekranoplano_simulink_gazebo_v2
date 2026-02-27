@@ -59,8 +59,8 @@ e0w = 0.9; % Oswald's efficiency Factor (Wing)
 e0h = 0.9; % Oswald's efficiency Factor (HTP)
 alpha_0w = -3.75*pi/180; % Zero Lift Angle of Attack (Wing)
 alpha_0h = -4.25*pi/180; % Zero Lift Angle of Attack (HTP)
-iw = 4.75*pi/180; % Angle of incidence (Wing)
-ih = 2.5*pi/180; % Angle of Incidence (HTP)
+iw = 2.0 * pi/180; % Angle of incidence (Wing)
+ih = 0.5 * pi/180; % Angle of Incidence (HTP)
 eps = 0; % Downwash Angle
 zw = 0.363; % Wing Offset
 zh = 0.72; % HTP Offset
@@ -70,7 +70,7 @@ Tp = 0.125*10^(-3); % motor PWM switching frequency
 
 % aileron
 u1min = -20*pi/180;
-u1max =  15*pi/180;
+u1max =  20*pi/180;
 % elevator
 u2min = -20*pi/180;
 u2max =  20*pi/180;
@@ -280,7 +280,7 @@ FA_b = C_bs*FA_s;
 % Parámetros de estabilidad longitudinal (usando Radianes para la dinámica pura)
 Cm_alpha = -1.14; % Equivalente aproximado a -0.02 * 180/pi
 Cm_q = -5.0;      % Amortiguación del cabeceo 
-Cm_de = -1.2;     % Autoridad del elevador (mantenemos esto en radianes también para consistencia)
+Cm_de = -3.0;     % Autoridad del elevador (mantenemos esto en radianes también para consistencia)
 
 % Factor de Momento por Efecto Suelo (Pitch-down moment debido al AC shift)
 % A medida que hw/bw se acerca a 0, el momento de cabeceo negativo aumenta.
