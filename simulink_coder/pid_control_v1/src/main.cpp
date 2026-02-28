@@ -4,9 +4,9 @@
 //
 // Code generated for Simulink model 'pid_control_V1'.
 //
-// Model version                  : 12.27
+// Model version                  : 12.30
 // Simulink Coder version         : 25.2 (R2025b) 28-Jul-2025
-// C/C++ source code generated on : Fri Feb 27 22:53:00 2026
+// C/C++ source code generated on : Sat Feb 28 18:41:22 2026
 //
 #include "ros2nodeinterface.h"
 rclcpp::Node::SharedPtr SLROSNodePtr;

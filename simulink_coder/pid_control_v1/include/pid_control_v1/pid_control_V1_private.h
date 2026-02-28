@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.27
+ * Model version              : 12.30
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Fri Feb 27 22:52:44 2026
+ * C++ source code generated on : Sat Feb 28 18:41:08 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -35,6 +35,9 @@
 #ifndef rtmSetTPtr
 #define rtmSetTPtr(rtm, val)           ((rtm)->Timing.t = (val))
 #endif
+
+extern real_T rt_atan2d_snf(real_T u0, real_T u1);
+extern real_T rt_powd_snf(real_T u0, real_T u1);
 
 /* private model entry point functions */
 extern void pid_control_V1_derivatives();

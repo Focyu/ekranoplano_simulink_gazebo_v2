@@ -1,14 +1,14 @@
 /*
- * rtGetInf.h
+ * rtGetNaN.h
  *
  * Trial License - for use to evaluate programs for possible purchase as
  * an end-user only.
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.27
+ * Model version              : 12.30
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Fri Feb 27 22:52:44 2026
+ * C++ source code generated on : Sat Feb 28 18:41:08 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -17,8 +17,8 @@
  * Validation result: Not run
  */
 
-#ifndef rtGetInf_h_
-#define rtGetInf_h_
+#ifndef rtGetNaN_h_
+#define rtGetNaN_h_
 
 extern "C"
 {
@@ -35,14 +35,12 @@ extern "C"
 
 #endif
 
-  extern real_T rtGetInf(void);
-  extern real32_T rtGetInfF(void);
-  extern real_T rtGetMinusInf(void);
-  extern real32_T rtGetMinusInfF(void);
+  extern real_T rtGetNaN(void);
+  extern real32_T rtGetNaNF(void);
 
 #ifdef __cplusplus
 
 }                                      /* extern "C" */
 
 #endif
-#endif                                 /* rtGetInf_h_ */
+#endif                                 /* rtGetNaN_h_ */

@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.27
+ * Model version              : 12.30
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Fri Feb 27 22:52:44 2026
+ * C++ source code generated on : Sat Feb 28 18:41:08 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -30,6 +30,6 @@ const ConstP_pid_control_V1_T pid_control_V1_ConstP = {
   /* Expression: x0
    * Referenced by: '<S7>/Integrator'
    */
-  { 20.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0087266462599716477, 0.0, 0.0, 0.0,
+  { 27.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.017453292519943295, 0.0, 0.0, 0.0,
     -1.0 }
 };
