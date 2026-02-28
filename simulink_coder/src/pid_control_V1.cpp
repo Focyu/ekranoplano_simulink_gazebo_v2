@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.24
+ * Model version              : 12.27
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Fri Feb 27 01:10:45 2026
+ * C++ source code generated on : Fri Feb 27 22:52:44 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -295,6 +295,40 @@ void pid_control_V1::step()
   memcpy(&pid_control_V1_B.x[0], &pid_control_V1_X.Integrator_CSTATE[0], 12U *
          sizeof(real_T));
 
+  /* Gain: '<S47>/Filter Coefficient' incorporates:
+   *  Constant: '<Root>/Constant1'
+   *  Gain: '<S37>/Derivative Gain'
+   *  Integrator: '<S39>/Filter'
+   *  Sum: '<Root>/Sum1'
+   *  Sum: '<S39>/SumD'
+   */
+  pid_control_V1_B.FilterCoefficient = ((0.0087266462599716477 -
+    pid_control_V1_B.x[7]) * 4.5 - pid_control_V1_X.Filter_CSTATE) * 100.0;
+
+  /* Sum: '<S53>/Sum' incorporates:
+   *  Constant: '<Root>/Constant1'
+   *  Gain: '<S49>/Proportional Gain'
+   *  Integrator: '<S44>/Integrator'
+   *  Sum: '<Root>/Sum1'
+   */
+  pid_control_V1_B.SignPreSat = ((0.0087266462599716477 - pid_control_V1_B.x[7])
+    * 8.0 + pid_control_V1_X.Integrator_CSTATE_p) +
+    pid_control_V1_B.FilterCoefficient;
+
+  /* Saturate: '<S51>/Saturation' */
+  if (pid_control_V1_B.SignPreSat > 0.3490658503988659) {
+    /* Saturate: '<S51>/Saturation' */
+    pid_control_V1_B.Saturation = 0.3490658503988659;
+  } else if (pid_control_V1_B.SignPreSat < -0.3490658503988659) {
+    /* Saturate: '<S51>/Saturation' */
+    pid_control_V1_B.Saturation = -0.3490658503988659;
+  } else {
+    /* Saturate: '<S51>/Saturation' */
+    pid_control_V1_B.Saturation = pid_control_V1_B.SignPreSat;
+  }
+
+  /* End of Saturate: '<S51>/Saturation' */
+
   /* Gain: '<S101>/Filter Coefficient' incorporates:
    *  Constant: '<Root>/Constant2'
    *  Gain: '<Root>/Gain4'
@@ -303,8 +337,8 @@ void pid_control_V1::step()
    *  Sum: '<Root>/Sum2'
    *  Sum: '<S93>/SumD'
    */
-  pid_control_V1_B.FilterCoefficient = ((1.0 - (-pid_control_V1_B.x[11])) *
-    5.0E-5 - pid_control_V1_X.Filter_CSTATE) * 100.0;
+  pid_control_V1_B.FilterCoefficient_g = ((1.0 - (-pid_control_V1_B.x[11])) *
+    0.15 - pid_control_V1_X.Filter_CSTATE_f) * 100.0;
 
   /* Sum: '<S107>/Sum' incorporates:
    *  Constant: '<Root>/Constant2'
@@ -313,55 +347,25 @@ void pid_control_V1::step()
    *  Integrator: '<S98>/Integrator'
    *  Sum: '<Root>/Sum2'
    */
-  pid_control_V1_B.SignPreSat = ((1.0 - (-pid_control_V1_B.x[11])) * 1.0E-5 +
-    pid_control_V1_X.Integrator_CSTATE_b) + pid_control_V1_B.FilterCoefficient;
+  pid_control_V1_B.SignPreSat_o = ((1.0 - (-pid_control_V1_B.x[11])) * 0.1 +
+    pid_control_V1_X.Integrator_CSTATE_b) + pid_control_V1_B.FilterCoefficient_g;
 
   /* Saturate: '<S105>/Saturation' */
-  if (pid_control_V1_B.SignPreSat > 1.0) {
-    pid_control_V1_B.c_psi = 1.0;
-  } else if (pid_control_V1_B.SignPreSat < 0.0) {
-    pid_control_V1_B.c_psi = 0.0;
+  if (pid_control_V1_B.SignPreSat_o > 1.0) {
+    /* Saturate: '<S105>/Saturation' */
+    pid_control_V1_B.Saturation_p = 1.0;
+  } else if (pid_control_V1_B.SignPreSat_o < 0.0) {
+    /* Saturate: '<S105>/Saturation' */
+    pid_control_V1_B.Saturation_p = 0.0;
   } else {
-    pid_control_V1_B.c_psi = pid_control_V1_B.SignPreSat;
+    /* Saturate: '<S105>/Saturation' */
+    pid_control_V1_B.Saturation_p = pid_control_V1_B.SignPreSat_o;
   }
 
-  /* Gain: '<Root>/Gain5' incorporates:
-   *  Saturate: '<S105>/Saturation'
-   */
-  pid_control_V1_B.Gain5 = 0.000125 * pid_control_V1_B.c_psi;
+  /* End of Saturate: '<S105>/Saturation' */
 
-  /* Gain: '<S47>/Filter Coefficient' incorporates:
-   *  Constant: '<Root>/Constant1'
-   *  Gain: '<S37>/Derivative Gain'
-   *  Integrator: '<S39>/Filter'
-   *  Sum: '<Root>/Sum1'
-   *  Sum: '<S39>/SumD'
-   */
-  pid_control_V1_B.FilterCoefficient_m = ((0.043633231299858237 -
-    pid_control_V1_B.x[7]) * 0.5 - pid_control_V1_X.Filter_CSTATE_m) * 100.0;
-
-  /* Sum: '<S53>/Sum' incorporates:
-   *  Constant: '<Root>/Constant1'
-   *  Integrator: '<S44>/Integrator'
-   *  Sum: '<Root>/Sum1'
-   */
-  pid_control_V1_B.SignPreSat_j = ((0.043633231299858237 - pid_control_V1_B.x[7])
-    + pid_control_V1_X.Integrator_CSTATE_p) +
-    pid_control_V1_B.FilterCoefficient_m;
-
-  /* Saturate: '<S51>/Saturation' */
-  if (pid_control_V1_B.SignPreSat_j > 0.3490658503988659) {
-    /* Saturate: '<S51>/Saturation' */
-    pid_control_V1_B.Saturation = 0.3490658503988659;
-  } else if (pid_control_V1_B.SignPreSat_j < -0.3490658503988659) {
-    /* Saturate: '<S51>/Saturation' */
-    pid_control_V1_B.Saturation = -0.3490658503988659;
-  } else {
-    /* Saturate: '<S51>/Saturation' */
-    pid_control_V1_B.Saturation = pid_control_V1_B.SignPreSat_j;
-  }
-
-  /* End of Saturate: '<S51>/Saturation' */
+  /* Gain: '<Root>/Gain5' */
+  pid_control_V1_B.Gain5 = 0.000125 * pid_control_V1_B.Saturation_p;
 
   /* SignalConversion generated from: '<S116>/ SFunction ' incorporates:
    *  Constant: '<Root>/nominal_control'
@@ -397,45 +401,45 @@ void pid_control_V1::step()
 
   pid_control_V1_B.c_phi = cos(pid_control_V1_B.x[6]);
   pid_control_V1_B.s_phi = sin(pid_control_V1_B.x[6]);
-  pid_control_V1_B.c_theta = cos(pid_control_V1_B.x[7]);
+  pid_control_V1_B.c_theta_m = cos(pid_control_V1_B.x[7]);
   pid_control_V1_B.s_theta = sin(pid_control_V1_B.x[7]);
   pid_control_V1_B.c_psi = cos(pid_control_V1_B.x[8]);
   pid_control_V1_B.s_psi = sin(pid_control_V1_B.x[8]);
-  pid_control_V1_B.c_theta_tmp_f = pid_control_V1_B.c_theta *
+  pid_control_V1_B.c_theta_tmp_g1 = pid_control_V1_B.c_theta_m *
     pid_control_V1_B.c_psi;
-  pid_control_V1_B.c_theta_g[0] = pid_control_V1_B.c_theta_tmp_f;
-  pid_control_V1_B.c_theta_tmp_cv = pid_control_V1_B.c_theta *
+  pid_control_V1_B.c_theta[0] = pid_control_V1_B.c_theta_tmp_g1;
+  pid_control_V1_B.c_theta_tmp_g = pid_control_V1_B.c_theta_m *
     pid_control_V1_B.s_psi;
-  pid_control_V1_B.c_theta_g[3] = pid_control_V1_B.c_theta_tmp_cv;
-  pid_control_V1_B.c_theta_g[6] = -pid_control_V1_B.s_theta;
+  pid_control_V1_B.c_theta[3] = pid_control_V1_B.c_theta_tmp_g;
+  pid_control_V1_B.c_theta[6] = -pid_control_V1_B.s_theta;
   pid_control_V1_B.c_theta_tmp = pid_control_V1_B.s_phi *
     pid_control_V1_B.s_theta;
-  pid_control_V1_B.c_theta_tmp_p = pid_control_V1_B.c_theta_tmp *
+  pid_control_V1_B.c_theta_tmp_f = pid_control_V1_B.c_theta_tmp *
     pid_control_V1_B.c_psi - pid_control_V1_B.c_phi * pid_control_V1_B.s_psi;
-  pid_control_V1_B.c_theta_g[1] = pid_control_V1_B.c_theta_tmp_p;
+  pid_control_V1_B.c_theta[1] = pid_control_V1_B.c_theta_tmp_f;
   pid_control_V1_B.c_theta_tmp = pid_control_V1_B.c_theta_tmp *
     pid_control_V1_B.s_psi + pid_control_V1_B.c_phi * pid_control_V1_B.c_psi;
-  pid_control_V1_B.c_theta_g[4] = pid_control_V1_B.c_theta_tmp;
-  pid_control_V1_B.c_theta_tmp_b = pid_control_V1_B.s_phi *
-    pid_control_V1_B.c_theta;
-  pid_control_V1_B.c_theta_g[7] = pid_control_V1_B.c_theta_tmp_b;
+  pid_control_V1_B.c_theta[4] = pid_control_V1_B.c_theta_tmp;
+  pid_control_V1_B.c_theta_tmp_cv = pid_control_V1_B.s_phi *
+    pid_control_V1_B.c_theta_m;
+  pid_control_V1_B.c_theta[7] = pid_control_V1_B.c_theta_tmp_cv;
   pid_control_V1_B.c_theta_tmp_c = pid_control_V1_B.c_phi *
     pid_control_V1_B.s_theta;
-  pid_control_V1_B.c_theta_tmp_cx = pid_control_V1_B.c_theta_tmp_c *
+  pid_control_V1_B.c_theta_tmp_p = pid_control_V1_B.c_theta_tmp_c *
     pid_control_V1_B.c_psi + pid_control_V1_B.s_phi * pid_control_V1_B.s_psi;
-  pid_control_V1_B.c_theta_g[2] = pid_control_V1_B.c_theta_tmp_cx;
+  pid_control_V1_B.c_theta[2] = pid_control_V1_B.c_theta_tmp_p;
   pid_control_V1_B.c_theta_tmp_c = pid_control_V1_B.c_theta_tmp_c *
     pid_control_V1_B.s_psi - pid_control_V1_B.s_phi * pid_control_V1_B.c_psi;
-  pid_control_V1_B.c_theta_g[5] = pid_control_V1_B.c_theta_tmp_c;
-  pid_control_V1_B.c_theta_tmp_k = pid_control_V1_B.c_phi *
-    pid_control_V1_B.c_theta;
-  pid_control_V1_B.c_theta_g[8] = pid_control_V1_B.c_theta_tmp_k;
+  pid_control_V1_B.c_theta[5] = pid_control_V1_B.c_theta_tmp_c;
+  pid_control_V1_B.c_theta_tmp_b = pid_control_V1_B.c_phi *
+    pid_control_V1_B.c_theta_m;
+  pid_control_V1_B.c_theta[8] = pid_control_V1_B.c_theta_tmp_b;
   for (pid_control_V1_B.i = 0; pid_control_V1_B.i <= 0; pid_control_V1_B.i += 2)
   {
-    tmp = _mm_loadu_pd(&pid_control_V1_B.c_theta_g[pid_control_V1_B.i + 3]);
+    tmp = _mm_loadu_pd(&pid_control_V1_B.c_theta[pid_control_V1_B.i + 3]);
     tmp_2 = _mm_set1_pd(0.0);
-    tmp_0 = _mm_loadu_pd(&pid_control_V1_B.c_theta_g[pid_control_V1_B.i]);
-    tmp_1 = _mm_loadu_pd(&pid_control_V1_B.c_theta_g[pid_control_V1_B.i + 6]);
+    tmp_0 = _mm_loadu_pd(&pid_control_V1_B.c_theta[pid_control_V1_B.i]);
+    tmp_1 = _mm_loadu_pd(&pid_control_V1_B.c_theta[pid_control_V1_B.i + 6]);
     _mm_storeu_pd(&pid_control_V1_B.Vb_w[pid_control_V1_B.i], _mm_add_pd
                   (_mm_add_pd(_mm_mul_pd(tmp, tmp_2), _mm_mul_pd(tmp_0, tmp_2)),
                    _mm_mul_pd(tmp_1, tmp_2)));
@@ -443,9 +447,9 @@ void pid_control_V1::step()
 
   for (pid_control_V1_B.i = 2; pid_control_V1_B.i < 3; pid_control_V1_B.i++) {
     pid_control_V1_B.Vb_w[pid_control_V1_B.i] =
-      (pid_control_V1_B.c_theta_g[pid_control_V1_B.i + 3] * 0.0 +
-       pid_control_V1_B.c_theta_g[pid_control_V1_B.i] * 0.0) +
-      pid_control_V1_B.c_theta_g[pid_control_V1_B.i + 6] * 0.0;
+      (pid_control_V1_B.c_theta[pid_control_V1_B.i + 3] * 0.0 +
+       pid_control_V1_B.c_theta[pid_control_V1_B.i] * 0.0) +
+      pid_control_V1_B.c_theta[pid_control_V1_B.i + 6] * 0.0;
   }
 
   tmp = _mm_sub_pd(_mm_loadu_pd(&pid_control_V1_B.x[0]), _mm_loadu_pd
@@ -469,52 +473,52 @@ void pid_control_V1::step()
     + 0.082903139469730644) * 4.9604094530365153;
   pid_control_V1_B.CL_h_OGE = ((pid_control_V1_B.c_psi - -0.074176493209759012)
     + 0.043633231299858237) * 4.8387748917360032;
-  pid_control_V1_B.CD_iw_IGE = fabs((-pid_control_V1_B.x[11] - 0.363) / 5.02);
+  pid_control_V1_B.CD_iw_IGE_c = fabs((-pid_control_V1_B.x[11] - 0.363) / 5.02);
   pid_control_V1_B.CL_w_IGE = (288.0 * pid_control_V1_rt_powd_snf
-    (pid_control_V1_B.CD_iw_IGE, 0.787) * exp(-9.14 * pid_control_V1_rt_powd_snf
-    (pid_control_V1_B.CD_iw_IGE, 0.327)) * 0.97986308862072491 /
-    5.9129476540958859 + 1.0) * pid_control_V1_B.CL_w_OGE;
+    (pid_control_V1_B.CD_iw_IGE_c, 0.787) * exp(-9.14 *
+    pid_control_V1_rt_powd_snf(pid_control_V1_B.CD_iw_IGE_c, 0.327)) *
+    0.97986308862072491 / 5.9129476540958859 + 1.0) * pid_control_V1_B.CL_w_OGE;
   pid_control_V1_B.CD_ih_IGE = fabs((-pid_control_V1_B.x[11] + 0.72) / 2.74);
   pid_control_V1_B.u2 = (288.0 * pid_control_V1_rt_powd_snf
     (pid_control_V1_B.CD_ih_IGE, 0.787) * exp(-9.14 * pid_control_V1_rt_powd_snf
     (pid_control_V1_B.CD_ih_IGE, 0.327)) * 0.95628590200128227 /
     5.35300902982722 + 1.0) * ((pid_control_V1_B.u2 * pid_control_V1_B.u2 *
     -0.00141 + 0.0307 * pid_control_V1_B.u2) + pid_control_V1_B.CL_h_OGE);
-  pid_control_V1_B.CD_iw_IGE = pid_control_V1_B.CL_w_OGE *
+  pid_control_V1_B.CD_iw_IGE_c = pid_control_V1_B.CL_w_OGE *
     pid_control_V1_B.CL_w_OGE / 21.205750411731103 * (1.0 - exp(-10.1 *
-    pid_control_V1_rt_powd_snf(pid_control_V1_B.CD_iw_IGE, 0.686)));
+    pid_control_V1_rt_powd_snf(pid_control_V1_B.CD_iw_IGE_c, 0.686)));
   pid_control_V1_B.CD_ih_IGE = pid_control_V1_B.CL_h_OGE *
     pid_control_V1_B.CL_h_OGE / 18.943803701146454 * (1.0 - exp(-10.1 *
     pid_control_V1_rt_powd_snf(pid_control_V1_B.CD_ih_IGE, 0.686)));
   pid_control_V1_B.FA_b_tmp = sin(pid_control_V1_B.c_psi);
-  pid_control_V1_B.FA_b_tmp_m = cos(pid_control_V1_B.c_psi);
-  pid_control_V1_B.c_theta_g[0] = pid_control_V1_B.FA_b_tmp_m;
-  pid_control_V1_B.c_theta_g[3] = 0.0;
-  pid_control_V1_B.c_theta_g[6] = -pid_control_V1_B.FA_b_tmp;
-  pid_control_V1_B.c_theta_g[2] = pid_control_V1_B.FA_b_tmp;
-  pid_control_V1_B.c_theta_g[5] = 0.0;
-  pid_control_V1_B.c_theta_g[8] = pid_control_V1_B.FA_b_tmp_m;
-  pid_control_V1_B.CD_iw_IGE_m[0] = -(((pid_control_V1_B.CD_iw_IGE + 0.0306) +
+  pid_control_V1_B.FA_b_tmp_k = cos(pid_control_V1_B.c_psi);
+  pid_control_V1_B.c_theta[0] = pid_control_V1_B.FA_b_tmp_k;
+  pid_control_V1_B.c_theta[3] = 0.0;
+  pid_control_V1_B.c_theta[6] = -pid_control_V1_B.FA_b_tmp;
+  pid_control_V1_B.c_theta[2] = pid_control_V1_B.FA_b_tmp;
+  pid_control_V1_B.c_theta[5] = 0.0;
+  pid_control_V1_B.c_theta[8] = pid_control_V1_B.FA_b_tmp_k;
+  pid_control_V1_B.CD_iw_IGE[0] = -(((pid_control_V1_B.CD_iw_IGE_c + 0.0306) +
     (pid_control_V1_B.CD_ih_IGE + 0.0306)) * pid_control_V1_B.Va_b_idx_2 * 3.334);
-  pid_control_V1_B.CD_iw_IGE_m[1] = 0.0 * pid_control_V1_B.Va_b_idx_2 * 3.334;
-  pid_control_V1_B.CD_iw_IGE_m[2] = -((pid_control_V1_B.CL_w_IGE * 3.334 +
+  pid_control_V1_B.CD_iw_IGE[1] = 0.0 * pid_control_V1_B.Va_b_idx_2 * 3.334;
+  pid_control_V1_B.CD_iw_IGE[2] = -((pid_control_V1_B.CL_w_IGE * 3.334 +
     pid_control_V1_B.u2 * 1.128) * pid_control_V1_B.Va_b_idx_2);
-  pid_control_V1_B.c_theta_g[1] = 0.0;
+  pid_control_V1_B.c_theta[1] = 0.0;
   pid_control_V1_B.FA_b_idx_0 = 0.0;
-  pid_control_V1_B.c_theta_g[4] = 1.0;
+  pid_control_V1_B.c_theta[4] = 1.0;
   pid_control_V1_B.FA_b_idx_1 = 0.0;
-  pid_control_V1_B.c_theta_g[7] = 0.0;
+  pid_control_V1_B.c_theta[7] = 0.0;
   pid_control_V1_B.FA_b_idx_2 = 0.0;
   for (pid_control_V1_B.i = 0; pid_control_V1_B.i < 3; pid_control_V1_B.i++) {
-    tmp = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&pid_control_V1_B.c_theta_g[3 *
+    tmp = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&pid_control_V1_B.c_theta[3 *
       pid_control_V1_B.i]), _mm_set1_pd
-      (pid_control_V1_B.CD_iw_IGE_m[pid_control_V1_B.i])), _mm_set_pd
+      (pid_control_V1_B.CD_iw_IGE[pid_control_V1_B.i])), _mm_set_pd
                      (pid_control_V1_B.FA_b_idx_1, pid_control_V1_B.FA_b_idx_0));
     _mm_storeu_pd(&pid_control_V1_B.dv[0], tmp);
     pid_control_V1_B.FA_b_idx_0 = pid_control_V1_B.dv[0];
     pid_control_V1_B.FA_b_idx_1 = pid_control_V1_B.dv[1];
-    pid_control_V1_B.FA_b_idx_2 += pid_control_V1_B.c_theta_g[3 *
-      pid_control_V1_B.i + 2] * pid_control_V1_B.CD_iw_IGE_m[pid_control_V1_B.i];
+    pid_control_V1_B.FA_b_idx_2 += pid_control_V1_B.c_theta[3 *
+      pid_control_V1_B.i + 2] * pid_control_V1_B.CD_iw_IGE[pid_control_V1_B.i];
   }
 
   pid_control_V1_B.Cl = -0.0005 * pid_control_V1_B.s_psi * 180.0 /
@@ -533,31 +537,32 @@ void pid_control_V1::step()
     (pid_control_V1_B.u5 - pid_control_V1_B.Va) * 0.99619469809174555;
   pid_control_V1_B.u4 = 0.0;
   pid_control_V1_B.Va = -9.81 * pid_control_V1_B.s_theta * 112.0;
-  pid_control_V1_B.c_theta *= 9.81;
-  pid_control_V1_B.s_phi = pid_control_V1_B.c_theta * pid_control_V1_B.s_phi *
+  pid_control_V1_B.c_theta_m *= 9.81;
+  pid_control_V1_B.s_phi = pid_control_V1_B.c_theta_m * pid_control_V1_B.s_phi *
     112.0;
-  pid_control_V1_B.c_phi = pid_control_V1_B.c_theta * pid_control_V1_B.c_phi *
+  pid_control_V1_B.c_phi = pid_control_V1_B.c_theta_m * pid_control_V1_B.c_phi *
     112.0;
   pid_control_V1_B.Mcg_b_idx_2 = 5.02 * pid_control_V1_B.Va_b_idx_2 * 3.334;
-  pid_control_V1_B.c_theta = pid_control_V1_B.Mcg_b_idx_2 * pid_control_V1_B.Cl;
+  pid_control_V1_B.c_theta_m = pid_control_V1_B.Mcg_b_idx_2 *
+    pid_control_V1_B.Cl;
   pid_control_V1_B.Mcg_b_idx_1 = 0.646 * pid_control_V1_B.Va_b_idx_2 * 3.334 *
     pid_control_V1_B.Cm + ((-0.285 * pid_control_V1_B.Vb_w[0] -
     0.04523383048603459) + (-0.285 * pid_control_V1_B.u5 - 0.04523383048603459));
   pid_control_V1_B.Mcg_b_idx_2 = ((0.0 - 0.6 * pid_control_V1_B.Vb_w[0]) + (0.0
     - -0.6 * pid_control_V1_B.u5)) + pid_control_V1_B.Mcg_b_idx_2 *
     pid_control_V1_B.Cn;
-  pid_control_V1_B.c_theta_g[0] = pid_control_V1_B.c_theta_tmp_k;
-  pid_control_V1_B.c_theta_g[1] = pid_control_V1_B.c_theta_tmp_c;
-  pid_control_V1_B.c_theta_g[2] = pid_control_V1_B.c_theta_tmp_cx;
-  pid_control_V1_B.c_theta_g[3] = pid_control_V1_B.c_theta_tmp_b;
-  pid_control_V1_B.c_theta_g[4] = pid_control_V1_B.c_theta_tmp;
-  pid_control_V1_B.c_theta_g[5] = pid_control_V1_B.c_theta_tmp_p;
-  pid_control_V1_B.c_theta_g[6] = -pid_control_V1_B.s_theta;
-  pid_control_V1_B.c_theta_g[7] = pid_control_V1_B.c_theta_tmp_cv;
-  pid_control_V1_B.c_theta_g[8] = pid_control_V1_B.c_theta_tmp_f;
-  pid_control_V1_B.CD_iw_IGE_m[0] = pid_control_V1_B.x[0];
-  pid_control_V1_B.CD_iw_IGE_m[1] = pid_control_V1_B.x[1];
-  pid_control_V1_B.CD_iw_IGE_m[2] = pid_control_V1_B.x[2];
+  pid_control_V1_B.c_theta[0] = pid_control_V1_B.c_theta_tmp_b;
+  pid_control_V1_B.c_theta[1] = pid_control_V1_B.c_theta_tmp_c;
+  pid_control_V1_B.c_theta[2] = pid_control_V1_B.c_theta_tmp_p;
+  pid_control_V1_B.c_theta[3] = pid_control_V1_B.c_theta_tmp_cv;
+  pid_control_V1_B.c_theta[4] = pid_control_V1_B.c_theta_tmp;
+  pid_control_V1_B.c_theta[5] = pid_control_V1_B.c_theta_tmp_f;
+  pid_control_V1_B.c_theta[6] = -pid_control_V1_B.s_theta;
+  pid_control_V1_B.c_theta[7] = pid_control_V1_B.c_theta_tmp_g;
+  pid_control_V1_B.c_theta[8] = pid_control_V1_B.c_theta_tmp_g1;
+  pid_control_V1_B.CD_iw_IGE[0] = pid_control_V1_B.x[0];
+  pid_control_V1_B.CD_iw_IGE[1] = pid_control_V1_B.x[1];
+  pid_control_V1_B.CD_iw_IGE[2] = pid_control_V1_B.x[2];
   pid_control_V1_B.s_theta = pid_control_V1_B.Vb_w[0] + pid_control_V1_B.u5;
   pid_control_V1_B.F_b[0] = (pid_control_V1_B.Va + pid_control_V1_B.s_theta) +
     pid_control_V1_B.FA_b_idx_0;
@@ -572,26 +577,26 @@ void pid_control_V1::step()
   pid_control_V1_B.Vb_w[2] = 8.97 * pid_control_V1_B.x[3] + 114.39 *
     pid_control_V1_B.x[5];
   for (pid_control_V1_B.i = 0; pid_control_V1_B.i < 3; pid_control_V1_B.i++) {
-    tmp = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&pid_control_V1_B.c_theta_g[3 *
+    tmp = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&pid_control_V1_B.c_theta[3 *
       pid_control_V1_B.i]), _mm_set1_pd
-      (pid_control_V1_B.CD_iw_IGE_m[pid_control_V1_B.i])), _mm_set_pd
+      (pid_control_V1_B.CD_iw_IGE[pid_control_V1_B.i])), _mm_set_pd
                      (pid_control_V1_B.u4, pid_control_V1_B.u5));
     _mm_storeu_pd(&pid_control_V1_B.dv[0], tmp);
     pid_control_V1_B.u5 = pid_control_V1_B.dv[0];
     pid_control_V1_B.u4 = pid_control_V1_B.dv[1];
-    pid_control_V1_B.Va_b_idx_2 += pid_control_V1_B.c_theta_g[3 *
-      pid_control_V1_B.i + 2] * pid_control_V1_B.CD_iw_IGE_m[pid_control_V1_B.i];
+    pid_control_V1_B.Va_b_idx_2 += pid_control_V1_B.c_theta[3 *
+      pid_control_V1_B.i + 2] * pid_control_V1_B.CD_iw_IGE[pid_control_V1_B.i];
   }
 
   tmp = _mm_set_pd(pid_control_V1_B.x[3], pid_control_V1_B.x[5]);
   tmp_2 = _mm_sub_pd(_mm_mul_pd(_mm_set_pd(pid_control_V1_B.x[0],
     pid_control_V1_B.x[2]), _mm_loadu_pd(&pid_control_V1_B.x[4])), _mm_mul_pd
                      (_mm_loadu_pd(&pid_control_V1_B.x[1]), tmp));
-  _mm_storeu_pd(&pid_control_V1_B.CD_iw_IGE_m[0], tmp_2);
-  pid_control_V1_B.CD_iw_IGE_m[2] = pid_control_V1_B.x[1] * pid_control_V1_B.x[3]
+  _mm_storeu_pd(&pid_control_V1_B.CD_iw_IGE[0], tmp_2);
+  pid_control_V1_B.CD_iw_IGE[2] = pid_control_V1_B.x[1] * pid_control_V1_B.x[3]
     - pid_control_V1_B.x[0] * pid_control_V1_B.x[4];
   tmp = _mm_sub_pd(_mm_set_pd(pid_control_V1_B.Mcg_b_idx_1,
-    pid_control_V1_B.c_theta), _mm_sub_pd(_mm_mul_pd(_mm_set_pd
+    pid_control_V1_B.c_theta_m), _mm_sub_pd(_mm_mul_pd(_mm_set_pd
     (pid_control_V1_B.Vb_w[0], pid_control_V1_B.Vb_w[2]), _mm_loadu_pd
     (&pid_control_V1_B.x[4])), _mm_mul_pd(_mm_loadu_pd(&pid_control_V1_B.Vb_w[1]),
     tmp)));
@@ -599,48 +604,48 @@ void pid_control_V1::step()
   pid_control_V1_B.Mcg_b[2] = pid_control_V1_B.Mcg_b_idx_2 -
     (pid_control_V1_B.Vb_w[1] * pid_control_V1_B.x[3] - pid_control_V1_B.Vb_w[0]
      * pid_control_V1_B.x[4]);
-  pid_control_V1_B.c_theta_tmp_f = 0.0;
-  pid_control_V1_B.c_theta_tmp_cv = 0.0;
+  pid_control_V1_B.c_theta_tmp_g1 = 0.0;
+  pid_control_V1_B.c_theta_tmp_g = 0.0;
   pid_control_V1_B.c_theta_tmp = 0.0;
   for (pid_control_V1_B.i = 0; pid_control_V1_B.i < 3; pid_control_V1_B.i++) {
     _mm_storeu_pd(&pid_control_V1_B.dv[0], _mm_add_pd(_mm_mul_pd(_mm_loadu_pd
       (&a[3 * pid_control_V1_B.i]), _mm_set1_pd
       (pid_control_V1_B.Mcg_b[pid_control_V1_B.i])), _mm_set_pd
-      (pid_control_V1_B.c_theta_tmp_cv, pid_control_V1_B.c_theta_tmp_f)));
-    pid_control_V1_B.c_theta_tmp_f = pid_control_V1_B.dv[0];
-    pid_control_V1_B.c_theta_tmp_cv = pid_control_V1_B.dv[1];
+      (pid_control_V1_B.c_theta_tmp_g, pid_control_V1_B.c_theta_tmp_g1)));
+    pid_control_V1_B.c_theta_tmp_g1 = pid_control_V1_B.dv[0];
+    pid_control_V1_B.c_theta_tmp_g = pid_control_V1_B.dv[1];
     pid_control_V1_B.c_theta_tmp += a_0[3 * pid_control_V1_B.i + 2] *
       pid_control_V1_B.Mcg_b[pid_control_V1_B.i];
-    pid_control_V1_B.c_theta_g[3 * pid_control_V1_B.i] = c[pid_control_V1_B.i];
+    pid_control_V1_B.c_theta[3 * pid_control_V1_B.i] = c[pid_control_V1_B.i];
   }
 
   pid_control_V1_B.Vb_w[2] = pid_control_V1_B.c_theta_tmp;
-  pid_control_V1_B.Vb_w[1] = pid_control_V1_B.c_theta_tmp_cv;
-  pid_control_V1_B.Vb_w[0] = pid_control_V1_B.c_theta_tmp_f;
-  pid_control_V1_B.c_theta_g[1] = 0.0;
-  pid_control_V1_B.c_theta_g[4] = pid_control_V1_B.FA_b_tmp_m;
-  pid_control_V1_B.c_theta_g[7] = -sin(pid_control_V1_B.s_psi);
-  pid_control_V1_B.c_theta_g[2] = 0.0;
-  pid_control_V1_B.c_theta_g[5] = pid_control_V1_B.FA_b_tmp;
-  pid_control_V1_B.c_theta_g[8] = pid_control_V1_B.FA_b_tmp_m;
-  pid_control_V1_B.c_theta_tmp_f = 0.0;
-  pid_control_V1_B.c_theta_tmp_cv = 0.0;
+  pid_control_V1_B.Vb_w[1] = pid_control_V1_B.c_theta_tmp_g;
+  pid_control_V1_B.Vb_w[0] = pid_control_V1_B.c_theta_tmp_g1;
+  pid_control_V1_B.c_theta[1] = 0.0;
+  pid_control_V1_B.c_theta[4] = pid_control_V1_B.FA_b_tmp_k;
+  pid_control_V1_B.c_theta[7] = -sin(pid_control_V1_B.s_psi);
+  pid_control_V1_B.c_theta[2] = 0.0;
+  pid_control_V1_B.c_theta[5] = pid_control_V1_B.FA_b_tmp;
+  pid_control_V1_B.c_theta[8] = pid_control_V1_B.FA_b_tmp_k;
+  pid_control_V1_B.c_theta_tmp_g1 = 0.0;
+  pid_control_V1_B.c_theta_tmp_g = 0.0;
   pid_control_V1_B.c_theta_tmp = 0.0;
   for (pid_control_V1_B.i = 0; pid_control_V1_B.i < 3; pid_control_V1_B.i++) {
-    tmp = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&pid_control_V1_B.c_theta_g[3 *
+    tmp = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&pid_control_V1_B.c_theta[3 *
       pid_control_V1_B.i]), _mm_set1_pd
       (pid_control_V1_B.wbe_b[pid_control_V1_B.i])), _mm_set_pd
-                     (pid_control_V1_B.c_theta_tmp_cv,
-                      pid_control_V1_B.c_theta_tmp_f));
+                     (pid_control_V1_B.c_theta_tmp_g,
+                      pid_control_V1_B.c_theta_tmp_g1));
     _mm_storeu_pd(&pid_control_V1_B.dv[0], tmp);
-    pid_control_V1_B.c_theta_tmp_f = pid_control_V1_B.dv[0];
-    pid_control_V1_B.c_theta_tmp_cv = pid_control_V1_B.dv[1];
+    pid_control_V1_B.c_theta_tmp_g1 = pid_control_V1_B.dv[0];
+    pid_control_V1_B.c_theta_tmp_g = pid_control_V1_B.dv[1];
     _mm_storeu_pd(&pid_control_V1_B.dv[0], _mm_add_pd(_mm_mul_pd(_mm_set_pd
-      (0.0089285714285714281, pid_control_V1_B.c_theta_g[3 * pid_control_V1_B.i
-       + 2]), _mm_set_pd(pid_control_V1_B.F_b[pid_control_V1_B.i],
-                         pid_control_V1_B.wbe_b[pid_control_V1_B.i])),
-      _mm_mul_pd(_mm_set_pd(pid_control_V1_B.CD_iw_IGE_m[pid_control_V1_B.i],
-      pid_control_V1_B.c_theta_tmp), _mm_set_pd(-1.0, 1.0))));
+      (0.0089285714285714281, pid_control_V1_B.c_theta[3 * pid_control_V1_B.i +
+       2]), _mm_set_pd(pid_control_V1_B.F_b[pid_control_V1_B.i],
+                       pid_control_V1_B.wbe_b[pid_control_V1_B.i])), _mm_mul_pd
+      (_mm_set_pd(pid_control_V1_B.CD_iw_IGE[pid_control_V1_B.i],
+                  pid_control_V1_B.c_theta_tmp), _mm_set_pd(-1.0, 1.0))));
     pid_control_V1_B.c_theta_tmp = pid_control_V1_B.dv[0];
     pid_control_V1_B.XDOT[pid_control_V1_B.i] = pid_control_V1_B.dv[1];
     pid_control_V1_B.XDOT[pid_control_V1_B.i + 3] =
@@ -651,7 +656,7 @@ void pid_control_V1::step()
   pid_control_V1_B.XDOT[10] = pid_control_V1_B.u4;
   pid_control_V1_B.XDOT[11] = pid_control_V1_B.Va_b_idx_2;
   pid_control_V1_B.XDOT[12] = pid_control_V1_B.CL_w_IGE /
-    (pid_control_V1_B.CD_iw_IGE + 0.0306);
+    (pid_control_V1_B.CD_iw_IGE_c + 0.0306);
   pid_control_V1_B.XDOT[19] = 0.0;
   pid_control_V1_B.XDOT[20] = pid_control_V1_B.Cl;
   pid_control_V1_B.XDOT[21] = pid_control_V1_B.Cm;
@@ -662,15 +667,15 @@ void pid_control_V1::step()
   pid_control_V1_B.XDOT[26] = pid_control_V1_B.CL_h_OGE;
   pid_control_V1_B.XDOT[27] = pid_control_V1_B.CL_w_IGE;
   pid_control_V1_B.XDOT[28] = pid_control_V1_B.u2;
-  pid_control_V1_B.XDOT[29] = pid_control_V1_B.CD_iw_IGE;
+  pid_control_V1_B.XDOT[29] = pid_control_V1_B.CD_iw_IGE_c;
   pid_control_V1_B.XDOT[30] = pid_control_V1_B.CD_ih_IGE;
-  pid_control_V1_B.XDOT[6] = pid_control_V1_B.c_theta_tmp_f;
+  pid_control_V1_B.XDOT[6] = pid_control_V1_B.c_theta_tmp_g1;
   pid_control_V1_B.XDOT[13] = pid_control_V1_B.F_b[0];
-  pid_control_V1_B.XDOT[16] = pid_control_V1_B.c_theta;
+  pid_control_V1_B.XDOT[16] = pid_control_V1_B.c_theta_m;
   pid_control_V1_B.XDOT[31] = pid_control_V1_B.Va;
   pid_control_V1_B.XDOT[34] = pid_control_V1_B.s_theta;
   pid_control_V1_B.XDOT[37] = pid_control_V1_B.FA_b_idx_0;
-  pid_control_V1_B.XDOT[7] = pid_control_V1_B.c_theta_tmp_cv;
+  pid_control_V1_B.XDOT[7] = pid_control_V1_B.c_theta_tmp_g;
   pid_control_V1_B.XDOT[14] = pid_control_V1_B.F_b[1];
   pid_control_V1_B.XDOT[17] = pid_control_V1_B.Mcg_b_idx_1;
   pid_control_V1_B.XDOT[32] = pid_control_V1_B.s_phi;
@@ -711,7 +716,7 @@ void pid_control_V1::step()
   pid_control_V1_B.CL_h_OGE = sin(pid_control_V1_B.c_psi);
   pid_control_V1_B.CL_w_IGE = cos(pid_control_V1_B.dv[0]);
   pid_control_V1_B.u2 = cos(pid_control_V1_B.dv[1]);
-  pid_control_V1_B.CD_iw_IGE = cos(pid_control_V1_B.c_psi);
+  pid_control_V1_B.CD_iw_IGE_c = cos(pid_control_V1_B.c_psi);
 
   /* BusAssignment: '<Root>/Bus Assignment' incorporates:
    *  Gain: '<Root>/Gain3'
@@ -729,17 +734,17 @@ void pid_control_V1::step()
   pid_control_V1_B.BusAssignment.state.pose.orientation.w =
     pid_control_V1_B.s_psi * pid_control_V1_B.CL_w_OGE *
     pid_control_V1_B.CL_h_OGE + pid_control_V1_B.c_psi *
-    pid_control_V1_B.CD_iw_IGE;
+    pid_control_V1_B.CD_iw_IGE_c;
   pid_control_V1_B.BusAssignment.state.pose.orientation.z =
     pid_control_V1_B.c_psi * pid_control_V1_B.CL_h_OGE -
-    pid_control_V1_B.CD_iw_IGE * pid_control_V1_B.s_psi *
+    pid_control_V1_B.CD_iw_IGE_c * pid_control_V1_B.s_psi *
     pid_control_V1_B.CL_w_OGE;
   pid_control_V1_B.BusAssignment.state.pose.orientation.y =
-    pid_control_V1_B.CL_w_IGE * pid_control_V1_B.CD_iw_IGE *
+    pid_control_V1_B.CL_w_IGE * pid_control_V1_B.CD_iw_IGE_c *
     pid_control_V1_B.CL_w_OGE + pid_control_V1_B.u2 * pid_control_V1_B.s_psi *
     pid_control_V1_B.CL_h_OGE;
   pid_control_V1_B.BusAssignment.state.pose.orientation.x = pid_control_V1_B.u2 *
-    pid_control_V1_B.CD_iw_IGE * pid_control_V1_B.s_psi -
+    pid_control_V1_B.CD_iw_IGE_c * pid_control_V1_B.s_psi -
     pid_control_V1_B.CL_w_IGE * pid_control_V1_B.CL_w_OGE *
     pid_control_V1_B.CL_h_OGE;
   memcpy(&pid_control_V1_B.BusAssignment.state.name[0],
@@ -792,111 +797,14 @@ void pid_control_V1::step()
   if (pid_control_V1_B.b) {
   }
 
-  /* Gain: '<S34>/ZeroGain' */
-  pid_control_V1_B.s_psi = 0.0 * pid_control_V1_B.SignPreSat_j;
-
-  /* DeadZone: '<S36>/DeadZone' */
-  if (pid_control_V1_B.SignPreSat_j > 0.3490658503988659) {
-    pid_control_V1_B.SignPreSat_j -= 0.3490658503988659;
-  } else if (pid_control_V1_B.SignPreSat_j >= -0.3490658503988659) {
-    pid_control_V1_B.SignPreSat_j = 0.0;
-  } else {
-    pid_control_V1_B.SignPreSat_j -= -0.3490658503988659;
-  }
-
-  /* End of DeadZone: '<S36>/DeadZone' */
-
-  /* Gain: '<S41>/Integral Gain' incorporates:
-   *  Constant: '<Root>/Constant1'
-   *  Sum: '<Root>/Sum1'
-   */
-  pid_control_V1_B.Switch = (0.043633231299858237 - pid_control_V1_B.x[7]) *
-    0.005;
-
-  /* Signum: '<S34>/SignPreSat' */
-  if (rtIsNaN(pid_control_V1_B.SignPreSat_j)) {
-    /* DataTypeConversion: '<S34>/DataTypeConv1' */
-    pid_control_V1_B.i = 0;
-  } else {
-    if (pid_control_V1_B.SignPreSat_j < 0.0) {
-      /* DataTypeConversion: '<S34>/DataTypeConv1' */
-      pid_control_V1_B.c_psi = -1.0;
-    } else {
-      /* DataTypeConversion: '<S34>/DataTypeConv1' */
-      pid_control_V1_B.c_psi = (pid_control_V1_B.SignPreSat_j > 0.0);
-    }
-
-    /* DataTypeConversion: '<S34>/DataTypeConv1' */
-    pid_control_V1_B.i = static_cast<int32_T>(fmod(pid_control_V1_B.c_psi, 256.0));
-  }
-
-  /* End of Signum: '<S34>/SignPreSat' */
-
-  /* Signum: '<S34>/SignPreIntegrator' */
-  if (rtIsNaN(pid_control_V1_B.Switch)) {
-    /* DataTypeConversion: '<S34>/DataTypeConv2' */
-    pid_control_V1_B.i_g = 0;
-  } else {
-    if (pid_control_V1_B.Switch < 0.0) {
-      /* DataTypeConversion: '<S34>/DataTypeConv2' */
-      pid_control_V1_B.c_psi = -1.0;
-    } else {
-      /* DataTypeConversion: '<S34>/DataTypeConv2' */
-      pid_control_V1_B.c_psi = (pid_control_V1_B.Switch > 0.0);
-    }
-
-    /* DataTypeConversion: '<S34>/DataTypeConv2' */
-    pid_control_V1_B.i_g = static_cast<int32_T>(fmod(pid_control_V1_B.c_psi,
-      256.0));
-  }
-
-  /* End of Signum: '<S34>/SignPreIntegrator' */
-
-  /* DataTypeConversion: '<S34>/DataTypeConv1' */
-  if (pid_control_V1_B.i < 0) {
-    pid_control_V1_B.i = static_cast<int8_T>(-static_cast<int8_T>
-      (static_cast<uint8_T>(-static_cast<real_T>(pid_control_V1_B.i))));
-  }
-
-  /* DataTypeConversion: '<S34>/DataTypeConv2' */
-  if (pid_control_V1_B.i_g < 0) {
-    pid_control_V1_B.i_g = static_cast<int8_T>(-static_cast<int8_T>(static_cast<
-      uint8_T>(-static_cast<real_T>(pid_control_V1_B.i_g))));
-  }
-
-  /* Logic: '<S34>/AND3' incorporates:
-   *  DataTypeConversion: '<S34>/DataTypeConv1'
-   *  DataTypeConversion: '<S34>/DataTypeConv2'
-   *  RelationalOperator: '<S34>/Equal1'
-   *  RelationalOperator: '<S34>/NotEqual'
-   */
-  pid_control_V1_B.AND3 = ((pid_control_V1_B.s_psi !=
-    pid_control_V1_B.SignPreSat_j) && (pid_control_V1_B.i ==
-    pid_control_V1_B.i_g));
-  if (pid_control_V1_B.b) {
-    /* Memory: '<S34>/Memory' */
-    pid_control_V1_B.Memory = pid_control_V1_DW.Memory_PreviousInput;
-  }
-
-  /* Switch: '<S34>/Switch' */
-  if (pid_control_V1_B.Memory) {
-    /* Gain: '<S41>/Integral Gain' incorporates:
-     *  Constant: '<S34>/Constant1'
-     *  Switch: '<S34>/Switch'
-     */
-    pid_control_V1_B.Switch = 0.0;
-  }
-
-  /* End of Switch: '<S34>/Switch' */
-
   /* Gain: '<S88>/ZeroGain' */
-  pid_control_V1_B.SignPreSat_j = 0.0 * pid_control_V1_B.SignPreSat;
+  pid_control_V1_B.s_psi = 0.0 * pid_control_V1_B.SignPreSat_o;
 
   /* DeadZone: '<S90>/DeadZone' */
-  if (pid_control_V1_B.SignPreSat > 1.0) {
-    pid_control_V1_B.SignPreSat--;
-  } else if (pid_control_V1_B.SignPreSat >= 0.0) {
-    pid_control_V1_B.SignPreSat = 0.0;
+  if (pid_control_V1_B.SignPreSat_o > 1.0) {
+    pid_control_V1_B.SignPreSat_o--;
+  } else if (pid_control_V1_B.SignPreSat_o >= 0.0) {
+    pid_control_V1_B.SignPreSat_o = 0.0;
   }
 
   /* End of DeadZone: '<S90>/DeadZone' */
@@ -906,19 +814,19 @@ void pid_control_V1::step()
    *  Gain: '<Root>/Gain4'
    *  Sum: '<Root>/Sum2'
    */
-  pid_control_V1_B.Switch_c = (1.0 - (-pid_control_V1_B.x[11])) * 1.0E-6;
+  pid_control_V1_B.Switch = (1.0 - (-pid_control_V1_B.x[11])) * 0.05;
 
   /* Signum: '<S88>/SignPreSat' */
-  if (rtIsNaN(pid_control_V1_B.SignPreSat)) {
+  if (rtIsNaN(pid_control_V1_B.SignPreSat_o)) {
     /* DataTypeConversion: '<S88>/DataTypeConv1' */
     pid_control_V1_B.i = 0;
   } else {
-    if (pid_control_V1_B.SignPreSat < 0.0) {
+    if (pid_control_V1_B.SignPreSat_o < 0.0) {
       /* DataTypeConversion: '<S88>/DataTypeConv1' */
       pid_control_V1_B.c_psi = -1.0;
     } else {
       /* DataTypeConversion: '<S88>/DataTypeConv1' */
-      pid_control_V1_B.c_psi = (pid_control_V1_B.SignPreSat > 0.0);
+      pid_control_V1_B.c_psi = (pid_control_V1_B.SignPreSat_o > 0.0);
     }
 
     /* DataTypeConversion: '<S88>/DataTypeConv1' */
@@ -928,20 +836,20 @@ void pid_control_V1::step()
   /* End of Signum: '<S88>/SignPreSat' */
 
   /* Signum: '<S88>/SignPreIntegrator' */
-  if (rtIsNaN(pid_control_V1_B.Switch_c)) {
+  if (rtIsNaN(pid_control_V1_B.Switch)) {
     /* DataTypeConversion: '<S88>/DataTypeConv2' */
-    pid_control_V1_B.i_g = 0;
+    pid_control_V1_B.i_m = 0;
   } else {
-    if (pid_control_V1_B.Switch_c < 0.0) {
+    if (pid_control_V1_B.Switch < 0.0) {
       /* DataTypeConversion: '<S88>/DataTypeConv2' */
       pid_control_V1_B.c_psi = -1.0;
     } else {
       /* DataTypeConversion: '<S88>/DataTypeConv2' */
-      pid_control_V1_B.c_psi = (pid_control_V1_B.Switch_c > 0.0);
+      pid_control_V1_B.c_psi = (pid_control_V1_B.Switch > 0.0);
     }
 
     /* DataTypeConversion: '<S88>/DataTypeConv2' */
-    pid_control_V1_B.i_g = static_cast<int32_T>(fmod(pid_control_V1_B.c_psi,
+    pid_control_V1_B.i_m = static_cast<int32_T>(fmod(pid_control_V1_B.c_psi,
       256.0));
   }
 
@@ -954,9 +862,9 @@ void pid_control_V1::step()
   }
 
   /* DataTypeConversion: '<S88>/DataTypeConv2' */
-  if (pid_control_V1_B.i_g < 0) {
-    pid_control_V1_B.i_g = static_cast<int8_T>(-static_cast<int8_T>(static_cast<
-      uint8_T>(-static_cast<real_T>(pid_control_V1_B.i_g))));
+  if (pid_control_V1_B.i_m < 0) {
+    pid_control_V1_B.i_m = static_cast<int8_T>(-static_cast<int8_T>(static_cast<
+      uint8_T>(-static_cast<real_T>(pid_control_V1_B.i_m))));
   }
 
   /* Logic: '<S88>/AND3' incorporates:
@@ -965,23 +873,120 @@ void pid_control_V1::step()
    *  RelationalOperator: '<S88>/Equal1'
    *  RelationalOperator: '<S88>/NotEqual'
    */
-  pid_control_V1_B.AND3_m = ((pid_control_V1_B.SignPreSat_j !=
-    pid_control_V1_B.SignPreSat) && (pid_control_V1_B.i == pid_control_V1_B.i_g));
+  pid_control_V1_B.AND3 = ((pid_control_V1_B.s_psi !=
+    pid_control_V1_B.SignPreSat_o) && (pid_control_V1_B.i ==
+    pid_control_V1_B.i_m));
   if (pid_control_V1_B.b) {
     /* Memory: '<S88>/Memory' */
-    pid_control_V1_B.Memory_e = pid_control_V1_DW.Memory_PreviousInput_p;
+    pid_control_V1_B.Memory = pid_control_V1_DW.Memory_PreviousInput;
   }
 
   /* Switch: '<S88>/Switch' */
-  if (pid_control_V1_B.Memory_e) {
+  if (pid_control_V1_B.Memory) {
     /* Gain: '<S95>/Integral Gain' incorporates:
      *  Constant: '<S88>/Constant1'
      *  Switch: '<S88>/Switch'
      */
-    pid_control_V1_B.Switch_c = 0.0;
+    pid_control_V1_B.Switch = 0.0;
   }
 
   /* End of Switch: '<S88>/Switch' */
+
+  /* Gain: '<S34>/ZeroGain' */
+  pid_control_V1_B.SignPreSat_o = 0.0 * pid_control_V1_B.SignPreSat;
+
+  /* DeadZone: '<S36>/DeadZone' */
+  if (pid_control_V1_B.SignPreSat > 0.3490658503988659) {
+    pid_control_V1_B.SignPreSat -= 0.3490658503988659;
+  } else if (pid_control_V1_B.SignPreSat >= -0.3490658503988659) {
+    pid_control_V1_B.SignPreSat = 0.0;
+  } else {
+    pid_control_V1_B.SignPreSat -= -0.3490658503988659;
+  }
+
+  /* End of DeadZone: '<S36>/DeadZone' */
+
+  /* Gain: '<S41>/Integral Gain' incorporates:
+   *  Constant: '<Root>/Constant1'
+   *  Sum: '<Root>/Sum1'
+   */
+  pid_control_V1_B.Switch_a = (0.0087266462599716477 - pid_control_V1_B.x[7]) *
+    1.05;
+
+  /* Signum: '<S34>/SignPreSat' */
+  if (rtIsNaN(pid_control_V1_B.SignPreSat)) {
+    /* DataTypeConversion: '<S34>/DataTypeConv1' */
+    pid_control_V1_B.i = 0;
+  } else {
+    if (pid_control_V1_B.SignPreSat < 0.0) {
+      /* DataTypeConversion: '<S34>/DataTypeConv1' */
+      pid_control_V1_B.c_psi = -1.0;
+    } else {
+      /* DataTypeConversion: '<S34>/DataTypeConv1' */
+      pid_control_V1_B.c_psi = (pid_control_V1_B.SignPreSat > 0.0);
+    }
+
+    /* DataTypeConversion: '<S34>/DataTypeConv1' */
+    pid_control_V1_B.i = static_cast<int32_T>(fmod(pid_control_V1_B.c_psi, 256.0));
+  }
+
+  /* End of Signum: '<S34>/SignPreSat' */
+
+  /* Signum: '<S34>/SignPreIntegrator' */
+  if (rtIsNaN(pid_control_V1_B.Switch_a)) {
+    /* DataTypeConversion: '<S34>/DataTypeConv2' */
+    pid_control_V1_B.i_m = 0;
+  } else {
+    if (pid_control_V1_B.Switch_a < 0.0) {
+      /* DataTypeConversion: '<S34>/DataTypeConv2' */
+      pid_control_V1_B.c_psi = -1.0;
+    } else {
+      /* DataTypeConversion: '<S34>/DataTypeConv2' */
+      pid_control_V1_B.c_psi = (pid_control_V1_B.Switch_a > 0.0);
+    }
+
+    /* DataTypeConversion: '<S34>/DataTypeConv2' */
+    pid_control_V1_B.i_m = static_cast<int32_T>(fmod(pid_control_V1_B.c_psi,
+      256.0));
+  }
+
+  /* End of Signum: '<S34>/SignPreIntegrator' */
+
+  /* DataTypeConversion: '<S34>/DataTypeConv1' */
+  if (pid_control_V1_B.i < 0) {
+    pid_control_V1_B.i = static_cast<int8_T>(-static_cast<int8_T>
+      (static_cast<uint8_T>(-static_cast<real_T>(pid_control_V1_B.i))));
+  }
+
+  /* DataTypeConversion: '<S34>/DataTypeConv2' */
+  if (pid_control_V1_B.i_m < 0) {
+    pid_control_V1_B.i_m = static_cast<int8_T>(-static_cast<int8_T>(static_cast<
+      uint8_T>(-static_cast<real_T>(pid_control_V1_B.i_m))));
+  }
+
+  /* Logic: '<S34>/AND3' incorporates:
+   *  DataTypeConversion: '<S34>/DataTypeConv1'
+   *  DataTypeConversion: '<S34>/DataTypeConv2'
+   *  RelationalOperator: '<S34>/Equal1'
+   *  RelationalOperator: '<S34>/NotEqual'
+   */
+  pid_control_V1_B.AND3_j = ((pid_control_V1_B.SignPreSat_o !=
+    pid_control_V1_B.SignPreSat) && (pid_control_V1_B.i == pid_control_V1_B.i_m));
+  if (pid_control_V1_B.b) {
+    /* Memory: '<S34>/Memory' */
+    pid_control_V1_B.Memory_n = pid_control_V1_DW.Memory_PreviousInput_d;
+  }
+
+  /* Switch: '<S34>/Switch' */
+  if (pid_control_V1_B.Memory_n) {
+    /* Gain: '<S41>/Integral Gain' incorporates:
+     *  Constant: '<S34>/Constant1'
+     *  Switch: '<S34>/Switch'
+     */
+    pid_control_V1_B.Switch_a = 0.0;
+  }
+
+  /* End of Switch: '<S34>/Switch' */
 
   /* Gain: '<S7>/Gain1' incorporates:
    *  Integrator: '<S7>/Integrator1'
@@ -993,11 +998,11 @@ void pid_control_V1::step()
 
   if (rtmIsMajorTimeStep((&pid_control_V1_M))) {
     if (rtmIsMajorTimeStep((&pid_control_V1_M))) {
-      /* Update for Memory: '<S34>/Memory' */
+      /* Update for Memory: '<S88>/Memory' */
       pid_control_V1_DW.Memory_PreviousInput = pid_control_V1_B.AND3;
 
-      /* Update for Memory: '<S88>/Memory' */
-      pid_control_V1_DW.Memory_PreviousInput_p = pid_control_V1_B.AND3_m;
+      /* Update for Memory: '<S34>/Memory' */
+      pid_control_V1_DW.Memory_PreviousInput_d = pid_control_V1_B.AND3_j;
     }
   }                                    /* end MajorTimeStep */
 
@@ -1048,17 +1053,17 @@ void pid_control_V1::pid_control_V1_derivatives()
   memcpy(&_rtXdot->Integrator_CSTATE[0], &pid_control_V1_B.XDOT[0], 12U * sizeof
          (real_T));
 
-  /* Derivatives for Integrator: '<S98>/Integrator' */
-  _rtXdot->Integrator_CSTATE_b = pid_control_V1_B.Switch_c;
-
-  /* Derivatives for Integrator: '<S93>/Filter' */
-  _rtXdot->Filter_CSTATE = pid_control_V1_B.FilterCoefficient;
-
   /* Derivatives for Integrator: '<S44>/Integrator' */
-  _rtXdot->Integrator_CSTATE_p = pid_control_V1_B.Switch;
+  _rtXdot->Integrator_CSTATE_p = pid_control_V1_B.Switch_a;
 
   /* Derivatives for Integrator: '<S39>/Filter' */
-  _rtXdot->Filter_CSTATE_m = pid_control_V1_B.FilterCoefficient_m;
+  _rtXdot->Filter_CSTATE = pid_control_V1_B.FilterCoefficient;
+
+  /* Derivatives for Integrator: '<S98>/Integrator' */
+  _rtXdot->Integrator_CSTATE_b = pid_control_V1_B.Switch;
+
+  /* Derivatives for Integrator: '<S93>/Filter' */
+  _rtXdot->Filter_CSTATE_f = pid_control_V1_B.FilterCoefficient_g;
 
   /* Derivatives for Integrator: '<S7>/Integrator1' */
   _rtXdot->Integrator1_CSTATE = pid_control_V1_B.Power;
@@ -1134,17 +1139,17 @@ void pid_control_V1::initialize()
   memcpy(&pid_control_V1_X.Integrator_CSTATE[0],
          &pid_control_V1_ConstP.Integrator_IC[0], 12U * sizeof(real_T));
 
-  /* InitializeConditions for Integrator: '<S98>/Integrator' */
-  pid_control_V1_X.Integrator_CSTATE_b = 0.0;
-
-  /* InitializeConditions for Integrator: '<S93>/Filter' */
-  pid_control_V1_X.Filter_CSTATE = 0.0;
-
   /* InitializeConditions for Integrator: '<S44>/Integrator' */
   pid_control_V1_X.Integrator_CSTATE_p = 0.0;
 
   /* InitializeConditions for Integrator: '<S39>/Filter' */
-  pid_control_V1_X.Filter_CSTATE_m = 0.0;
+  pid_control_V1_X.Filter_CSTATE = 0.0;
+
+  /* InitializeConditions for Integrator: '<S98>/Integrator' */
+  pid_control_V1_X.Integrator_CSTATE_b = 0.0;
+
+  /* InitializeConditions for Integrator: '<S93>/Filter' */
+  pid_control_V1_X.Filter_CSTATE_f = 0.0;
 
   /* InitializeConditions for Integrator: '<S7>/Integrator1' */
   pid_control_V1_X.Integrator1_CSTATE = 0.0;

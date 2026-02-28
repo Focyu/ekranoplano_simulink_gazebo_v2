@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.24
+ * Model version              : 12.27
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Fri Feb 27 01:10:45 2026
+ * C++ source code generated on : Fri Feb 27 22:52:44 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -174,27 +174,27 @@ extern "C"
 struct B_pid_control_V1_T {
   SL_Bus_gazebo_msgs_SetEntityStateRequest BusAssignment;/* '<Root>/Bus Assignment' */
   real_T x[12];                        /* '<S7>/Integrator' */
-  uint8_T stringOut_l[128];            /* '<Root>/MATLAB Function' */
-  real_T c_theta_g[9];
+  real_T c_theta[9];
   real_T control_vector[5];
   char_T b_zeroDelimTopic[25];
   real_T Vb_w[3];
   real_T wbe_b[3];
   real_T F_b[3];
-  real_T CD_iw_IGE_m[3];
+  real_T CD_iw_IGE[3];
   real_T Mcg_b[3];
   real_T dv[2];
-  real_T FilterCoefficient;            /* '<S101>/Filter Coefficient' */
-  real_T Gain5;                        /* '<Root>/Gain5' */
-  real_T FilterCoefficient_m;          /* '<S47>/Filter Coefficient' */
+  real_T FilterCoefficient;            /* '<S47>/Filter Coefficient' */
   real_T Saturation;                   /* '<S51>/Saturation' */
+  real_T FilterCoefficient_g;          /* '<S101>/Filter Coefficient' */
+  real_T Saturation_p;                 /* '<S105>/Saturation' */
+  real_T Gain5;                        /* '<Root>/Gain5' */
   real_T Gain;                         /* '<Root>/Gain' */
   real_T Power;                        /* '<S7>/Product2' */
   real_T Gain3;                        /* '<S7>/Gain3' */
   real_T powerdemand;                  /* '<S7>/Divide' */
   real_T loadtorque;                   /* '<S7>/Divide1' */
-  real_T Switch;                       /* '<S34>/Switch' */
-  real_T Switch_c;                     /* '<S88>/Switch' */
+  real_T Switch;                       /* '<S88>/Switch' */
+  real_T Switch_a;                     /* '<S34>/Switch' */
   real_T EnergykWh;                    /* '<S7>/Gain1' */
   real_T XDOT[40];                     /* '<S7>/MATLAB Function' */
   real_T u2;
@@ -202,7 +202,7 @@ struct B_pid_control_V1_T {
   real_T u5;
   real_T c_phi;
   real_T s_phi;
-  real_T c_theta;
+  real_T c_theta_m;
   real_T s_theta;
   real_T c_psi;
   real_T s_psi;
@@ -210,15 +210,15 @@ struct B_pid_control_V1_T {
   real_T CL_w_OGE;
   real_T CL_h_OGE;
   real_T CL_w_IGE;
-  real_T CD_iw_IGE;
+  real_T CD_iw_IGE_c;
   real_T CD_ih_IGE;
   real_T Cl;
   real_T Cm;
   real_T Cn;
-  real_T SignPreSat;                   /* '<S88>/SignPreSat' */
-  real_T SignPreSat_j;                 /* '<S34>/SignPreSat' */
+  real_T SignPreSat;                   /* '<S34>/SignPreSat' */
+  real_T SignPreSat_o;                 /* '<S88>/SignPreSat' */
   real_T FA_b_tmp;
-  real_T FA_b_tmp_m;
+  real_T FA_b_tmp_k;
   real_T Va_b_idx_2;
   real_T Mcg_b_idx_1;
   real_T Mcg_b_idx_2;
@@ -227,25 +227,26 @@ struct B_pid_control_V1_T {
   real_T FA_b_idx_2;
   real_T c_theta_tmp;
   real_T c_theta_tmp_c;
-  real_T c_theta_tmp_k;
-  real_T c_theta_tmp_cx;
   real_T c_theta_tmp_b;
   real_T c_theta_tmp_p;
   real_T c_theta_tmp_cv;
   real_T c_theta_tmp_f;
+  real_T c_theta_tmp_g;
+  real_T c_theta_tmp_g1;
   real_T d;
   real_T d1;
   int32_T i;
-  int32_T i_g;
+  int32_T i_m;
   int32_T i1;
   int32_T i2;
   uint32_T lengthOut;                  /* '<Root>/MATLAB Function1' */
   uint32_T lengthOut_e;                /* '<Root>/MATLAB Function' */
   uint8_T stringOut[128];              /* '<Root>/MATLAB Function1' */
-  boolean_T AND3;                      /* '<S34>/AND3' */
-  boolean_T Memory;                    /* '<S34>/Memory' */
-  boolean_T AND3_m;                    /* '<S88>/AND3' */
-  boolean_T Memory_e;                  /* '<S88>/Memory' */
+  uint8_T stringOut_l[128];            /* '<Root>/MATLAB Function' */
+  boolean_T AND3;                      /* '<S88>/AND3' */
+  boolean_T Memory;                    /* '<S88>/Memory' */
+  boolean_T AND3_j;                    /* '<S34>/AND3' */
+  boolean_T Memory_n;                  /* '<S34>/Memory' */
   boolean_T serverAvailableOnTime;
   boolean_T b;
   SL_Bus_gazebo_msgs_SetEntityStateResponse r;
@@ -396,8 +397,8 @@ struct DW_pid_control_V1_T {
 
   robotics_slcore_internal_bloc_T obj_c;
                              /* '<Root>/Coordinate Transformation Conversion' */
-  boolean_T Memory_PreviousInput;      /* '<S34>/Memory' */
-  boolean_T Memory_PreviousInput_p;    /* '<S88>/Memory' */
+  boolean_T Memory_PreviousInput;      /* '<S88>/Memory' */
+  boolean_T Memory_PreviousInput_d;    /* '<S34>/Memory' */
   boolean_T objisempty;      /* '<Root>/Coordinate Transformation Conversion' */
   boolean_T objisempty_f;              /* '<S2>/ServiceCaller' */
 };
@@ -405,30 +406,30 @@ struct DW_pid_control_V1_T {
 /* Continuous states (default storage) */
 struct X_pid_control_V1_T {
   real_T Integrator_CSTATE[12];        /* '<S7>/Integrator' */
-  real_T Integrator_CSTATE_b;          /* '<S98>/Integrator' */
-  real_T Filter_CSTATE;                /* '<S93>/Filter' */
   real_T Integrator_CSTATE_p;          /* '<S44>/Integrator' */
-  real_T Filter_CSTATE_m;              /* '<S39>/Filter' */
+  real_T Filter_CSTATE;                /* '<S39>/Filter' */
+  real_T Integrator_CSTATE_b;          /* '<S98>/Integrator' */
+  real_T Filter_CSTATE_f;              /* '<S93>/Filter' */
   real_T Integrator1_CSTATE;           /* '<S7>/Integrator1' */
 };
 
 /* State derivatives (default storage) */
 struct XDot_pid_control_V1_T {
   real_T Integrator_CSTATE[12];        /* '<S7>/Integrator' */
-  real_T Integrator_CSTATE_b;          /* '<S98>/Integrator' */
-  real_T Filter_CSTATE;                /* '<S93>/Filter' */
   real_T Integrator_CSTATE_p;          /* '<S44>/Integrator' */
-  real_T Filter_CSTATE_m;              /* '<S39>/Filter' */
+  real_T Filter_CSTATE;                /* '<S39>/Filter' */
+  real_T Integrator_CSTATE_b;          /* '<S98>/Integrator' */
+  real_T Filter_CSTATE_f;              /* '<S93>/Filter' */
   real_T Integrator1_CSTATE;           /* '<S7>/Integrator1' */
 };
 
 /* State disabled  */
 struct XDis_pid_control_V1_T {
   boolean_T Integrator_CSTATE[12];     /* '<S7>/Integrator' */
-  boolean_T Integrator_CSTATE_b;       /* '<S98>/Integrator' */
-  boolean_T Filter_CSTATE;             /* '<S93>/Filter' */
   boolean_T Integrator_CSTATE_p;       /* '<S44>/Integrator' */
-  boolean_T Filter_CSTATE_m;           /* '<S39>/Filter' */
+  boolean_T Filter_CSTATE;             /* '<S39>/Filter' */
+  boolean_T Integrator_CSTATE_b;       /* '<S98>/Integrator' */
+  boolean_T Filter_CSTATE_f;           /* '<S93>/Filter' */
   boolean_T Integrator1_CSTATE;        /* '<S7>/Integrator1' */
 };
 
@@ -573,7 +574,6 @@ extern volatile boolean_T runModel;
  * These blocks were eliminated from the model due to optimizations:
  *
  * Block '<Root>/Display' : Unused code path elimination
- * Block '<S49>/Proportional Gain' : Eliminated nontunable gain of 1
  */
 
 /*-
