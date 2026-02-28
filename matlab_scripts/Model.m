@@ -397,5 +397,3 @@ XDOT = [x1to3dot;
     Fg_b;
     FE_b; 
     FA_b];
-
-

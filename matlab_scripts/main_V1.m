@@ -11,11 +11,11 @@ tsim = 100;
 step = 0.01;
 x_nom = zeros(12,1);
 % 1. Velocidad inicial de crucero (basada en vc del Model.m)
-x_nom(1) = 20;     % 'u' = 28 m/s (Velocidad de sustentación adecuada)
+x_nom(1) = 25;     % 'u' = 28 m/s (Velocidad de sustentación adecuada)
 x_nom(3) = 0;      % 'w' = 0 (Sin velocidad vertical inicial)
 
 % 2. Ángulo de ataque de equilibrio (Pitch trim inicial)
-x_nom(8) = 0.5 * (pi/180);  % Theta (Pitch) inicial de 2.5 grados para generar Lift
+x_nom(8) = 0.5 * (pi/180);  % Theta (Pitch) para generar Lift
 
 % 3. Posición inicial
 x_nom(10) = 0;     % x_NED
@@ -34,17 +34,17 @@ x0 = x_nom;
 % 1. Lazo de Elevador (Control de Cabeceo / Pitch)
 theta_sp = 0.5 * (pi/180); % IGE, necesita ángulo de ataque.
 % Ganancias iniciales sugeridas:
-Kp_pitch = 8.0;   
-Ki_pitch = 1.05;  
-Kd_pitch = 4.5;   
+Kp_pitch = -8.0;   
+Ki_pitch = -1.05;  
+Kd_pitch = -4.5;   
 
 % 2. Lazo de Acelerador (Control de Altura / h)
 % Recordar que Altura h = -z_NED
 h_sp = 1.0; % Setpoint: 1 metros de altura sobre el agua
 % Ganancias iniciales:
-Kp_h = 0.1;
-Ki_h = 0.05;
-Kd_h = 0.15;
+Kp_h = 0.05;
+Ki_h = 0.01;
+Kd_h = 0.02;
 
 
 
