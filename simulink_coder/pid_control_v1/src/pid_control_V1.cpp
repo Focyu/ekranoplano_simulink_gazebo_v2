@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.30
+ * Model version              : 12.31
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Sat Feb 28 18:41:08 2026
+ * C++ source code generated on : Sun Mar  1 01:31:59 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -315,7 +315,7 @@ void pid_control_V1::step()
    *  Sum: '<S37>/SumD'
    */
   pid_control_V1_B.FilterCoefficient = ((0.0087266462599716477 -
-    pid_control_V1_B.x[7]) * -8.5 - pid_control_V1_X.Filter_CSTATE) * 100.0;
+    pid_control_V1_B.x[7]) * -12.5 - pid_control_V1_X.Filter_CSTATE) * 100.0;
 
   /* Sum: '<S51>/Sum' incorporates:
    *  Constant: '<Root>/Constant1'
@@ -324,28 +324,29 @@ void pid_control_V1::step()
    *  Sum: '<Root>/Sum1'
    */
   pid_control_V1_B.Sum = ((0.0087266462599716477 - pid_control_V1_B.x[7]) *
-    -15.0 + pid_control_V1_X.Integrator_CSTATE_p) +
+    -25.0 + pid_control_V1_X.Integrator_CSTATE_p) +
     pid_control_V1_B.FilterCoefficient;
 
-  /* Gain: '<S99>/Filter Coefficient' incorporates:
-   *  Constant: '<Root>/Constant2'
-   *  Gain: '<Root>/Gain4'
-   *  Gain: '<S89>/Derivative Gain'
-   *  Integrator: '<S91>/Filter'
-   *  Sum: '<Root>/Sum2'
-   *  Sum: '<S91>/SumD'
-   */
-  pid_control_V1_B.FilterCoefficient_g = ((1.0 - (-pid_control_V1_B.x[11])) *
-    0.15 - pid_control_V1_X.Filter_CSTATE_f) * 100.0;
-
-  /* Sum: '<S105>/Sum' incorporates:
+  /* Gain: '<S89>/Derivative Gain' incorporates:
    *  Constant: '<Root>/Constant2'
    *  Gain: '<Root>/Gain4'
    *  Gain: '<S101>/Proportional Gain'
-   *  Integrator: '<S96>/Integrator'
    *  Sum: '<Root>/Sum2'
    */
-  pid_control_V1_B.SignPreSat = ((1.0 - (-pid_control_V1_B.x[11])) * 0.5 +
+  pid_control_V1_B.SignPreSat = (1.0 - (-pid_control_V1_B.x[11])) * 0.25;
+
+  /* Gain: '<S99>/Filter Coefficient' incorporates:
+   *  Gain: '<S89>/Derivative Gain'
+   *  Integrator: '<S91>/Filter'
+   *  Sum: '<S91>/SumD'
+   */
+  pid_control_V1_B.FilterCoefficient_g = (pid_control_V1_B.SignPreSat -
+    pid_control_V1_X.Filter_CSTATE_f) * 100.0;
+
+  /* Sum: '<S105>/Sum' incorporates:
+   *  Integrator: '<S96>/Integrator'
+   */
+  pid_control_V1_B.SignPreSat = (pid_control_V1_B.SignPreSat +
     pid_control_V1_X.Integrator_CSTATE_b) + pid_control_V1_B.FilterCoefficient_g;
 
   /* Saturate: '<S103>/Saturation' */
@@ -798,7 +799,7 @@ void pid_control_V1::step()
    *  Gain: '<Root>/Gain4'
    *  Sum: '<Root>/Sum2'
    */
-  pid_control_V1_B.Switch = (1.0 - (-pid_control_V1_B.x[11])) * 0.05;
+  pid_control_V1_B.Switch = (1.0 - (-pid_control_V1_B.x[11])) * 0.02;
 
   /* Signum: '<S86>/SignPreSat' */
   if (rtIsNaN(pid_control_V1_B.SignPreSat)) {
@@ -879,7 +880,7 @@ void pid_control_V1::step()
    *  Sum: '<Root>/Sum1'
    */
   pid_control_V1_B.IntegralGain = (0.0087266462599716477 - pid_control_V1_B.x[7])
-    * -2.55;
+    * -5.0;
 
   /* Gain: '<S7>/Gain1' incorporates:
    *  Integrator: '<S7>/Integrator1'

@@ -21,7 +21,7 @@ u4 = U(4); %d_th1 (throttle 1)
 u5 = U(5); %d_th2 (throttle 2)
 
 %-----------SYSTEM PARAMETERS------------------------------
-m = 160; % Aircraft mass (Kg)
+m = 112; % Aircraft mass (Kg)
 vc = 28; % cruise speed
 bw = 5.02; % Span (Wing)
 bh = 2.74; % Span (HTP)
@@ -313,9 +313,9 @@ MAcg_b = CMac_b.*[bw*Q*Sw;cbar*Q*Sw;bw*Q*Sw];
 % FE_b = FE1_b + FE2_b;
 
 %propeller thrust - Fitzpatrick model for ACP 25x12.5E
-km = 37.42;% motor constant [m/s] torque/sqrt(power) - ne znam
+km = 39.51;% motor constant [m/s] torque/sqrt(power) - ne znam
 Cp = 0.57;% efficientcy factor
-D = 0.635; % diameter [m]
+D = 0.80; % diameter [m]
 Sp = pi*(D^2/4); % disc area
 d_t1 = u4/Tp; % range [0,1]
 Vd1 = Va + d_t1*(km-Va);

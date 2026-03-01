@@ -7,20 +7,20 @@ Tp = 0.125e-03; % motor PWM switching frequency
 max_thrust_force_per_motor =  Tp;
 
 % Test 1
-tsim = 100;
+tsim = 30;
 step = 0.01;
 x_nom = zeros(12,1);
 % 1. Velocidad inicial de crucero (basada en vc del Model.m)
-x_nom(1) = 25;     % 'u' = 28 m/s (Velocidad de sustentación adecuada)
+x_nom(1) = 27;     % 'u' = 28 m/s (Velocidad de sustentación adecuada)
 x_nom(3) = 0;      % 'w' = 0 (Sin velocidad vertical inicial)
 
 % 2. Ángulo de ataque de equilibrio (Pitch trim inicial)
-x_nom(8) = 0.5 * (pi/180);  % Theta (Pitch) para generar Lift
+x_nom(8) = 1.0 * (pi/180);  % Theta (Pitch) para generar Lift
 
 % 3. Posición inicial
 x_nom(10) = 0;     % x_NED
 x_nom(11) = 0;     % y_NED
-x_nom(12) = -1.0;  % h = 1.0 metros (Cercano a tu h_sp = 1.0)
+x_nom(12) = -0.80;  % h = 1.0 metros (Cercano a tu h_sp = 1.0)
 
 u_nom = zeros(5,1);
 u_nom(2) = -1.5 * pi/180; % Ligero elevador hacia arriba para compensar el Pitch-down del IGE
@@ -34,17 +34,17 @@ x0 = x_nom;
 % 1. Lazo de Elevador (Control de Cabeceo / Pitch)
 theta_sp = 0.5 * (pi/180); % IGE, necesita ángulo de ataque.
 % Ganancias iniciales sugeridas:
-Kp_pitch = -8.0;   
-Ki_pitch = -1.05;  
-Kd_pitch = -4.5;   
+Kp_pitch = -25.0;   
+Ki_pitch = -5.0;  
+Kd_pitch = -12.5;   
 
 % 2. Lazo de Acelerador (Control de Altura / h)
 % Recordar que Altura h = -z_NED
 h_sp = 1.0; % Setpoint: 1 metros de altura sobre el agua
 % Ganancias iniciales:
-Kp_h = 0.05;
-Ki_h = 0.01;
-Kd_h = 0.02;
+Kp_h = 0.25;
+Ki_h = 0.02;
+Kd_h = 0.25;
 
 
 
