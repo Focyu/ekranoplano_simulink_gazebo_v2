@@ -7,7 +7,7 @@ Tp = 0.125e-03; % motor PWM switching frequency
 max_thrust_force_per_motor =  Tp;
 
 % Test 1
-tsim = 30;
+tsim = 100;
 step = 0.01;
 x_nom = zeros(12,1);
 % 1. Velocidad inicial de crucero (basada en vc del Model.m)
@@ -20,7 +20,7 @@ x_nom(8) = 1.0 * (pi/180);  % Theta (Pitch) para generar Lift
 % 3. Posición inicial
 x_nom(10) = 0;     % x_NED
 x_nom(11) = 0;     % y_NED
-x_nom(12) = -0.80;  % h = 1.0 metros (Cercano a tu h_sp = 1.0)
+x_nom(12) = -1.80;  % altura inicial (invertida)
 
 u_nom = zeros(5,1);
 u_nom(2) = -1.5 * pi/180; % Ligero elevador hacia arriba para compensar el Pitch-down del IGE
