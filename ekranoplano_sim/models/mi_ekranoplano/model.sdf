@@ -6,7 +6,7 @@
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>model://mi_ekranoplano/meshes/MODELO_EKRANOPLANO.dae</uri>
+            <uri>model://mi_ekranoplano/meshes/AIRFISH-8_EKRANOPLANO.dae</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>

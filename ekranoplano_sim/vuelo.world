@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
   <world name="default">
-    <gravity>0 0 0</gravity>
+    <gravity>0 0 0</gravity> <!-- Veo que anulaste la gravedad en Gazebo porque Simulink ya la calcula, ¡bien hecho! -->
 
     <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
       <ros>
@@ -15,15 +15,38 @@
     <include>
       <uri>model://sun</uri>
     </include>
-    <include>
-      <uri>model://ground_plane</uri>
-    </include>
+
+    <!-- Océano Reemplazando a Ground Plane -->
+    <model name="ocean">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose> <!-- El agua está en el nivel Z=0 -->
+      <link name="ocean_link">
+        <visual name="ocean_visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>2000 2000</size> <!-- Área inmensa para poder volar -->
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name> <!-- Textura de agua base -->
+            </script>
+            <ambient>0.0 0.3 0.5 0.8</ambient>
+            <diffuse>0.0 0.4 0.6 0.8</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
 
     <!-- Tu modelo cargado desde la carpeta local -->
     <include>
       <name>ekranoplano</name>
       <uri>model://mi_ekranoplano</uri>
+      <!-- IMPORTANTE: Hacemos match con el z_NED inicial de Simulink -->
       <pose>0 0 2 0 0 0</pose> 
     </include>
   </world>
 </sdf>
+
