@@ -25,7 +25,7 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>2000 2000</size> <!-- Área inmensa para poder volar -->
+              <size>20000 20000</size> <!-- Área inmensa para poder volar -->
             </plane>
           </geometry>
           <material>
@@ -45,8 +45,21 @@
       <name>ekranoplano</name>
       <uri>model://mi_ekranoplano</uri>
       <!-- IMPORTANTE: Hacemos match con el z_NED inicial de Simulink -->
-      <pose>0 0 2 0 0 0</pose> 
+      <pose>0 0 1 0 0 0</pose> 
     </include>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>5 -5 2 0 0.2 2.3</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+      
+      <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'/>
+      <grid>
+        <origin>0 0 0</origin>
+        <size>10000 10000</size>  <cell_size>50 50</cell_size> <cell_count>200</cell_count> </grid>
+    </gui>
+
+
   </world>
 </sdf>
 
