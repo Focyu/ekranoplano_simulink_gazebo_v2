@@ -162,8 +162,10 @@ alpha = atan2(w_r,u_r);
 beta = asin(v_r/Va);
 %%
 h = -x12;
-hw = h-zw; % wing below CG -> h-offset
-hh = h+zh; % tail above CG -> h+offset
+% hw = h-zw; % wing below CG -> h-offset
+% hh = h+zh; % tail above CG -> h+offset
+hw = max(0.001, h - zw); % Límite de seguridad para IGE
+hh = max(0.001, h + zh); % Límite de seguridad para IGE
 
 Q = 0.5*rho*Va^2;     %dynamic pressure
 
