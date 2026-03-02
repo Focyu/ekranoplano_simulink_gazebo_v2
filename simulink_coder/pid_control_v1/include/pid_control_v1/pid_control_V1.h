@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.31
+ * Model version              : 12.32
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Sun Mar  1 01:31:59 2026
+ * C++ source code generated on : Sun Mar  1 19:52:56 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -214,7 +214,7 @@ struct B_pid_control_V1_T {
   real_T Cl;
   real_T Cn;
   real_T Vd1;
-  real_T Vd2;
+  real_T Tp1;
   real_T SignPreSat;                   /* '<S86>/SignPreSat' */
   real_T ZeroGain;                     /* '<S86>/ZeroGain' */
   real_T Fg_b_tmp;
