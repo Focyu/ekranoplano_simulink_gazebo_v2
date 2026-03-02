@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.32
+ * Model version              : 12.34
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Sun Mar  1 19:52:56 2026
+ * C++ source code generated on : Mon Mar  2 12:12:10 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -171,40 +171,48 @@ extern "C"
 #define rtmGetTStart(rtm)              ((rtm)->Timing.tStart)
 #endif
 
+/* Block signals for system '<S7>/Enabled Subsystem' */
+struct B_EnabledSubsystem_pid_contro_T {
+  SL_Bus_std_msgs_Float64 In1;         /* '<S118>/In1' */
+};
+
 /* Block signals (default storage) */
 struct B_pid_control_V1_T {
   SL_Bus_gazebo_msgs_SetEntityStateRequest BusAssignment;/* '<Root>/Bus Assignment' */
-  real_T x[12];                        /* '<S7>/Integrator' */
-  uint8_T stringOut[128];              /* '<Root>/MATLAB Function1' */
+  real_T x[12];                        /* '<S9>/Integrator' */
   uint8_T stringOut_l[128];            /* '<Root>/MATLAB Function' */
   real_T FA_b_tmp[9];
-  real_T control_vector[5];
+  real_T TmpSignalConversionAtSFunct[5];/* '<S9>/MATLAB Function' */
   char_T b_zeroDelimTopic[25];
   real_T wbe_b[3];
   real_T FE2_b[3];
   real_T F_b[3];
   real_T Q[3];
+  char_T b_zeroDelimTopic_m[17];
+  char_T b_zeroDelimTopic_c[16];
   real_T dv[2];
-  real_T FilterCoefficient;            /* '<S45>/Filter Coefficient' */
-  real_T Sum;                          /* '<S51>/Sum' */
-  real_T FilterCoefficient_g;          /* '<S99>/Filter Coefficient' */
-  real_T Saturation;                   /* '<S103>/Saturation' */
+  real_T Switch1;                      /* '<Root>/Switch1' */
+  real_T FilterCoefficient;            /* '<S49>/Filter Coefficient' */
+  real_T Saturation;                   /* '<S53>/Saturation' */
+  real_T Switch;                       /* '<Root>/Switch' */
+  real_T FilterCoefficient_g;          /* '<S103>/Filter Coefficient' */
+  real_T Saturation_p;                 /* '<S107>/Saturation' */
   real_T Gain5;                        /* '<Root>/Gain5' */
   real_T Gain;                         /* '<Root>/Gain' */
-  real_T Power;                        /* '<S7>/Product2' */
-  real_T Gain3;                        /* '<S7>/Gain3' */
-  real_T powerdemand;                  /* '<S7>/Divide' */
-  real_T loadtorque;                   /* '<S7>/Divide1' */
-  real_T Switch;                       /* '<S86>/Switch' */
-  real_T IntegralGain;                 /* '<S39>/Integral Gain' */
-  real_T EnergykWh;                    /* '<S7>/Gain1' */
-  real_T XDOT[40];                     /* '<S7>/MATLAB Function' */
+  real_T Power;                        /* '<S9>/Product2' */
+  real_T Gain3;                        /* '<S9>/Gain3' */
+  real_T powerdemand;                  /* '<S9>/Divide' */
+  real_T loadtorque;                   /* '<S9>/Divide1' */
+  real_T Switch_c;                     /* '<S90>/Switch' */
+  real_T Switch_a;                     /* '<S36>/Switch' */
+  real_T EnergykWh;                    /* '<S9>/Gain1' */
+  real_T XDOT[40];                     /* '<S9>/MATLAB Function' */
   real_T u2;
   real_T Va;
   real_T alpha;
   real_T beta;
   real_T hw;
-  real_T Q_m;
+  real_T Q_k;
   real_T CL_w_OGE;
   real_T CL_h_OGE;
   real_T CL_h_IGE;
@@ -215,14 +223,8 @@ struct B_pid_control_V1_T {
   real_T Cn;
   real_T Vd1;
   real_T Tp1;
-  real_T SignPreSat;                   /* '<S86>/SignPreSat' */
-  real_T ZeroGain;                     /* '<S86>/ZeroGain' */
-  real_T Fg_b_tmp;
-  real_T Fg_b_tmp_c;
-  real_T Fg_b_tmp_k;
-  real_T FE2_b_tmp;
-  real_T Fg_b_tmp_cx;
-  real_T FE2_b_tmp_b;
+  real_T SignPreSat;                   /* '<S36>/SignPreSat' */
+  real_T SignPreSat_o;                 /* '<S90>/SignPreSat' */
   real_T FE_b;
   real_T FE1_b_idx_0;
   real_T FE1_b_idx_1;
@@ -233,195 +235,214 @@ struct B_pid_control_V1_T {
   real_T FA_b_idx_0;
   real_T FA_b_idx_1;
   real_T FA_b_idx_2;
+  real_T FE2_b_c;
+  real_T FE2_b_b;
+  real_T FE2_b_p;
+  SL_Bus_std_msgs_Float64 SourceBlock_o2_l;/* '<S7>/SourceBlock' */
+  SL_Bus_std_msgs_Float64 SourceBlock_o2;/* '<S8>/SourceBlock' */
   uint32_T lengthOut;                  /* '<Root>/MATLAB Function1' */
   uint32_T lengthOut_e;                /* '<Root>/MATLAB Function' */
-  boolean_T AND3;                      /* '<S86>/AND3' */
-  boolean_T Memory;                    /* '<S86>/Memory' */
+  uint8_T stringOut[128];              /* '<Root>/MATLAB Function1' */
+  boolean_T AND3;                      /* '<S90>/AND3' */
+  boolean_T Memory;                    /* '<S90>/Memory' */
+  boolean_T AND3_j;                    /* '<S36>/AND3' */
+  boolean_T Memory_n;                  /* '<S36>/Memory' */
+  boolean_T SourceBlock_o1;            /* '<S8>/SourceBlock' */
+  boolean_T SourceBlock_o1_i;          /* '<S7>/SourceBlock' */
+  B_EnabledSubsystem_pid_contro_T EnabledSubsystem_c;/* '<S8>/Enabled Subsystem' */
+  B_EnabledSubsystem_pid_contro_T EnabledSubsystem;/* '<S7>/Enabled Subsystem' */
 };
 
 /* Block states (default storage) for system '<Root>' */
 struct DW_pid_control_V1_T {
   ros_slros2_internal_block_Ser_T obj; /* '<S2>/ServiceCaller' */
+  ros_slros2_internal_block_Sub_T obj_j;/* '<S8>/SourceBlock' */
+  ros_slros2_internal_block_Sub_T obj_h;/* '<S7>/SourceBlock' */
+  real_T UnitDelay1_DSTATE;            /* '<Root>/Unit Delay1' */
+  real_T UnitDelay_DSTATE;             /* '<Root>/Unit Delay' */
   struct {
     void *LoggedData;
   } ToWorkspace_PWORK;                 /* '<Root>/To Workspace' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace10_PWORK;               /* '<S7>/To Workspace10' */
+  } ToWorkspace10_PWORK;               /* '<S9>/To Workspace10' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace11_PWORK;               /* '<S7>/To Workspace11' */
+  } ToWorkspace11_PWORK;               /* '<S9>/To Workspace11' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace12_PWORK;               /* '<S7>/To Workspace12' */
+  } ToWorkspace12_PWORK;               /* '<S9>/To Workspace12' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace13_PWORK;               /* '<S7>/To Workspace13' */
+  } ToWorkspace13_PWORK;               /* '<S9>/To Workspace13' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace14_PWORK;               /* '<S7>/To Workspace14' */
+  } ToWorkspace14_PWORK;               /* '<S9>/To Workspace14' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace15_PWORK;               /* '<S7>/To Workspace15' */
+  } ToWorkspace15_PWORK;               /* '<S9>/To Workspace15' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace16_PWORK;               /* '<S7>/To Workspace16' */
+  } ToWorkspace16_PWORK;               /* '<S9>/To Workspace16' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace17_PWORK;               /* '<S7>/To Workspace17' */
+  } ToWorkspace17_PWORK;               /* '<S9>/To Workspace17' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace18_PWORK;               /* '<S7>/To Workspace18' */
+  } ToWorkspace18_PWORK;               /* '<S9>/To Workspace18' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace19_PWORK;               /* '<S7>/To Workspace19' */
+  } ToWorkspace19_PWORK;               /* '<S9>/To Workspace19' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace2_PWORK;                /* '<S7>/To Workspace2' */
+  } ToWorkspace2_PWORK;                /* '<S9>/To Workspace2' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace20_PWORK;               /* '<S7>/To Workspace20' */
+  } ToWorkspace20_PWORK;               /* '<S9>/To Workspace20' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace21_PWORK;               /* '<S7>/To Workspace21' */
+  } ToWorkspace21_PWORK;               /* '<S9>/To Workspace21' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace22_PWORK;               /* '<S7>/To Workspace22' */
+  } ToWorkspace22_PWORK;               /* '<S9>/To Workspace22' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace23_PWORK;               /* '<S7>/To Workspace23' */
+  } ToWorkspace23_PWORK;               /* '<S9>/To Workspace23' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace24_PWORK;               /* '<S7>/To Workspace24' */
+  } ToWorkspace24_PWORK;               /* '<S9>/To Workspace24' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace25_PWORK;               /* '<S7>/To Workspace25' */
+  } ToWorkspace25_PWORK;               /* '<S9>/To Workspace25' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace26_PWORK;               /* '<S7>/To Workspace26' */
+  } ToWorkspace26_PWORK;               /* '<S9>/To Workspace26' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace27_PWORK;               /* '<S7>/To Workspace27' */
+  } ToWorkspace27_PWORK;               /* '<S9>/To Workspace27' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace28_PWORK;               /* '<S7>/To Workspace28' */
+  } ToWorkspace28_PWORK;               /* '<S9>/To Workspace28' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace29_PWORK;               /* '<S7>/To Workspace29' */
+  } ToWorkspace29_PWORK;               /* '<S9>/To Workspace29' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace3_PWORK;                /* '<S7>/To Workspace3' */
+  } ToWorkspace3_PWORK;                /* '<S9>/To Workspace3' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace4_PWORK;                /* '<S7>/To Workspace4' */
+  } ToWorkspace4_PWORK;                /* '<S9>/To Workspace4' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace5_PWORK;                /* '<S7>/To Workspace5' */
+  } ToWorkspace5_PWORK;                /* '<S9>/To Workspace5' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace6_PWORK;                /* '<S7>/To Workspace6' */
+  } ToWorkspace6_PWORK;                /* '<S9>/To Workspace6' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace7_PWORK;                /* '<S7>/To Workspace7' */
+  } ToWorkspace7_PWORK;                /* '<S9>/To Workspace7' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace8_PWORK;                /* '<S7>/To Workspace8' */
+  } ToWorkspace8_PWORK;                /* '<S9>/To Workspace8' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace9_PWORK;                /* '<S7>/To Workspace9' */
+  } ToWorkspace9_PWORK;                /* '<S9>/To Workspace9' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace_PWORK_g;               /* '<S7>/To Workspace' */
+  } ToWorkspace_PWORK_g;               /* '<S9>/To Workspace' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace1_PWORK;                /* '<S7>/To Workspace1' */
+  } ToWorkspace1_PWORK;                /* '<S9>/To Workspace1' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace30_PWORK;               /* '<S7>/To Workspace30' */
+  } ToWorkspace30_PWORK;               /* '<S9>/To Workspace30' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace32_PWORK;               /* '<S7>/To Workspace32' */
+  } ToWorkspace32_PWORK;               /* '<S9>/To Workspace32' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace33_PWORK;               /* '<S7>/To Workspace33' */
+  } ToWorkspace33_PWORK;               /* '<S9>/To Workspace33' */
 
   struct {
     void *LoggedData;
-  } ToWorkspace31_PWORK;               /* '<S7>/To Workspace31' */
+  } ToWorkspace31_PWORK;               /* '<S9>/To Workspace31' */
 
   robotics_slcore_internal_bloc_T obj_c;
                              /* '<Root>/Coordinate Transformation Conversion' */
-  boolean_T Memory_PreviousInput;      /* '<S86>/Memory' */
-  boolean_T objisempty;      /* '<Root>/Coordinate Transformation Conversion' */
+  boolean_T Memory_PreviousInput;      /* '<S90>/Memory' */
+  boolean_T Memory_PreviousInput_d;    /* '<S36>/Memory' */
+  boolean_T objisempty;                /* '<S8>/SourceBlock' */
+  boolean_T objisempty_n;              /* '<S7>/SourceBlock' */
+  boolean_T objisempty_d;    /* '<Root>/Coordinate Transformation Conversion' */
   boolean_T objisempty_f;              /* '<S2>/ServiceCaller' */
 };
 
 /* Continuous states (default storage) */
 struct X_pid_control_V1_T {
-  real_T Integrator_CSTATE[12];        /* '<S7>/Integrator' */
-  real_T Integrator_CSTATE_p;          /* '<S42>/Integrator' */
-  real_T Filter_CSTATE;                /* '<S37>/Filter' */
-  real_T Integrator_CSTATE_b;          /* '<S96>/Integrator' */
-  real_T Filter_CSTATE_f;              /* '<S91>/Filter' */
-  real_T Integrator1_CSTATE;           /* '<S7>/Integrator1' */
+  real_T Integrator_CSTATE[12];        /* '<S9>/Integrator' */
+  real_T Integrator_CSTATE_p;          /* '<S46>/Integrator' */
+  real_T Filter_CSTATE;                /* '<S41>/Filter' */
+  real_T Integrator_CSTATE_b;          /* '<S100>/Integrator' */
+  real_T Filter_CSTATE_f;              /* '<S95>/Filter' */
+  real_T Integrator1_CSTATE;           /* '<S9>/Integrator1' */
 };
 
 /* State derivatives (default storage) */
 struct XDot_pid_control_V1_T {
-  real_T Integrator_CSTATE[12];        /* '<S7>/Integrator' */
-  real_T Integrator_CSTATE_p;          /* '<S42>/Integrator' */
-  real_T Filter_CSTATE;                /* '<S37>/Filter' */
-  real_T Integrator_CSTATE_b;          /* '<S96>/Integrator' */
-  real_T Filter_CSTATE_f;              /* '<S91>/Filter' */
-  real_T Integrator1_CSTATE;           /* '<S7>/Integrator1' */
+  real_T Integrator_CSTATE[12];        /* '<S9>/Integrator' */
+  real_T Integrator_CSTATE_p;          /* '<S46>/Integrator' */
+  real_T Filter_CSTATE;                /* '<S41>/Filter' */
+  real_T Integrator_CSTATE_b;          /* '<S100>/Integrator' */
+  real_T Filter_CSTATE_f;              /* '<S95>/Filter' */
+  real_T Integrator1_CSTATE;           /* '<S9>/Integrator1' */
 };
 
 /* State disabled  */
 struct XDis_pid_control_V1_T {
-  boolean_T Integrator_CSTATE[12];     /* '<S7>/Integrator' */
-  boolean_T Integrator_CSTATE_p;       /* '<S42>/Integrator' */
-  boolean_T Filter_CSTATE;             /* '<S37>/Filter' */
-  boolean_T Integrator_CSTATE_b;       /* '<S96>/Integrator' */
-  boolean_T Filter_CSTATE_f;           /* '<S91>/Filter' */
-  boolean_T Integrator1_CSTATE;        /* '<S7>/Integrator1' */
+  boolean_T Integrator_CSTATE[12];     /* '<S9>/Integrator' */
+  boolean_T Integrator_CSTATE_p;       /* '<S46>/Integrator' */
+  boolean_T Filter_CSTATE;             /* '<S41>/Filter' */
+  boolean_T Integrator_CSTATE_b;       /* '<S100>/Integrator' */
+  boolean_T Filter_CSTATE_f;           /* '<S95>/Filter' */
+  boolean_T Integrator1_CSTATE;        /* '<S9>/Integrator1' */
 };
 
 /* Invariant block signals (default storage) */
 struct ConstB_pid_control_V1_T {
-  real_T motorspeed;                   /* '<S7>/Gain2' */
+  real_T motorspeed;                   /* '<S9>/Gain2' */
 };
 
 #ifndef ODE3_INTG
@@ -438,7 +459,7 @@ struct ODE3_IntgData {
 /* Constant parameters (default storage) */
 struct ConstP_pid_control_V1_T {
   /* Expression: x0
-   * Referenced by: '<S7>/Integrator'
+   * Referenced by: '<S9>/Integrator'
    */
   real_T Integrator_IC[12];
 };
@@ -535,7 +556,17 @@ class pid_control_V1
   /* Block Continuous state disabled vector */
   XDis_pid_control_V1_T pid_control_V1_XDis;
 
+  /* private member function(s) for subsystem '<S7>/Enabled Subsystem'*/
+  static void pid_contr_EnabledSubsystem_Init(B_EnabledSubsystem_pid_contro_T
+    *localB);
+  static void pid_control_V1_EnabledSubsystem(boolean_T rtu_Enable, const
+    SL_Bus_std_msgs_Float64 *rtu_In1, B_EnabledSubsystem_pid_contro_T *localB);
+
   /* private member function(s) for subsystem '<Root>'*/
+  void pid_cont_Subscriber_setupImpl_o(const ros_slros2_internal_block_Sub_T
+    *obj);
+  void pid_contro_Subscriber_setupImpl(const ros_slros2_internal_block_Sub_T
+    *obj);
   void pid_con_ServiceCaller_setupImpl(const ros_slros2_internal_block_Ser_T
     *obj);
 
@@ -580,114 +611,120 @@ extern volatile boolean_T runModel;
  * '<S3>'   : 'pid_control_V1/MATLAB Function'
  * '<S4>'   : 'pid_control_V1/MATLAB Function1'
  * '<S5>'   : 'pid_control_V1/PID ELEVATOR'
- * '<S6>'   : 'pid_control_V1/PID MOTORS AlTURA'
- * '<S7>'   : 'pid_control_V1/Subsystem'
- * '<S8>'   : 'pid_control_V1/PID ELEVATOR/Anti-windup'
- * '<S9>'   : 'pid_control_V1/PID ELEVATOR/D Gain'
- * '<S10>'  : 'pid_control_V1/PID ELEVATOR/External Derivative'
- * '<S11>'  : 'pid_control_V1/PID ELEVATOR/Filter'
- * '<S12>'  : 'pid_control_V1/PID ELEVATOR/Filter ICs'
- * '<S13>'  : 'pid_control_V1/PID ELEVATOR/I Gain'
- * '<S14>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain'
- * '<S15>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain Fdbk'
- * '<S16>'  : 'pid_control_V1/PID ELEVATOR/Integrator'
- * '<S17>'  : 'pid_control_V1/PID ELEVATOR/Integrator ICs'
- * '<S18>'  : 'pid_control_V1/PID ELEVATOR/N Copy'
- * '<S19>'  : 'pid_control_V1/PID ELEVATOR/N Gain'
- * '<S20>'  : 'pid_control_V1/PID ELEVATOR/P Copy'
- * '<S21>'  : 'pid_control_V1/PID ELEVATOR/Parallel P Gain'
- * '<S22>'  : 'pid_control_V1/PID ELEVATOR/Reset Signal'
- * '<S23>'  : 'pid_control_V1/PID ELEVATOR/Saturation'
- * '<S24>'  : 'pid_control_V1/PID ELEVATOR/Saturation Fdbk'
- * '<S25>'  : 'pid_control_V1/PID ELEVATOR/Sum'
- * '<S26>'  : 'pid_control_V1/PID ELEVATOR/Sum Fdbk'
- * '<S27>'  : 'pid_control_V1/PID ELEVATOR/Tracking Mode'
- * '<S28>'  : 'pid_control_V1/PID ELEVATOR/Tracking Mode Sum'
- * '<S29>'  : 'pid_control_V1/PID ELEVATOR/Tsamp - Integral'
- * '<S30>'  : 'pid_control_V1/PID ELEVATOR/Tsamp - Ngain'
- * '<S31>'  : 'pid_control_V1/PID ELEVATOR/postSat Signal'
- * '<S32>'  : 'pid_control_V1/PID ELEVATOR/preInt Signal'
- * '<S33>'  : 'pid_control_V1/PID ELEVATOR/preSat Signal'
- * '<S34>'  : 'pid_control_V1/PID ELEVATOR/Anti-windup/Passthrough'
- * '<S35>'  : 'pid_control_V1/PID ELEVATOR/D Gain/Internal Parameters'
- * '<S36>'  : 'pid_control_V1/PID ELEVATOR/External Derivative/Error'
- * '<S37>'  : 'pid_control_V1/PID ELEVATOR/Filter/Cont. Filter'
- * '<S38>'  : 'pid_control_V1/PID ELEVATOR/Filter ICs/Internal IC - Filter'
- * '<S39>'  : 'pid_control_V1/PID ELEVATOR/I Gain/Internal Parameters'
- * '<S40>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain/Passthrough'
- * '<S41>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain Fdbk/Disabled'
- * '<S42>'  : 'pid_control_V1/PID ELEVATOR/Integrator/Continuous'
- * '<S43>'  : 'pid_control_V1/PID ELEVATOR/Integrator ICs/Internal IC'
- * '<S44>'  : 'pid_control_V1/PID ELEVATOR/N Copy/Disabled'
- * '<S45>'  : 'pid_control_V1/PID ELEVATOR/N Gain/Internal Parameters'
- * '<S46>'  : 'pid_control_V1/PID ELEVATOR/P Copy/Disabled'
- * '<S47>'  : 'pid_control_V1/PID ELEVATOR/Parallel P Gain/Internal Parameters'
- * '<S48>'  : 'pid_control_V1/PID ELEVATOR/Reset Signal/Disabled'
- * '<S49>'  : 'pid_control_V1/PID ELEVATOR/Saturation/Passthrough'
- * '<S50>'  : 'pid_control_V1/PID ELEVATOR/Saturation Fdbk/Disabled'
- * '<S51>'  : 'pid_control_V1/PID ELEVATOR/Sum/Sum_PID'
- * '<S52>'  : 'pid_control_V1/PID ELEVATOR/Sum Fdbk/Disabled'
- * '<S53>'  : 'pid_control_V1/PID ELEVATOR/Tracking Mode/Disabled'
- * '<S54>'  : 'pid_control_V1/PID ELEVATOR/Tracking Mode Sum/Passthrough'
- * '<S55>'  : 'pid_control_V1/PID ELEVATOR/Tsamp - Integral/TsSignalSpecification'
- * '<S56>'  : 'pid_control_V1/PID ELEVATOR/Tsamp - Ngain/Passthrough'
- * '<S57>'  : 'pid_control_V1/PID ELEVATOR/postSat Signal/Forward_Path'
- * '<S58>'  : 'pid_control_V1/PID ELEVATOR/preInt Signal/Internal PreInt'
- * '<S59>'  : 'pid_control_V1/PID ELEVATOR/preSat Signal/Forward_Path'
- * '<S60>'  : 'pid_control_V1/PID MOTORS AlTURA/Anti-windup'
- * '<S61>'  : 'pid_control_V1/PID MOTORS AlTURA/D Gain'
- * '<S62>'  : 'pid_control_V1/PID MOTORS AlTURA/External Derivative'
- * '<S63>'  : 'pid_control_V1/PID MOTORS AlTURA/Filter'
- * '<S64>'  : 'pid_control_V1/PID MOTORS AlTURA/Filter ICs'
- * '<S65>'  : 'pid_control_V1/PID MOTORS AlTURA/I Gain'
- * '<S66>'  : 'pid_control_V1/PID MOTORS AlTURA/Ideal P Gain'
- * '<S67>'  : 'pid_control_V1/PID MOTORS AlTURA/Ideal P Gain Fdbk'
- * '<S68>'  : 'pid_control_V1/PID MOTORS AlTURA/Integrator'
- * '<S69>'  : 'pid_control_V1/PID MOTORS AlTURA/Integrator ICs'
- * '<S70>'  : 'pid_control_V1/PID MOTORS AlTURA/N Copy'
- * '<S71>'  : 'pid_control_V1/PID MOTORS AlTURA/N Gain'
- * '<S72>'  : 'pid_control_V1/PID MOTORS AlTURA/P Copy'
- * '<S73>'  : 'pid_control_V1/PID MOTORS AlTURA/Parallel P Gain'
- * '<S74>'  : 'pid_control_V1/PID MOTORS AlTURA/Reset Signal'
- * '<S75>'  : 'pid_control_V1/PID MOTORS AlTURA/Saturation'
- * '<S76>'  : 'pid_control_V1/PID MOTORS AlTURA/Saturation Fdbk'
- * '<S77>'  : 'pid_control_V1/PID MOTORS AlTURA/Sum'
- * '<S78>'  : 'pid_control_V1/PID MOTORS AlTURA/Sum Fdbk'
- * '<S79>'  : 'pid_control_V1/PID MOTORS AlTURA/Tracking Mode'
- * '<S80>'  : 'pid_control_V1/PID MOTORS AlTURA/Tracking Mode Sum'
- * '<S81>'  : 'pid_control_V1/PID MOTORS AlTURA/Tsamp - Integral'
- * '<S82>'  : 'pid_control_V1/PID MOTORS AlTURA/Tsamp - Ngain'
- * '<S83>'  : 'pid_control_V1/PID MOTORS AlTURA/postSat Signal'
- * '<S84>'  : 'pid_control_V1/PID MOTORS AlTURA/preInt Signal'
- * '<S85>'  : 'pid_control_V1/PID MOTORS AlTURA/preSat Signal'
- * '<S86>'  : 'pid_control_V1/PID MOTORS AlTURA/Anti-windup/Cont. Clamping Parallel'
- * '<S87>'  : 'pid_control_V1/PID MOTORS AlTURA/Anti-windup/Cont. Clamping Parallel/Dead Zone'
- * '<S88>'  : 'pid_control_V1/PID MOTORS AlTURA/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
- * '<S89>'  : 'pid_control_V1/PID MOTORS AlTURA/D Gain/Internal Parameters'
- * '<S90>'  : 'pid_control_V1/PID MOTORS AlTURA/External Derivative/Error'
- * '<S91>'  : 'pid_control_V1/PID MOTORS AlTURA/Filter/Cont. Filter'
- * '<S92>'  : 'pid_control_V1/PID MOTORS AlTURA/Filter ICs/Internal IC - Filter'
- * '<S93>'  : 'pid_control_V1/PID MOTORS AlTURA/I Gain/Internal Parameters'
- * '<S94>'  : 'pid_control_V1/PID MOTORS AlTURA/Ideal P Gain/Passthrough'
- * '<S95>'  : 'pid_control_V1/PID MOTORS AlTURA/Ideal P Gain Fdbk/Disabled'
- * '<S96>'  : 'pid_control_V1/PID MOTORS AlTURA/Integrator/Continuous'
- * '<S97>'  : 'pid_control_V1/PID MOTORS AlTURA/Integrator ICs/Internal IC'
- * '<S98>'  : 'pid_control_V1/PID MOTORS AlTURA/N Copy/Disabled'
- * '<S99>'  : 'pid_control_V1/PID MOTORS AlTURA/N Gain/Internal Parameters'
- * '<S100>' : 'pid_control_V1/PID MOTORS AlTURA/P Copy/Disabled'
- * '<S101>' : 'pid_control_V1/PID MOTORS AlTURA/Parallel P Gain/Internal Parameters'
- * '<S102>' : 'pid_control_V1/PID MOTORS AlTURA/Reset Signal/Disabled'
- * '<S103>' : 'pid_control_V1/PID MOTORS AlTURA/Saturation/Enabled'
- * '<S104>' : 'pid_control_V1/PID MOTORS AlTURA/Saturation Fdbk/Disabled'
- * '<S105>' : 'pid_control_V1/PID MOTORS AlTURA/Sum/Sum_PID'
- * '<S106>' : 'pid_control_V1/PID MOTORS AlTURA/Sum Fdbk/Disabled'
- * '<S107>' : 'pid_control_V1/PID MOTORS AlTURA/Tracking Mode/Disabled'
- * '<S108>' : 'pid_control_V1/PID MOTORS AlTURA/Tracking Mode Sum/Passthrough'
- * '<S109>' : 'pid_control_V1/PID MOTORS AlTURA/Tsamp - Integral/TsSignalSpecification'
- * '<S110>' : 'pid_control_V1/PID MOTORS AlTURA/Tsamp - Ngain/Passthrough'
- * '<S111>' : 'pid_control_V1/PID MOTORS AlTURA/postSat Signal/Forward_Path'
- * '<S112>' : 'pid_control_V1/PID MOTORS AlTURA/preInt Signal/Internal PreInt'
- * '<S113>' : 'pid_control_V1/PID MOTORS AlTURA/preSat Signal/Forward_Path'
- * '<S114>' : 'pid_control_V1/Subsystem/MATLAB Function'
+ * '<S6>'   : 'pid_control_V1/PID MOTORS ALTURA'
+ * '<S7>'   : 'pid_control_V1/Subscribe'
+ * '<S8>'   : 'pid_control_V1/Subscribe1'
+ * '<S9>'   : 'pid_control_V1/Subsystem'
+ * '<S10>'  : 'pid_control_V1/PID ELEVATOR/Anti-windup'
+ * '<S11>'  : 'pid_control_V1/PID ELEVATOR/D Gain'
+ * '<S12>'  : 'pid_control_V1/PID ELEVATOR/External Derivative'
+ * '<S13>'  : 'pid_control_V1/PID ELEVATOR/Filter'
+ * '<S14>'  : 'pid_control_V1/PID ELEVATOR/Filter ICs'
+ * '<S15>'  : 'pid_control_V1/PID ELEVATOR/I Gain'
+ * '<S16>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain'
+ * '<S17>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain Fdbk'
+ * '<S18>'  : 'pid_control_V1/PID ELEVATOR/Integrator'
+ * '<S19>'  : 'pid_control_V1/PID ELEVATOR/Integrator ICs'
+ * '<S20>'  : 'pid_control_V1/PID ELEVATOR/N Copy'
+ * '<S21>'  : 'pid_control_V1/PID ELEVATOR/N Gain'
+ * '<S22>'  : 'pid_control_V1/PID ELEVATOR/P Copy'
+ * '<S23>'  : 'pid_control_V1/PID ELEVATOR/Parallel P Gain'
+ * '<S24>'  : 'pid_control_V1/PID ELEVATOR/Reset Signal'
+ * '<S25>'  : 'pid_control_V1/PID ELEVATOR/Saturation'
+ * '<S26>'  : 'pid_control_V1/PID ELEVATOR/Saturation Fdbk'
+ * '<S27>'  : 'pid_control_V1/PID ELEVATOR/Sum'
+ * '<S28>'  : 'pid_control_V1/PID ELEVATOR/Sum Fdbk'
+ * '<S29>'  : 'pid_control_V1/PID ELEVATOR/Tracking Mode'
+ * '<S30>'  : 'pid_control_V1/PID ELEVATOR/Tracking Mode Sum'
+ * '<S31>'  : 'pid_control_V1/PID ELEVATOR/Tsamp - Integral'
+ * '<S32>'  : 'pid_control_V1/PID ELEVATOR/Tsamp - Ngain'
+ * '<S33>'  : 'pid_control_V1/PID ELEVATOR/postSat Signal'
+ * '<S34>'  : 'pid_control_V1/PID ELEVATOR/preInt Signal'
+ * '<S35>'  : 'pid_control_V1/PID ELEVATOR/preSat Signal'
+ * '<S36>'  : 'pid_control_V1/PID ELEVATOR/Anti-windup/Cont. Clamping Parallel'
+ * '<S37>'  : 'pid_control_V1/PID ELEVATOR/Anti-windup/Cont. Clamping Parallel/Dead Zone'
+ * '<S38>'  : 'pid_control_V1/PID ELEVATOR/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
+ * '<S39>'  : 'pid_control_V1/PID ELEVATOR/D Gain/Internal Parameters'
+ * '<S40>'  : 'pid_control_V1/PID ELEVATOR/External Derivative/Error'
+ * '<S41>'  : 'pid_control_V1/PID ELEVATOR/Filter/Cont. Filter'
+ * '<S42>'  : 'pid_control_V1/PID ELEVATOR/Filter ICs/Internal IC - Filter'
+ * '<S43>'  : 'pid_control_V1/PID ELEVATOR/I Gain/Internal Parameters'
+ * '<S44>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain/Passthrough'
+ * '<S45>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain Fdbk/Disabled'
+ * '<S46>'  : 'pid_control_V1/PID ELEVATOR/Integrator/Continuous'
+ * '<S47>'  : 'pid_control_V1/PID ELEVATOR/Integrator ICs/Internal IC'
+ * '<S48>'  : 'pid_control_V1/PID ELEVATOR/N Copy/Disabled'
+ * '<S49>'  : 'pid_control_V1/PID ELEVATOR/N Gain/Internal Parameters'
+ * '<S50>'  : 'pid_control_V1/PID ELEVATOR/P Copy/Disabled'
+ * '<S51>'  : 'pid_control_V1/PID ELEVATOR/Parallel P Gain/Internal Parameters'
+ * '<S52>'  : 'pid_control_V1/PID ELEVATOR/Reset Signal/Disabled'
+ * '<S53>'  : 'pid_control_V1/PID ELEVATOR/Saturation/Enabled'
+ * '<S54>'  : 'pid_control_V1/PID ELEVATOR/Saturation Fdbk/Disabled'
+ * '<S55>'  : 'pid_control_V1/PID ELEVATOR/Sum/Sum_PID'
+ * '<S56>'  : 'pid_control_V1/PID ELEVATOR/Sum Fdbk/Disabled'
+ * '<S57>'  : 'pid_control_V1/PID ELEVATOR/Tracking Mode/Disabled'
+ * '<S58>'  : 'pid_control_V1/PID ELEVATOR/Tracking Mode Sum/Passthrough'
+ * '<S59>'  : 'pid_control_V1/PID ELEVATOR/Tsamp - Integral/TsSignalSpecification'
+ * '<S60>'  : 'pid_control_V1/PID ELEVATOR/Tsamp - Ngain/Passthrough'
+ * '<S61>'  : 'pid_control_V1/PID ELEVATOR/postSat Signal/Forward_Path'
+ * '<S62>'  : 'pid_control_V1/PID ELEVATOR/preInt Signal/Internal PreInt'
+ * '<S63>'  : 'pid_control_V1/PID ELEVATOR/preSat Signal/Forward_Path'
+ * '<S64>'  : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup'
+ * '<S65>'  : 'pid_control_V1/PID MOTORS ALTURA/D Gain'
+ * '<S66>'  : 'pid_control_V1/PID MOTORS ALTURA/External Derivative'
+ * '<S67>'  : 'pid_control_V1/PID MOTORS ALTURA/Filter'
+ * '<S68>'  : 'pid_control_V1/PID MOTORS ALTURA/Filter ICs'
+ * '<S69>'  : 'pid_control_V1/PID MOTORS ALTURA/I Gain'
+ * '<S70>'  : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain'
+ * '<S71>'  : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain Fdbk'
+ * '<S72>'  : 'pid_control_V1/PID MOTORS ALTURA/Integrator'
+ * '<S73>'  : 'pid_control_V1/PID MOTORS ALTURA/Integrator ICs'
+ * '<S74>'  : 'pid_control_V1/PID MOTORS ALTURA/N Copy'
+ * '<S75>'  : 'pid_control_V1/PID MOTORS ALTURA/N Gain'
+ * '<S76>'  : 'pid_control_V1/PID MOTORS ALTURA/P Copy'
+ * '<S77>'  : 'pid_control_V1/PID MOTORS ALTURA/Parallel P Gain'
+ * '<S78>'  : 'pid_control_V1/PID MOTORS ALTURA/Reset Signal'
+ * '<S79>'  : 'pid_control_V1/PID MOTORS ALTURA/Saturation'
+ * '<S80>'  : 'pid_control_V1/PID MOTORS ALTURA/Saturation Fdbk'
+ * '<S81>'  : 'pid_control_V1/PID MOTORS ALTURA/Sum'
+ * '<S82>'  : 'pid_control_V1/PID MOTORS ALTURA/Sum Fdbk'
+ * '<S83>'  : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode'
+ * '<S84>'  : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode Sum'
+ * '<S85>'  : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Integral'
+ * '<S86>'  : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Ngain'
+ * '<S87>'  : 'pid_control_V1/PID MOTORS ALTURA/postSat Signal'
+ * '<S88>'  : 'pid_control_V1/PID MOTORS ALTURA/preInt Signal'
+ * '<S89>'  : 'pid_control_V1/PID MOTORS ALTURA/preSat Signal'
+ * '<S90>'  : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup/Cont. Clamping Parallel'
+ * '<S91>'  : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup/Cont. Clamping Parallel/Dead Zone'
+ * '<S92>'  : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
+ * '<S93>'  : 'pid_control_V1/PID MOTORS ALTURA/D Gain/Internal Parameters'
+ * '<S94>'  : 'pid_control_V1/PID MOTORS ALTURA/External Derivative/Error'
+ * '<S95>'  : 'pid_control_V1/PID MOTORS ALTURA/Filter/Cont. Filter'
+ * '<S96>'  : 'pid_control_V1/PID MOTORS ALTURA/Filter ICs/Internal IC - Filter'
+ * '<S97>'  : 'pid_control_V1/PID MOTORS ALTURA/I Gain/Internal Parameters'
+ * '<S98>'  : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain/Passthrough'
+ * '<S99>'  : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain Fdbk/Disabled'
+ * '<S100>' : 'pid_control_V1/PID MOTORS ALTURA/Integrator/Continuous'
+ * '<S101>' : 'pid_control_V1/PID MOTORS ALTURA/Integrator ICs/Internal IC'
+ * '<S102>' : 'pid_control_V1/PID MOTORS ALTURA/N Copy/Disabled'
+ * '<S103>' : 'pid_control_V1/PID MOTORS ALTURA/N Gain/Internal Parameters'
+ * '<S104>' : 'pid_control_V1/PID MOTORS ALTURA/P Copy/Disabled'
+ * '<S105>' : 'pid_control_V1/PID MOTORS ALTURA/Parallel P Gain/Internal Parameters'
+ * '<S106>' : 'pid_control_V1/PID MOTORS ALTURA/Reset Signal/Disabled'
+ * '<S107>' : 'pid_control_V1/PID MOTORS ALTURA/Saturation/Enabled'
+ * '<S108>' : 'pid_control_V1/PID MOTORS ALTURA/Saturation Fdbk/Disabled'
+ * '<S109>' : 'pid_control_V1/PID MOTORS ALTURA/Sum/Sum_PID'
+ * '<S110>' : 'pid_control_V1/PID MOTORS ALTURA/Sum Fdbk/Disabled'
+ * '<S111>' : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode/Disabled'
+ * '<S112>' : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode Sum/Passthrough'
+ * '<S113>' : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Integral/TsSignalSpecification'
+ * '<S114>' : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Ngain/Passthrough'
+ * '<S115>' : 'pid_control_V1/PID MOTORS ALTURA/postSat Signal/Forward_Path'
+ * '<S116>' : 'pid_control_V1/PID MOTORS ALTURA/preInt Signal/Internal PreInt'
+ * '<S117>' : 'pid_control_V1/PID MOTORS ALTURA/preSat Signal/Forward_Path'
+ * '<S118>' : 'pid_control_V1/Subscribe/Enabled Subsystem'
+ * '<S119>' : 'pid_control_V1/Subscribe1/Enabled Subsystem'
+ * '<S120>' : 'pid_control_V1/Subsystem/MATLAB Function'
  */
 #endif                                 /* pid_control_V1_h_ */

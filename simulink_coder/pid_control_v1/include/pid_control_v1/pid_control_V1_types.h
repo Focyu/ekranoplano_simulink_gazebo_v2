@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.32
+ * Model version              : 12.34
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Sun Mar  1 19:52:56 2026
+ * C++ source code generated on : Mon Mar  2 12:12:10 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -125,6 +125,16 @@ struct SL_Bus_gazebo_msgs_SetEntityStateResponse
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_SL_Bus_std_msgs_Float64_
+#define DEFINED_TYPEDEF_FOR_SL_Bus_std_msgs_Float64_
+
+struct SL_Bus_std_msgs_Float64
+{
+  real_T data;
+};
+
+#endif
+
 #ifndef struct_sJ4ih70VmKcvCeguWN0mNVF
 #define struct_sJ4ih70VmKcvCeguWN0mNVF
 
@@ -158,6 +168,19 @@ struct robotics_slcore_internal_bloc_T
 };
 
 #endif                              /* struct_robotics_slcore_internal_bloc_T */
+
+#ifndef struct_ros_slros2_internal_block_Sub_T
+#define struct_ros_slros2_internal_block_Sub_T
+
+struct ros_slros2_internal_block_Sub_T
+{
+  boolean_T matlabCodegenIsDeleted;
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  boolean_T QOSAvoidROSNamespaceConventions;
+};
+
+#endif                              /* struct_ros_slros2_internal_block_Sub_T */
 
 /* Forward declaration for rtModel */
 typedef struct tag_RTM_pid_control_V1_T RT_MODEL_pid_control_V1_T;

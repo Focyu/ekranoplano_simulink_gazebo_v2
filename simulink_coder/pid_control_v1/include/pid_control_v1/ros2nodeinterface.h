@@ -4,9 +4,9 @@
 //
 // Code generated for Simulink model 'pid_control_V1'.
 //
-// Model version                  : 12.32
+// Model version                  : 12.34
 // Simulink Coder version         : 25.2 (R2025b) 28-Jul-2025
-// C/C++ source code generated on : Sun Mar 01 19:53:20 2026
+// C/C++ source code generated on : Mon Mar 02 12:12:26 2026
 //
 #ifndef _ROS2_MATLAB_NODEINTERFACE_
 #define _ROS2_MATLAB_NODEINTERFACE_
@@ -35,6 +35,7 @@ class pid_control_V1;
 #include "pid_control_V1_types.h"
 #include "rtwtypes.h"
 #include "gazebo_msgs/srv/set_entity_state.hpp"
+#include "std_msgs/msg/float64.hpp"
 #include "std_msgs/msg/bool.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "rosgraph_msgs/msg/clock.hpp"
