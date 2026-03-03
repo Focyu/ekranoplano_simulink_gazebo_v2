@@ -57,7 +57,7 @@ Kd_yaw = -5.0;
 % 4. Lazo de Alerones (Estabilización de Alabeo / Roll)
 phi_sp = 0.0; % Setpoint crítico: 0 radianes (alas siempre horizontales)
 % Ganancias iniciales para los Ailerons. Deben ser rápidas para rechazar la perturbación del timón.
-Kp_roll = -20.0;   
+Kp_roll = -15.0;   
 Ki_roll = -1.0;  
 Kd_roll = -10.0;   
 

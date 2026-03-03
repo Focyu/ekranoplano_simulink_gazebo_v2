@@ -117,10 +117,6 @@ end
 
 %-------------INTERMEDIATE VARIABLES-----------------------------
 
-% Va = sqrt(x1^2+ x2^2 +x3^2);   %true airspeed
-% 
-% alpha = atan2(x3,x1); % alpha
-% beta = asin(x2/Va);   %beta
 %% When Va = Vg + Vw
 u = x1; %
 v = x2; 
@@ -149,8 +145,7 @@ u_wg = 0;
 v_wg = 0;
 w_wg = 0;
 Vb_w = Rb_v*[w_ns;w_es;w_ds]+[u_wg;v_wg;w_wg];
-% Va = Vg-Vw; 
-% Va_b = [ur;vr;wr] = [u-u_w;v-v_w;w-w_w];
+
 Va_b = [Vb_g(1)-Vb_w(1);Vb_g(2)-Vb_w(2);Vb_g(3)-Vb_w(3)];
 
 u_r = Va_b(1);
@@ -160,10 +155,8 @@ w_r = Va_b(3);
 Va = sqrt(u_r^2+v_r^2+w_r^2);
 alpha = atan2(w_r,u_r);
 beta = asin(v_r/Va);
-%%
+
 h = -x12;
-% hw = h-zw; % wing below CG -> h-offset
-% hh = h+zh; % tail above CG -> h+offset
 hw = max(0.001, h - zw); % Límite de seguridad para IGE
 hh = max(0.001, h + zh); % Límite de seguridad para IGE
 
@@ -180,8 +173,16 @@ mu_Lh = 1 + (1 - 2.25 * (TRh^0.00273 - 0.997)*((ARh^0.717)+13.6))*(288 * abs(hh/
 
 C_L_e = -0.00141*u2^2+0.0307*u2;
 
+% Derivada del downwash (Aproximación lineal para alas rectas)
+deps_dalpha = 0.35; 
+
+% El downwash dinámico incluye el retraso de fase (lt/Va * q)
+eps = deps_dalpha * (alpha - alpha_0w) + deps_dalpha * (lt/Va) * x5;
+
 CL_w_OGE = 2*pi*(ARw/(ARw+2))*(alpha-alpha_0w+iw);
-CL_h_OGE = 2*pi*(ARh/(ARh+2))*(alpha-alpha_0h+ih+eps);
+
+% Restamos el downwash dinámico (eps) al ángulo de ataque de la cola
+CL_h_OGE = 2*pi*(ARh/(ARh+2))*(alpha-alpha_0h+ih-eps);
 
 CL_w_IGE = CL_w_OGE*mu_Lw;
 CL_h_IGE = (CL_h_OGE + C_L_e)*mu_Lh;
@@ -208,76 +209,25 @@ Dtot = 0.5*rho*Va^2*(CD_0*Sw + CD_iw_IGE*Sw + CD_ih_IGE*Sh + C_D_e*Sh);
 CQ = -0.019*beta*180/pi; % steady-state
 
 LD_ratio = Ltot/Dtot;
-%%
-%CL_wingbody
-% if alpha<=alpha_switch
-%     CL_wb = n*(alpha -alpha_L0);
-% else
-%     CL_wb = a3*alpha^3 + a2*alpha^2 + a1*alpha + a0;
-% end
-% 
-% %CL_tail
-% epsilon = depsda*(alpha - alpha_L0);
-% alpha_t = alpha - epsilon + u2 + 1.3*x5*lt/Va;
-% CL_t = 3.1*(St/Sw)*alpha_t;
-% 
-% %Total Lift coefficient
-% CL = CL_wb + CL_t;
-% 
-% %Total Drag force
-% CD = 0.13 + 0.07*(5.5*alpha + 0.654)^2;
-% 
-% %Side forces
-% CY = -1.6*beta + 0.24*u3;
 
 %------------------------4. Dimensional Aero Forces--------------------
 
 % Actual dimensional forces in F_s (Stability axis)
 
-% FA_s = [-CD*Q*Sw;
-%          CQ*Q*Sw;
-%         -CL*Q*Sw];
+
 FA_s = [-Dtot;
          CQ*Q*Sw;
         -Ltot];
 
 % Rotate forces to F_b (body axis)
-
-C_bs = [cos(alpha) 0 -sin(alpha);0 1 0;sin(alpha) 0 cos(alpha)];   % rotation matrix
+C_bs = [cos(alpha)  0  -sin(alpha);
+        0           1   0;
+        sin(alpha)  0   cos(alpha)];
 
 % Sequential Rotations
-% Rotation about the z-axis (sideslip angle, beta): 
-% R_z = [cos(beta), sin(beta), 0; 
-%        -sin(beta), cos(beta), 0; 
-%        0, 0, 1];
-% % Rotation about the y-axis (angle of attack, alpha):
-% R_y = [cos(alpha), 0, -sin(alpha); 
-%        0, 1, 0;  
-%        sin(alpha), 0, cos(alpha)];
-% Raero→body = Ry(α)⋅Rz(β)
-% C_bs = R_y*R_z;
+
 FA_b = C_bs*FA_s;
 
-%------------------------5. Aero Moment Coefficient about AC--------------
-%calculate moments in F_b
-
-% eta11 = -1.4*beta;
-% eta21 = -0.59 - (3.1*(St*lt)/(Sw*cbar))*(alpha - epsilon);
-% eta31 = (1-alpha*(180/(15*pi)))*beta;
-% 
-% eta = [eta11;eta21;eta31];
-% 
-% dCMdx = (cbar/Va)*[-11 0 5;0 (-4.03*(St*lt^2)/(Sw*cbar^2)) 0;1.7 0 -11.5];
-% 
-% dCMdu = [-0.6 0 0.22;0 (-3.1*(St*lt)/(Sw*cbar)) 0;0 0 -0.63];
-% 
-% % CM = [Cl;Cm;Cn] about Aero center in F_b
-% CMac_b = eta + dCMdx*wbe_b + dCMdu*[u1;u2;u3];
-
-% % steady-state version Sim
-% Cl = -0.0005*beta*180/pi;
-% Cm = -0.02*alpha*180/pi;
-% Cn = -0.002*beta*180/pi;
 %------------------ Cálculo de Torques Aerodinámicos ------------------
 % Parámetros de estabilidad longitudinal (usando Radianes para la dinámica pura)
 Cm_alpha = -1.14; % Equivalente aproximado a -0.02 * 180/pi
@@ -285,7 +235,6 @@ Cm_q = -5.0;      % Amortiguación del cabeceo
 Cm_de = -3.0;     % Autoridad del elevador (mantenemos esto en radianes también para consistencia)
 
 % Factor de Momento por Efecto Suelo (Pitch-down moment debido al AC shift)
-% A medida que hw/bw se acerca a 0, el momento de cabeceo negativo aumenta.
 Cm_h = 0.05;      % Constante empírica del desplazamiento del AC
 Delta_Cm_IGE = -Cm_h * exp(-4.0 * abs(hw/bw)); % Momento inducido por el suelo
 
@@ -301,19 +250,6 @@ CMac_b = [Cl;Cm;Cn];% steady-state
 MAcg_b = CMac_b.*[bw*Q*Sw;cbar*Q*Sw;bw*Q*Sw];
 
 %-------------------------8. Engine Force & Moment-------------------------
-
-%Assuming engine thrust is aligned with body frame
-% F1=u4*m*g;
-% F2=u5*m*g;
-% FE1_b = [F1;
-%         0;
-%         0];
-% FE2_b = [F2;
-%         0;
-%         0];
-
-% FE_b = FE1_b + FE2_b;
-
 %propeller thrust - Fitzpatrick model for ACP 25x12.5E
 km = 39.51;% motor constant [m/s] torque/sqrt(power) - ne znam
 Cp = 0.57;% efficientcy factor
@@ -354,25 +290,39 @@ g_b = [-g*sin(x8);g*cos(x8)*sin(x7);g*cos(x8)*cos(x7)];
 Fg_b = m*g_b;
 
 %----------------------------10. State Derivatives------------------------
-%Inertia Matrix
-Ib = [39.71 0 8.97;
-      0 85.51 0;
-      8.97 0 114.39];
-invIb = inv(Ib);
-           
+%=====UPGRADRE==========
+% Fuerzas traslacionales
 F_b = Fg_b + FE_b + FA_b;
 x1to3dot = (1/m)*F_b - cross(wbe_b,V_b);
 
+% Dinámica Rotacional (Ecuaciones de Euler con producto de inercia Ixz)
+Ixx = 39.71;
+Iyy = 85.51;
+Izz = 114.39;
+Ixz = 8.97;
+
+Gamma = Ixx*Izz - Ixz^2; 
+
+p = wbe_b(1);
+q = wbe_b(2);
+r = wbe_b(3);
+
 Mcg_b = MAcg_b + MEcg_b;
-x4to6dot = invIb*(Mcg_b - cross(wbe_b,Ib*wbe_b));
+L = Mcg_b(1);
+M = Mcg_b(2);
+N = Mcg_b(3);
+
+p_dot = (Izz*L + Ixz*N - (Ixz*(Iyy - Ixx - Izz)*p + (Ixz^2 + Izz*(Izz - Iyy))*r)*q) / Gamma;
+q_dot = (M - (Ixx - Izz)*p*r - Ixz*(p^2 - r^2)) / Iyy;
+r_dot = (Ixz*L + Ixx*N + (Ixz*(Iyy - Ixx - Izz)*r + (Ixz^2 + Ixx*(Ixx - Iyy))*p)*q) / Gamma;
+
+x4to6dot = [p_dot; q_dot; r_dot];
+
 
 H_phi = [1 sin(x7)*tan(x8) cos(x7)*tan(x8);
          0 cos(x7) -sin(x7);
          0 sin(x7)/cos(x8) cos(x7)/cos(x8)];
-%MFS
-% H_phi = [1 0 0;
-%          0 cos(alpha) -sin(beta);
-%          0 sin(alpha) cos(alpha)];
+
 x7to9dot = H_phi*wbe_b;
 x10to12dot = rot_body_to_ned(X(1:9));
 XDOT = [x1to3dot;
