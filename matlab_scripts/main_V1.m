@@ -47,7 +47,7 @@ Ki_h = 0.02;
 Kd_h = 0.25;
 
 % 3. Lazo de Timón (Control de Dirección / Yaw)
-psi_sp = 15.0 * (pi/180); % Setpoint: Ejemplo de giro de 15 grados
+psi_sp = 0 * (pi/180); % Setpoint
 % Ganancias iniciales para el Rudder (Timón). 
 % Nota: El signo puede requerir inversión (+ o -) dependiendo de la convención aerodinámica de tu Modelo.
 Kp_yaw = -15.0;   
