@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.37
+ * Model version              : 12.40
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Mon Mar  2 19:08:57 2026
+ * C++ source code generated on : Tue Mar  3 00:38:24 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -1507,9 +1507,6 @@ void pid_control_V1::initialize()
 
   /* InitializeConditions for Integrator: '<S96>/Filter' */
   pid_control_V1_X.Filter_CSTATE = 0.0;
-
-  /* InitializeConditions for UnitDelay: '<Root>/Unit Delay2' */
-  pid_control_V1_DW.UnitDelay2_DSTATE = 0.26179938779914941;
 
   /* InitializeConditions for Integrator: '<S207>/Integrator' */
   pid_control_V1_X.Integrator_CSTATE_d = 0.0;
