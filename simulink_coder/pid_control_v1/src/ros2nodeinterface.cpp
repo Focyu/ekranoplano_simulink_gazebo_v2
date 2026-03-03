@@ -4,9 +4,9 @@
 //
 // Code generated for Simulink model 'pid_control_V1'.
 //
-// Model version                  : 12.34
+// Model version                  : 12.37
 // Simulink Coder version         : 25.2 (R2025b) 28-Jul-2025
-// C/C++ source code generated on : Mon Mar 02 12:12:26 2026
+// C/C++ source code generated on : Mon Mar 02 19:09:15 2026
 //
 #ifdef _MSC_VER
 #pragma warning(push)
