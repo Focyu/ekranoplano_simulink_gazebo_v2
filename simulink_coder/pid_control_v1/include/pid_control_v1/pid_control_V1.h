@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.40
+ * Model version              : 12.52
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Tue Mar  3 00:38:24 2026
+ * C++ source code generated on : Tue Mar  3 15:30:29 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -28,14 +28,7 @@
 extern "C"
 {
 
-#include "rtGetInf.h"
-
-}
-
-extern "C"
-{
-
-#include "rtGetNaN.h"
+#include "rt_nonfinite.h"
 
 }
 
@@ -44,7 +37,14 @@ extern "C"
 extern "C"
 {
 
-#include "rt_nonfinite.h"
+#include "rtGetInf.h"
+
+}
+
+extern "C"
+{
+
+#include "rtGetNaN.h"
 
 }
 
@@ -179,84 +179,111 @@ struct B_EnabledSubsystem_pid_contro_T {
 /* Block signals (default storage) */
 struct B_pid_control_V1_T {
   SL_Bus_gazebo_msgs_SetEntityStateRequest BusAssignment;/* '<Root>/Bus Assignment' */
-  real_T x[12];                        /* '<S12>/Integrator' */
+  uint8_T stringOut_l[128];            /* '<Root>/MATLAB Function' */
+  real_T RotationAnglestoDirectionCo[9];
+                        /* '<S12>/Rotation Angles to Direction Cosine Matrix' */
   real_T FA_b_tmp[9];
+  real_T b_x[9];
   real_T TmpSignalConversionAtSFunct[5];/* '<S12>/MATLAB Function' */
   char_T b_zeroDelimTopic[25];
   real_T wbe_b[3];
-  real_T FE2_b[3];
   real_T F_b[3];
-  real_T Q[3];
+  real_T Dtot[3];
   char_T b_zeroDelimTopic_m[17];
   char_T b_zeroDelimTopic_c[16];
   sJ4ih70VmKcvCeguWN0mNVF deadline;
+  real_T frac[2];
   real_T dv[2];
-  real_T Switch1;                      /* '<Root>/Switch1' */
+  real_T Switch;                       /* '<Root>/Switch' */
+  real_T x[12];                        /* '<S12>/Integrator' */
+  real_T Gain;                         /* '<Root>/Gain' */
   real_T FilterCoefficient;            /* '<S104>/Filter Coefficient' */
   real_T Saturation;                   /* '<S108>/Saturation' */
+  real_T Saturation1;                  /* '<Root>/Saturation1' */
+  real_T FilterCoefficient_c;          /* '<S50>/Filter Coefficient' */
+  real_T Saturation_k;                 /* '<S54>/Saturation' */
   real_T Switch2;                      /* '<Root>/Switch2' */
   real_T FilterCoefficient_p;          /* '<S210>/Filter Coefficient' */
   real_T Saturation_m;                 /* '<S214>/Saturation' */
-  real_T FilterCoefficient_c;          /* '<S50>/Filter Coefficient' */
-  real_T Saturation_k;                 /* '<S54>/Saturation' */
-  real_T Switch;                       /* '<Root>/Switch' */
-  real_T FilterCoefficient_g;          /* '<S158>/Filter Coefficient' */
-  real_T Saturation_p;                 /* '<S162>/Saturation' */
+  real_T Switch1;                      /* '<Root>/Switch1' */
+  real_T FilterCoefficient_m;          /* '<S158>/Filter Coefficient' */
+  real_T Saturation_f;                 /* '<S162>/Saturation' */
   real_T Gain5;                        /* '<Root>/Gain5' */
-  real_T Gain;                         /* '<Root>/Gain' */
+  real_T SumI4;                        /* '<S39>/SumI4' */
+  real_T Switch_c;                     /* '<S91>/Switch' */
+  real_T Switch_a;                     /* '<S145>/Switch' */
+  real_T IntegralGain;                 /* '<S204>/Integral Gain' */
+  real_T Memory[3];                    /* '<S12>/Memory' */
+  real_T Memory1[3];                   /* '<S12>/Memory1' */
   real_T Power;                        /* '<S12>/Product2' */
   real_T Gain3;                        /* '<S12>/Gain3' */
+  real_T EnergykWh;                    /* '<S12>/Gain1' */
   real_T powerdemand;                  /* '<S12>/Divide' */
   real_T loadtorque;                   /* '<S12>/Divide1' */
-  real_T Switch_c;                     /* '<S145>/Switch' */
-  real_T IntegralGain;                 /* '<S44>/Integral Gain' */
-  real_T IntegralGain_a;               /* '<S204>/Integral Gain' */
-  real_T Switch_a;                     /* '<S91>/Switch' */
-  real_T EnergykWh;                    /* '<S12>/Gain1' */
+  real_T Product[4];                   /* '<S241>/Product' */
+  real_T Merge[3];                     /* '<S253>/Merge' */
+  real_T UnitConversion[3];            /* '<S228>/Unit Conversion' */
   real_T XDOT[40];                     /* '<S12>/MATLAB Function' */
+  real_T w[2];                         /* '<S247>/w' */
+  real_T w_a[2];                       /* '<S247>/w ' */
+  real_T LwgV1[2];                     /* '<S247>/Lwg//V 1' */
+  real_T w_g[2];                       /* '<S246>/w' */
+  real_T w_e[2];                       /* '<S246>/w ' */
+  real_T w1[2];                        /* '<S246>/w 1' */
+  real_T w_n[2];                       /* '<S245>/w' */
+  real_T w1_c[2];                      /* '<S245>/w1' */
+  real_T w_d[2];                       /* '<S244>/w' */
+  real_T w_e0[2];                      /* '<S243>/w' */
+  real_T UnaryMinus[2];                /* '<S243>/Unary Minus' */
+  real_T w_o[2];                       /* '<S242>/w' */
+  real_T sigma_w[2];                   /* '<S242>/sigma_w' */
   real_T u2;
   real_T Va;
-  real_T alpha;
-  real_T beta;
-  real_T hw;
-  real_T Q_k;
-  real_T CL_w_OGE;
-  real_T CL_h_OGE;
-  real_T CL_h_IGE;
-  real_T CD_iw_IGE;
-  real_T CD_ih_IGE;
-  real_T CQ;
+  real_T Q;
   real_T Cl;
   real_T Cn;
   real_T Vd1;
   real_T Tp1;
+  real_T Tp2;
+  real_T sina;
+  real_T sinb;
+  real_T sinc;
+  real_T cosa;
+  real_T cosb;
+  real_T cosc;
   real_T SignPreSat;                   /* '<S91>/SignPreSat' */
+  real_T Sum4;                         /* '<Root>/Sum4' */
+  real_T Sum_ks;                       /* '<S56>/Sum' */
   real_T Sum5;                         /* '<Root>/Sum5' */
-  real_T SignPreSat_o;                 /* '<S145>/SignPreSat' */
-  real_T FE_b;
-  real_T FE1_b_idx_0;
+  real_T SignPreSat_j;                 /* '<S145>/SignPreSat' */
   real_T FE1_b_idx_1;
-  real_T FE1_b_idx_2;
-  real_T Mcg_b_idx_0;
   real_T Mcg_b_idx_2;
+  real_T Mcg_b_idx_0;
+  real_T FE2_b_idx_0;
+  real_T FE2_b_idx_2;
+  real_T Fg_b_idx_2;
+  real_T Fg_b_idx_1;
   real_T FE_b_idx_0;
   real_T FA_b_idx_0;
+  real_T unnamed_idx_1;
   real_T FA_b_idx_1;
+  real_T unnamed_idx_2;
   real_T FA_b_idx_2;
-  real_T FE2_b_c;
-  real_T FE2_b_b;
-  real_T FE2_b_p;
-  SL_Bus_std_msgs_Float64 SourceBlock_o2_l;/* '<S9>/SourceBlock' */
-  SL_Bus_std_msgs_Float64 SourceBlock_o2;/* '<S11>/SourceBlock' */
+  real_T d;
+  real_T d1;
   SL_Bus_std_msgs_Float64 SourceBlock_o2_e;/* '<S10>/SourceBlock' */
+  SL_Bus_std_msgs_Float64 SourceBlock_o2;/* '<S11>/SourceBlock' */
+  SL_Bus_std_msgs_Float64 SourceBlock_o2_l;/* '<S9>/SourceBlock' */
+  uint32_T bpIndex[2];
+  int32_T i;
+  int32_T i_k;
   uint32_T lengthOut;                  /* '<Root>/MATLAB Function1' */
   uint32_T lengthOut_e;                /* '<Root>/MATLAB Function' */
   uint8_T stringOut[128];              /* '<Root>/MATLAB Function1' */
-  uint8_T stringOut_l[128];            /* '<Root>/MATLAB Function' */
-  boolean_T AND3;                      /* '<S145>/AND3' */
-  boolean_T Memory;                    /* '<S145>/Memory' */
-  boolean_T AND3_j;                    /* '<S91>/AND3' */
-  boolean_T Memory_n;                  /* '<S91>/Memory' */
+  boolean_T AND3;                      /* '<S91>/AND3' */
+  boolean_T Memory_e;                  /* '<S91>/Memory' */
+  boolean_T AND3_j;                    /* '<S145>/AND3' */
+  boolean_T Memory_n;                  /* '<S145>/Memory' */
   boolean_T SourceBlock_o1;            /* '<S11>/SourceBlock' */
   boolean_T SourceBlock_o1_l;          /* '<S10>/SourceBlock' */
   boolean_T SourceBlock_o1_i;          /* '<S9>/SourceBlock' */
@@ -271,12 +298,23 @@ struct DW_pid_control_V1_T {
   ros_slros2_internal_block_Sub_T obj_k;/* '<S11>/SourceBlock' */
   ros_slros2_internal_block_Sub_T obj_j;/* '<S10>/SourceBlock' */
   ros_slros2_internal_block_Sub_T obj_h;/* '<S9>/SourceBlock' */
-  real_T UnitDelay1_DSTATE;            /* '<Root>/Unit Delay1' */
-  real_T UnitDelay2_DSTATE;            /* '<Root>/Unit Delay2' */
   real_T UnitDelay_DSTATE;             /* '<Root>/Unit Delay' */
+  real_T UnitDelay2_DSTATE;            /* '<Root>/Unit Delay2' */
+  real_T UnitDelay1_DSTATE;            /* '<Root>/Unit Delay1' */
+  real_T Memory_PreviousInput[3];      /* '<S12>/Memory' */
+  real_T Memory1_PreviousInput[3];     /* '<S12>/Memory1' */
+  real_T NextOutput[4];                /* '<S241>/White Noise' */
   struct {
     void *LoggedData;
   } ToWorkspace_PWORK;                 /* '<Root>/To Workspace' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace_PWORK_g;               /* '<S12>/To Workspace' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace1_PWORK;                /* '<S12>/To Workspace1' */
 
   struct {
     void *LoggedData;
@@ -368,6 +406,22 @@ struct DW_pid_control_V1_T {
 
   struct {
     void *LoggedData;
+  } ToWorkspace30_PWORK;               /* '<S12>/To Workspace30' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace31_PWORK;               /* '<S12>/To Workspace31' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace32_PWORK;               /* '<S12>/To Workspace32' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace33_PWORK;               /* '<S12>/To Workspace33' */
+
+  struct {
+    void *LoggedData;
   } ToWorkspace4_PWORK;                /* '<S12>/To Workspace4' */
 
   struct {
@@ -390,86 +444,118 @@ struct DW_pid_control_V1_T {
     void *LoggedData;
   } ToWorkspace9_PWORK;                /* '<S12>/To Workspace9' */
 
-  struct {
-    void *LoggedData;
-  } ToWorkspace_PWORK_g;               /* '<S12>/To Workspace' */
-
-  struct {
-    void *LoggedData;
-  } ToWorkspace1_PWORK;                /* '<S12>/To Workspace1' */
-
-  struct {
-    void *LoggedData;
-  } ToWorkspace30_PWORK;               /* '<S12>/To Workspace30' */
-
-  struct {
-    void *LoggedData;
-  } ToWorkspace32_PWORK;               /* '<S12>/To Workspace32' */
-
-  struct {
-    void *LoggedData;
-  } ToWorkspace33_PWORK;               /* '<S12>/To Workspace33' */
-
-  struct {
-    void *LoggedData;
-  } ToWorkspace31_PWORK;               /* '<S12>/To Workspace31' */
-
+  uint32_T PreLookUpIndexSearchprobofexcee;
+                        /* '<S248>/PreLook-Up Index Search  (prob of exceed)' */
+  uint32_T PreLookUpIndexSearchaltitude_DW;
+                              /* '<S248>/PreLook-Up Index Search  (altitude)' */
+  uint32_T RandSeed[4];                /* '<S241>/White Noise' */
   robotics_slcore_internal_bloc_T obj_c;
                              /* '<Root>/Coordinate Transformation Conversion' */
-  boolean_T Memory_PreviousInput;      /* '<S145>/Memory' */
-  boolean_T Memory_PreviousInput_d;    /* '<S91>/Memory' */
+  int8_T ifHeightMaxlowaltitudeelseifHei;
+  /* '<S236>/if Height < Max low altitude  elseif Height > Min isotropic altitude ' */
+  int8_T ifHeightMaxlowaltitudeelseifH_k;
+  /* '<S237>/if Height < Max low altitude  elseif Height > Min isotropic altitude ' */
+  boolean_T Memory_PreviousInput_p;    /* '<S91>/Memory' */
+  boolean_T Memory_PreviousInput_d;    /* '<S145>/Memory' */
   boolean_T objisempty;                /* '<S11>/SourceBlock' */
   boolean_T objisempty_a;              /* '<S10>/SourceBlock' */
   boolean_T objisempty_n;              /* '<S9>/SourceBlock' */
   boolean_T objisempty_d;    /* '<Root>/Coordinate Transformation Conversion' */
   boolean_T objisempty_f;              /* '<S2>/ServiceCaller' */
+  boolean_T Hwgws_MODE;                /* '<S232>/Hwgw(s)' */
+  boolean_T Hvgws_MODE;                /* '<S232>/Hvgw(s)' */
+  boolean_T Hugws_MODE;                /* '<S232>/Hugw(s)' */
+  boolean_T Hrgw_MODE;                 /* '<S231>/Hrgw' */
+  boolean_T Hqgw_MODE;                 /* '<S231>/Hqgw' */
+  boolean_T Hpgw_MODE;                 /* '<S231>/Hpgw' */
 };
 
 /* Continuous states (default storage) */
 struct X_pid_control_V1_T {
   real_T Integrator_CSTATE[12];        /* '<S12>/Integrator' */
-  real_T Integrator_CSTATE_p;          /* '<S101>/Integrator' */
+  real_T Integrator_CSTATE_b;          /* '<S101>/Integrator' */
   real_T Filter_CSTATE;                /* '<S96>/Filter' */
-  real_T Integrator_CSTATE_d;          /* '<S207>/Integrator' */
-  real_T Filter_CSTATE_f;              /* '<S202>/Filter' */
   real_T Integrator_CSTATE_m;          /* '<S47>/Integrator' */
   real_T Filter_CSTATE_g;              /* '<S42>/Filter' */
-  real_T Integrator_CSTATE_b;          /* '<S155>/Integrator' */
-  real_T Filter_CSTATE_fy;             /* '<S150>/Filter' */
+  real_T Integrator_CSTATE_d;          /* '<S207>/Integrator' */
+  real_T Filter_CSTATE_f;              /* '<S202>/Filter' */
+  real_T Integrator_CSTATE_p;          /* '<S155>/Integrator' */
+  real_T Filter_CSTATE_m;              /* '<S150>/Filter' */
   real_T Integrator1_CSTATE;           /* '<S12>/Integrator1' */
+  real_T wg_p1_CSTATE[2];              /* '<S247>/wg_p1' */
+  real_T wg_p2_CSTATE[2];              /* '<S247>/wg_p2' */
+  real_T vg_p1_CSTATE[2];              /* '<S246>/vg_p1' */
+  real_T vgw_p2_CSTATE[2];             /* '<S246>/vgw_p2' */
+  real_T ug_p_CSTATE[2];               /* '<S245>/ug_p' */
+  real_T rgw_p_CSTATE[2];              /* '<S244>/rgw_p' */
+  real_T qgw_p_CSTATE[2];              /* '<S243>/qgw_p' */
+  real_T pgw_p_CSTATE[2];              /* '<S242>/pgw_p' */
 };
 
 /* State derivatives (default storage) */
 struct XDot_pid_control_V1_T {
   real_T Integrator_CSTATE[12];        /* '<S12>/Integrator' */
-  real_T Integrator_CSTATE_p;          /* '<S101>/Integrator' */
+  real_T Integrator_CSTATE_b;          /* '<S101>/Integrator' */
   real_T Filter_CSTATE;                /* '<S96>/Filter' */
-  real_T Integrator_CSTATE_d;          /* '<S207>/Integrator' */
-  real_T Filter_CSTATE_f;              /* '<S202>/Filter' */
   real_T Integrator_CSTATE_m;          /* '<S47>/Integrator' */
   real_T Filter_CSTATE_g;              /* '<S42>/Filter' */
-  real_T Integrator_CSTATE_b;          /* '<S155>/Integrator' */
-  real_T Filter_CSTATE_fy;             /* '<S150>/Filter' */
+  real_T Integrator_CSTATE_d;          /* '<S207>/Integrator' */
+  real_T Filter_CSTATE_f;              /* '<S202>/Filter' */
+  real_T Integrator_CSTATE_p;          /* '<S155>/Integrator' */
+  real_T Filter_CSTATE_m;              /* '<S150>/Filter' */
   real_T Integrator1_CSTATE;           /* '<S12>/Integrator1' */
+  real_T wg_p1_CSTATE[2];              /* '<S247>/wg_p1' */
+  real_T wg_p2_CSTATE[2];              /* '<S247>/wg_p2' */
+  real_T vg_p1_CSTATE[2];              /* '<S246>/vg_p1' */
+  real_T vgw_p2_CSTATE[2];             /* '<S246>/vgw_p2' */
+  real_T ug_p_CSTATE[2];               /* '<S245>/ug_p' */
+  real_T rgw_p_CSTATE[2];              /* '<S244>/rgw_p' */
+  real_T qgw_p_CSTATE[2];              /* '<S243>/qgw_p' */
+  real_T pgw_p_CSTATE[2];              /* '<S242>/pgw_p' */
 };
 
 /* State disabled  */
 struct XDis_pid_control_V1_T {
   boolean_T Integrator_CSTATE[12];     /* '<S12>/Integrator' */
-  boolean_T Integrator_CSTATE_p;       /* '<S101>/Integrator' */
+  boolean_T Integrator_CSTATE_b;       /* '<S101>/Integrator' */
   boolean_T Filter_CSTATE;             /* '<S96>/Filter' */
-  boolean_T Integrator_CSTATE_d;       /* '<S207>/Integrator' */
-  boolean_T Filter_CSTATE_f;           /* '<S202>/Filter' */
   boolean_T Integrator_CSTATE_m;       /* '<S47>/Integrator' */
   boolean_T Filter_CSTATE_g;           /* '<S42>/Filter' */
-  boolean_T Integrator_CSTATE_b;       /* '<S155>/Integrator' */
-  boolean_T Filter_CSTATE_fy;          /* '<S150>/Filter' */
+  boolean_T Integrator_CSTATE_d;       /* '<S207>/Integrator' */
+  boolean_T Filter_CSTATE_f;           /* '<S202>/Filter' */
+  boolean_T Integrator_CSTATE_p;       /* '<S155>/Integrator' */
+  boolean_T Filter_CSTATE_m;           /* '<S150>/Filter' */
   boolean_T Integrator1_CSTATE;        /* '<S12>/Integrator1' */
+  boolean_T wg_p1_CSTATE[2];           /* '<S247>/wg_p1' */
+  boolean_T wg_p2_CSTATE[2];           /* '<S247>/wg_p2' */
+  boolean_T vg_p1_CSTATE[2];           /* '<S246>/vg_p1' */
+  boolean_T vgw_p2_CSTATE[2];          /* '<S246>/vgw_p2' */
+  boolean_T ug_p_CSTATE[2];            /* '<S245>/ug_p' */
+  boolean_T rgw_p_CSTATE[2];           /* '<S244>/rgw_p' */
+  boolean_T qgw_p_CSTATE[2];           /* '<S243>/qgw_p' */
+  boolean_T pgw_p_CSTATE[2];           /* '<S242>/pgw_p' */
 };
 
 /* Invariant block signals (default storage) */
 struct ConstB_pid_control_V1_T {
+  real_T UnitConversion;               /* '<S230>/Unit Conversion' */
+  real_T UnitConversion_k;             /* '<S240>/Unit Conversion' */
+  real_T sigma_wg;                     /* '<S249>/sigma_wg ' */
+  real_T UnitConversion_n;             /* '<S234>/Unit Conversion' */
+  real_T UnitConversion_c;             /* '<S268>/Unit Conversion' */
+  real_T PreLookUpIndexSearchprobofe;
+                        /* '<S248>/PreLook-Up Index Search  (prob of exceed)' */
+  real_T Sqrt[4];                      /* '<S241>/Sqrt' */
+  real_T Sqrt1;                        /* '<S241>/Sqrt1' */
+  real_T Divide[4];                    /* '<S241>/Divide' */
   real_T motorspeed;                   /* '<S12>/Gain2' */
+  real_T Sum;                          /* '<S258>/Sum' */
+  real_T Sum_a;                        /* '<S250>/Sum' */
+  real_T sqrt_a;                       /* '<S247>/sqrt' */
+  real_T w4;                           /* '<S242>/w4' */
+  real_T u16;                          /* '<S242>/u^1//6' */
+  uint32_T PreLookUpIndexSearchprobo_g;
+                        /* '<S248>/PreLook-Up Index Search  (prob of exceed)' */
 };
 
 #ifndef ODE3_INTG
@@ -489,6 +575,21 @@ struct ConstP_pid_control_V1_T {
    * Referenced by: '<S12>/Integrator'
    */
   real_T Integrator_IC[12];
+
+  /* Expression: h_vec
+   * Referenced by: '<S248>/PreLook-Up Index Search  (altitude)'
+   */
+  real_T PreLookUpIndexSearchaltitude_Br[12];
+
+  /* Expression: sigma_vec'
+   * Referenced by: '<S248>/Medium//High Altitude Intensity'
+   */
+  real_T MediumHighAltitudeIntensity_Tab[84];
+
+  /* Computed Parameter: MediumHighAltitudeIntensity_max
+   * Referenced by: '<S248>/Medium//High Altitude Intensity'
+   */
+  uint32_T MediumHighAltitudeIntensity_max[2];
 };
 
 /* Real-time Model Data Structure */
@@ -503,8 +604,8 @@ struct tag_RTM_pid_control_V1_T {
   boolean_T zCCacheNeedsReset;
   boolean_T derivCacheNeedsReset;
   boolean_T CTOutputIncnstWithState;
-  real_T odeY[21];
-  real_T odeF[3][21];
+  real_T odeY[37];
+  real_T odeF[3][37];
   ODE3_IntgData intgData;
 
   /*
@@ -590,14 +691,15 @@ class pid_control_V1
     SL_Bus_std_msgs_Float64 *rtu_In1, B_EnabledSubsystem_pid_contro_T *localB);
 
   /* private member function(s) for subsystem '<Root>'*/
-  void pid_cont_Subscriber_setupImpl_o(const ros_slros2_internal_block_Sub_T
+  void pid_contro_Subscriber_setupImpl(const ros_slros2_internal_block_Sub_T
     *obj);
   void pid_con_Subscriber_setupImpl_on(const ros_slros2_internal_block_Sub_T
     *obj);
-  void pid_contro_Subscriber_setupImpl(const ros_slros2_internal_block_Sub_T
+  void pid_cont_Subscriber_setupImpl_o(const ros_slros2_internal_block_Sub_T
     *obj);
   void pid_con_ServiceCaller_setupImpl(const ros_slros2_internal_block_Ser_T
     *obj);
+  real_T pid_control_V1_rt_powd_snf(real_T u0, real_T u1);
 
   /* Global mass matrix */
 
@@ -618,6 +720,19 @@ extern volatile boolean_T runModel;
  * These blocks were eliminated from the model due to optimizations:
  *
  * Block '<Root>/Display' : Unused code path elimination
+ * Block '<S39>/Kb' : Eliminated nontunable gain of 1
+ * Block '<S228>/Cast' : Eliminate redundant data type conversion
+ * Block '<S228>/Cast To Double' : Eliminate redundant data type conversion
+ * Block '<S228>/Cast To Double1' : Eliminate redundant data type conversion
+ * Block '<S228>/Cast To Double2' : Eliminate redundant data type conversion
+ * Block '<S228>/Cast To Double3' : Eliminate redundant data type conversion
+ * Block '<S228>/Cast To Double4' : Eliminate redundant data type conversion
+ * Block '<S254>/Reshape' : Reshape block reduction
+ * Block '<S254>/Reshape1' : Reshape block reduction
+ * Block '<S256>/Reshape' : Reshape block reduction
+ * Block '<S262>/Reshape' : Reshape block reduction
+ * Block '<S262>/Reshape1' : Reshape block reduction
+ * Block '<S264>/Reshape' : Reshape block reduction
  */
 
 /*-
@@ -640,12 +755,12 @@ extern volatile boolean_T runModel;
  * '<S3>'   : 'pid_control_V1/MATLAB Function'
  * '<S4>'   : 'pid_control_V1/MATLAB Function1'
  * '<S5>'   : 'pid_control_V1/PID ALERON'
- * '<S6>'   : 'pid_control_V1/PID ELEVATOR'
- * '<S7>'   : 'pid_control_V1/PID MOTORS ALTURA'
+ * '<S6>'   : 'pid_control_V1/PID MOTORS ALTURA'
+ * '<S7>'   : 'pid_control_V1/PID PITCH//ELEVATOR'
  * '<S8>'   : 'pid_control_V1/PID TIIMON'
  * '<S9>'   : 'pid_control_V1/Subscribe'
- * '<S10>'  : 'pid_control_V1/Subscribe1'
- * '<S11>'  : 'pid_control_V1/Subscribe2'
+ * '<S10>'  : 'pid_control_V1/Subscribe-PITCH'
+ * '<S11>'  : 'pid_control_V1/Subscribe-YAW'
  * '<S12>'  : 'pid_control_V1/Subsystem'
  * '<S13>'  : 'pid_control_V1/PID ALERON/Anti-windup'
  * '<S14>'  : 'pid_control_V1/PID ALERON/D Gain'
@@ -673,7 +788,7 @@ extern volatile boolean_T runModel;
  * '<S36>'  : 'pid_control_V1/PID ALERON/postSat Signal'
  * '<S37>'  : 'pid_control_V1/PID ALERON/preInt Signal'
  * '<S38>'  : 'pid_control_V1/PID ALERON/preSat Signal'
- * '<S39>'  : 'pid_control_V1/PID ALERON/Anti-windup/Passthrough'
+ * '<S39>'  : 'pid_control_V1/PID ALERON/Anti-windup/Back Calculation'
  * '<S40>'  : 'pid_control_V1/PID ALERON/D Gain/Internal Parameters'
  * '<S41>'  : 'pid_control_V1/PID ALERON/External Derivative/Error'
  * '<S42>'  : 'pid_control_V1/PID ALERON/Filter/Cont. Filter'
@@ -699,114 +814,114 @@ extern volatile boolean_T runModel;
  * '<S62>'  : 'pid_control_V1/PID ALERON/postSat Signal/Forward_Path'
  * '<S63>'  : 'pid_control_V1/PID ALERON/preInt Signal/Internal PreInt'
  * '<S64>'  : 'pid_control_V1/PID ALERON/preSat Signal/Forward_Path'
- * '<S65>'  : 'pid_control_V1/PID ELEVATOR/Anti-windup'
- * '<S66>'  : 'pid_control_V1/PID ELEVATOR/D Gain'
- * '<S67>'  : 'pid_control_V1/PID ELEVATOR/External Derivative'
- * '<S68>'  : 'pid_control_V1/PID ELEVATOR/Filter'
- * '<S69>'  : 'pid_control_V1/PID ELEVATOR/Filter ICs'
- * '<S70>'  : 'pid_control_V1/PID ELEVATOR/I Gain'
- * '<S71>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain'
- * '<S72>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain Fdbk'
- * '<S73>'  : 'pid_control_V1/PID ELEVATOR/Integrator'
- * '<S74>'  : 'pid_control_V1/PID ELEVATOR/Integrator ICs'
- * '<S75>'  : 'pid_control_V1/PID ELEVATOR/N Copy'
- * '<S76>'  : 'pid_control_V1/PID ELEVATOR/N Gain'
- * '<S77>'  : 'pid_control_V1/PID ELEVATOR/P Copy'
- * '<S78>'  : 'pid_control_V1/PID ELEVATOR/Parallel P Gain'
- * '<S79>'  : 'pid_control_V1/PID ELEVATOR/Reset Signal'
- * '<S80>'  : 'pid_control_V1/PID ELEVATOR/Saturation'
- * '<S81>'  : 'pid_control_V1/PID ELEVATOR/Saturation Fdbk'
- * '<S82>'  : 'pid_control_V1/PID ELEVATOR/Sum'
- * '<S83>'  : 'pid_control_V1/PID ELEVATOR/Sum Fdbk'
- * '<S84>'  : 'pid_control_V1/PID ELEVATOR/Tracking Mode'
- * '<S85>'  : 'pid_control_V1/PID ELEVATOR/Tracking Mode Sum'
- * '<S86>'  : 'pid_control_V1/PID ELEVATOR/Tsamp - Integral'
- * '<S87>'  : 'pid_control_V1/PID ELEVATOR/Tsamp - Ngain'
- * '<S88>'  : 'pid_control_V1/PID ELEVATOR/postSat Signal'
- * '<S89>'  : 'pid_control_V1/PID ELEVATOR/preInt Signal'
- * '<S90>'  : 'pid_control_V1/PID ELEVATOR/preSat Signal'
- * '<S91>'  : 'pid_control_V1/PID ELEVATOR/Anti-windup/Cont. Clamping Parallel'
- * '<S92>'  : 'pid_control_V1/PID ELEVATOR/Anti-windup/Cont. Clamping Parallel/Dead Zone'
- * '<S93>'  : 'pid_control_V1/PID ELEVATOR/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
- * '<S94>'  : 'pid_control_V1/PID ELEVATOR/D Gain/Internal Parameters'
- * '<S95>'  : 'pid_control_V1/PID ELEVATOR/External Derivative/Error'
- * '<S96>'  : 'pid_control_V1/PID ELEVATOR/Filter/Cont. Filter'
- * '<S97>'  : 'pid_control_V1/PID ELEVATOR/Filter ICs/Internal IC - Filter'
- * '<S98>'  : 'pid_control_V1/PID ELEVATOR/I Gain/Internal Parameters'
- * '<S99>'  : 'pid_control_V1/PID ELEVATOR/Ideal P Gain/Passthrough'
- * '<S100>' : 'pid_control_V1/PID ELEVATOR/Ideal P Gain Fdbk/Disabled'
- * '<S101>' : 'pid_control_V1/PID ELEVATOR/Integrator/Continuous'
- * '<S102>' : 'pid_control_V1/PID ELEVATOR/Integrator ICs/Internal IC'
- * '<S103>' : 'pid_control_V1/PID ELEVATOR/N Copy/Disabled'
- * '<S104>' : 'pid_control_V1/PID ELEVATOR/N Gain/Internal Parameters'
- * '<S105>' : 'pid_control_V1/PID ELEVATOR/P Copy/Disabled'
- * '<S106>' : 'pid_control_V1/PID ELEVATOR/Parallel P Gain/Internal Parameters'
- * '<S107>' : 'pid_control_V1/PID ELEVATOR/Reset Signal/Disabled'
- * '<S108>' : 'pid_control_V1/PID ELEVATOR/Saturation/Enabled'
- * '<S109>' : 'pid_control_V1/PID ELEVATOR/Saturation Fdbk/Disabled'
- * '<S110>' : 'pid_control_V1/PID ELEVATOR/Sum/Sum_PID'
- * '<S111>' : 'pid_control_V1/PID ELEVATOR/Sum Fdbk/Disabled'
- * '<S112>' : 'pid_control_V1/PID ELEVATOR/Tracking Mode/Disabled'
- * '<S113>' : 'pid_control_V1/PID ELEVATOR/Tracking Mode Sum/Passthrough'
- * '<S114>' : 'pid_control_V1/PID ELEVATOR/Tsamp - Integral/TsSignalSpecification'
- * '<S115>' : 'pid_control_V1/PID ELEVATOR/Tsamp - Ngain/Passthrough'
- * '<S116>' : 'pid_control_V1/PID ELEVATOR/postSat Signal/Forward_Path'
- * '<S117>' : 'pid_control_V1/PID ELEVATOR/preInt Signal/Internal PreInt'
- * '<S118>' : 'pid_control_V1/PID ELEVATOR/preSat Signal/Forward_Path'
- * '<S119>' : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup'
- * '<S120>' : 'pid_control_V1/PID MOTORS ALTURA/D Gain'
- * '<S121>' : 'pid_control_V1/PID MOTORS ALTURA/External Derivative'
- * '<S122>' : 'pid_control_V1/PID MOTORS ALTURA/Filter'
- * '<S123>' : 'pid_control_V1/PID MOTORS ALTURA/Filter ICs'
- * '<S124>' : 'pid_control_V1/PID MOTORS ALTURA/I Gain'
- * '<S125>' : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain'
- * '<S126>' : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain Fdbk'
- * '<S127>' : 'pid_control_V1/PID MOTORS ALTURA/Integrator'
- * '<S128>' : 'pid_control_V1/PID MOTORS ALTURA/Integrator ICs'
- * '<S129>' : 'pid_control_V1/PID MOTORS ALTURA/N Copy'
- * '<S130>' : 'pid_control_V1/PID MOTORS ALTURA/N Gain'
- * '<S131>' : 'pid_control_V1/PID MOTORS ALTURA/P Copy'
- * '<S132>' : 'pid_control_V1/PID MOTORS ALTURA/Parallel P Gain'
- * '<S133>' : 'pid_control_V1/PID MOTORS ALTURA/Reset Signal'
- * '<S134>' : 'pid_control_V1/PID MOTORS ALTURA/Saturation'
- * '<S135>' : 'pid_control_V1/PID MOTORS ALTURA/Saturation Fdbk'
- * '<S136>' : 'pid_control_V1/PID MOTORS ALTURA/Sum'
- * '<S137>' : 'pid_control_V1/PID MOTORS ALTURA/Sum Fdbk'
- * '<S138>' : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode'
- * '<S139>' : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode Sum'
- * '<S140>' : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Integral'
- * '<S141>' : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Ngain'
- * '<S142>' : 'pid_control_V1/PID MOTORS ALTURA/postSat Signal'
- * '<S143>' : 'pid_control_V1/PID MOTORS ALTURA/preInt Signal'
- * '<S144>' : 'pid_control_V1/PID MOTORS ALTURA/preSat Signal'
- * '<S145>' : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup/Cont. Clamping Parallel'
- * '<S146>' : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup/Cont. Clamping Parallel/Dead Zone'
- * '<S147>' : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
- * '<S148>' : 'pid_control_V1/PID MOTORS ALTURA/D Gain/Internal Parameters'
- * '<S149>' : 'pid_control_V1/PID MOTORS ALTURA/External Derivative/Error'
- * '<S150>' : 'pid_control_V1/PID MOTORS ALTURA/Filter/Cont. Filter'
- * '<S151>' : 'pid_control_V1/PID MOTORS ALTURA/Filter ICs/Internal IC - Filter'
- * '<S152>' : 'pid_control_V1/PID MOTORS ALTURA/I Gain/Internal Parameters'
- * '<S153>' : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain/Passthrough'
- * '<S154>' : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain Fdbk/Disabled'
- * '<S155>' : 'pid_control_V1/PID MOTORS ALTURA/Integrator/Continuous'
- * '<S156>' : 'pid_control_V1/PID MOTORS ALTURA/Integrator ICs/Internal IC'
- * '<S157>' : 'pid_control_V1/PID MOTORS ALTURA/N Copy/Disabled'
- * '<S158>' : 'pid_control_V1/PID MOTORS ALTURA/N Gain/Internal Parameters'
- * '<S159>' : 'pid_control_V1/PID MOTORS ALTURA/P Copy/Disabled'
- * '<S160>' : 'pid_control_V1/PID MOTORS ALTURA/Parallel P Gain/Internal Parameters'
- * '<S161>' : 'pid_control_V1/PID MOTORS ALTURA/Reset Signal/Disabled'
- * '<S162>' : 'pid_control_V1/PID MOTORS ALTURA/Saturation/Enabled'
- * '<S163>' : 'pid_control_V1/PID MOTORS ALTURA/Saturation Fdbk/Disabled'
- * '<S164>' : 'pid_control_V1/PID MOTORS ALTURA/Sum/Sum_PID'
- * '<S165>' : 'pid_control_V1/PID MOTORS ALTURA/Sum Fdbk/Disabled'
- * '<S166>' : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode/Disabled'
- * '<S167>' : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode Sum/Passthrough'
- * '<S168>' : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Integral/TsSignalSpecification'
- * '<S169>' : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Ngain/Passthrough'
- * '<S170>' : 'pid_control_V1/PID MOTORS ALTURA/postSat Signal/Forward_Path'
- * '<S171>' : 'pid_control_V1/PID MOTORS ALTURA/preInt Signal/Internal PreInt'
- * '<S172>' : 'pid_control_V1/PID MOTORS ALTURA/preSat Signal/Forward_Path'
+ * '<S65>'  : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup'
+ * '<S66>'  : 'pid_control_V1/PID MOTORS ALTURA/D Gain'
+ * '<S67>'  : 'pid_control_V1/PID MOTORS ALTURA/External Derivative'
+ * '<S68>'  : 'pid_control_V1/PID MOTORS ALTURA/Filter'
+ * '<S69>'  : 'pid_control_V1/PID MOTORS ALTURA/Filter ICs'
+ * '<S70>'  : 'pid_control_V1/PID MOTORS ALTURA/I Gain'
+ * '<S71>'  : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain'
+ * '<S72>'  : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain Fdbk'
+ * '<S73>'  : 'pid_control_V1/PID MOTORS ALTURA/Integrator'
+ * '<S74>'  : 'pid_control_V1/PID MOTORS ALTURA/Integrator ICs'
+ * '<S75>'  : 'pid_control_V1/PID MOTORS ALTURA/N Copy'
+ * '<S76>'  : 'pid_control_V1/PID MOTORS ALTURA/N Gain'
+ * '<S77>'  : 'pid_control_V1/PID MOTORS ALTURA/P Copy'
+ * '<S78>'  : 'pid_control_V1/PID MOTORS ALTURA/Parallel P Gain'
+ * '<S79>'  : 'pid_control_V1/PID MOTORS ALTURA/Reset Signal'
+ * '<S80>'  : 'pid_control_V1/PID MOTORS ALTURA/Saturation'
+ * '<S81>'  : 'pid_control_V1/PID MOTORS ALTURA/Saturation Fdbk'
+ * '<S82>'  : 'pid_control_V1/PID MOTORS ALTURA/Sum'
+ * '<S83>'  : 'pid_control_V1/PID MOTORS ALTURA/Sum Fdbk'
+ * '<S84>'  : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode'
+ * '<S85>'  : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode Sum'
+ * '<S86>'  : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Integral'
+ * '<S87>'  : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Ngain'
+ * '<S88>'  : 'pid_control_V1/PID MOTORS ALTURA/postSat Signal'
+ * '<S89>'  : 'pid_control_V1/PID MOTORS ALTURA/preInt Signal'
+ * '<S90>'  : 'pid_control_V1/PID MOTORS ALTURA/preSat Signal'
+ * '<S91>'  : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup/Cont. Clamping Parallel'
+ * '<S92>'  : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup/Cont. Clamping Parallel/Dead Zone'
+ * '<S93>'  : 'pid_control_V1/PID MOTORS ALTURA/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
+ * '<S94>'  : 'pid_control_V1/PID MOTORS ALTURA/D Gain/Internal Parameters'
+ * '<S95>'  : 'pid_control_V1/PID MOTORS ALTURA/External Derivative/Error'
+ * '<S96>'  : 'pid_control_V1/PID MOTORS ALTURA/Filter/Cont. Filter'
+ * '<S97>'  : 'pid_control_V1/PID MOTORS ALTURA/Filter ICs/Internal IC - Filter'
+ * '<S98>'  : 'pid_control_V1/PID MOTORS ALTURA/I Gain/Internal Parameters'
+ * '<S99>'  : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain/Passthrough'
+ * '<S100>' : 'pid_control_V1/PID MOTORS ALTURA/Ideal P Gain Fdbk/Disabled'
+ * '<S101>' : 'pid_control_V1/PID MOTORS ALTURA/Integrator/Continuous'
+ * '<S102>' : 'pid_control_V1/PID MOTORS ALTURA/Integrator ICs/Internal IC'
+ * '<S103>' : 'pid_control_V1/PID MOTORS ALTURA/N Copy/Disabled'
+ * '<S104>' : 'pid_control_V1/PID MOTORS ALTURA/N Gain/Internal Parameters'
+ * '<S105>' : 'pid_control_V1/PID MOTORS ALTURA/P Copy/Disabled'
+ * '<S106>' : 'pid_control_V1/PID MOTORS ALTURA/Parallel P Gain/Internal Parameters'
+ * '<S107>' : 'pid_control_V1/PID MOTORS ALTURA/Reset Signal/Disabled'
+ * '<S108>' : 'pid_control_V1/PID MOTORS ALTURA/Saturation/Enabled'
+ * '<S109>' : 'pid_control_V1/PID MOTORS ALTURA/Saturation Fdbk/Disabled'
+ * '<S110>' : 'pid_control_V1/PID MOTORS ALTURA/Sum/Sum_PID'
+ * '<S111>' : 'pid_control_V1/PID MOTORS ALTURA/Sum Fdbk/Disabled'
+ * '<S112>' : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode/Disabled'
+ * '<S113>' : 'pid_control_V1/PID MOTORS ALTURA/Tracking Mode Sum/Passthrough'
+ * '<S114>' : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Integral/TsSignalSpecification'
+ * '<S115>' : 'pid_control_V1/PID MOTORS ALTURA/Tsamp - Ngain/Passthrough'
+ * '<S116>' : 'pid_control_V1/PID MOTORS ALTURA/postSat Signal/Forward_Path'
+ * '<S117>' : 'pid_control_V1/PID MOTORS ALTURA/preInt Signal/Internal PreInt'
+ * '<S118>' : 'pid_control_V1/PID MOTORS ALTURA/preSat Signal/Forward_Path'
+ * '<S119>' : 'pid_control_V1/PID PITCH//ELEVATOR/Anti-windup'
+ * '<S120>' : 'pid_control_V1/PID PITCH//ELEVATOR/D Gain'
+ * '<S121>' : 'pid_control_V1/PID PITCH//ELEVATOR/External Derivative'
+ * '<S122>' : 'pid_control_V1/PID PITCH//ELEVATOR/Filter'
+ * '<S123>' : 'pid_control_V1/PID PITCH//ELEVATOR/Filter ICs'
+ * '<S124>' : 'pid_control_V1/PID PITCH//ELEVATOR/I Gain'
+ * '<S125>' : 'pid_control_V1/PID PITCH//ELEVATOR/Ideal P Gain'
+ * '<S126>' : 'pid_control_V1/PID PITCH//ELEVATOR/Ideal P Gain Fdbk'
+ * '<S127>' : 'pid_control_V1/PID PITCH//ELEVATOR/Integrator'
+ * '<S128>' : 'pid_control_V1/PID PITCH//ELEVATOR/Integrator ICs'
+ * '<S129>' : 'pid_control_V1/PID PITCH//ELEVATOR/N Copy'
+ * '<S130>' : 'pid_control_V1/PID PITCH//ELEVATOR/N Gain'
+ * '<S131>' : 'pid_control_V1/PID PITCH//ELEVATOR/P Copy'
+ * '<S132>' : 'pid_control_V1/PID PITCH//ELEVATOR/Parallel P Gain'
+ * '<S133>' : 'pid_control_V1/PID PITCH//ELEVATOR/Reset Signal'
+ * '<S134>' : 'pid_control_V1/PID PITCH//ELEVATOR/Saturation'
+ * '<S135>' : 'pid_control_V1/PID PITCH//ELEVATOR/Saturation Fdbk'
+ * '<S136>' : 'pid_control_V1/PID PITCH//ELEVATOR/Sum'
+ * '<S137>' : 'pid_control_V1/PID PITCH//ELEVATOR/Sum Fdbk'
+ * '<S138>' : 'pid_control_V1/PID PITCH//ELEVATOR/Tracking Mode'
+ * '<S139>' : 'pid_control_V1/PID PITCH//ELEVATOR/Tracking Mode Sum'
+ * '<S140>' : 'pid_control_V1/PID PITCH//ELEVATOR/Tsamp - Integral'
+ * '<S141>' : 'pid_control_V1/PID PITCH//ELEVATOR/Tsamp - Ngain'
+ * '<S142>' : 'pid_control_V1/PID PITCH//ELEVATOR/postSat Signal'
+ * '<S143>' : 'pid_control_V1/PID PITCH//ELEVATOR/preInt Signal'
+ * '<S144>' : 'pid_control_V1/PID PITCH//ELEVATOR/preSat Signal'
+ * '<S145>' : 'pid_control_V1/PID PITCH//ELEVATOR/Anti-windup/Cont. Clamping Parallel'
+ * '<S146>' : 'pid_control_V1/PID PITCH//ELEVATOR/Anti-windup/Cont. Clamping Parallel/Dead Zone'
+ * '<S147>' : 'pid_control_V1/PID PITCH//ELEVATOR/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
+ * '<S148>' : 'pid_control_V1/PID PITCH//ELEVATOR/D Gain/Internal Parameters'
+ * '<S149>' : 'pid_control_V1/PID PITCH//ELEVATOR/External Derivative/Error'
+ * '<S150>' : 'pid_control_V1/PID PITCH//ELEVATOR/Filter/Cont. Filter'
+ * '<S151>' : 'pid_control_V1/PID PITCH//ELEVATOR/Filter ICs/Internal IC - Filter'
+ * '<S152>' : 'pid_control_V1/PID PITCH//ELEVATOR/I Gain/Internal Parameters'
+ * '<S153>' : 'pid_control_V1/PID PITCH//ELEVATOR/Ideal P Gain/Passthrough'
+ * '<S154>' : 'pid_control_V1/PID PITCH//ELEVATOR/Ideal P Gain Fdbk/Disabled'
+ * '<S155>' : 'pid_control_V1/PID PITCH//ELEVATOR/Integrator/Continuous'
+ * '<S156>' : 'pid_control_V1/PID PITCH//ELEVATOR/Integrator ICs/Internal IC'
+ * '<S157>' : 'pid_control_V1/PID PITCH//ELEVATOR/N Copy/Disabled'
+ * '<S158>' : 'pid_control_V1/PID PITCH//ELEVATOR/N Gain/Internal Parameters'
+ * '<S159>' : 'pid_control_V1/PID PITCH//ELEVATOR/P Copy/Disabled'
+ * '<S160>' : 'pid_control_V1/PID PITCH//ELEVATOR/Parallel P Gain/Internal Parameters'
+ * '<S161>' : 'pid_control_V1/PID PITCH//ELEVATOR/Reset Signal/Disabled'
+ * '<S162>' : 'pid_control_V1/PID PITCH//ELEVATOR/Saturation/Enabled'
+ * '<S163>' : 'pid_control_V1/PID PITCH//ELEVATOR/Saturation Fdbk/Disabled'
+ * '<S164>' : 'pid_control_V1/PID PITCH//ELEVATOR/Sum/Sum_PID'
+ * '<S165>' : 'pid_control_V1/PID PITCH//ELEVATOR/Sum Fdbk/Disabled'
+ * '<S166>' : 'pid_control_V1/PID PITCH//ELEVATOR/Tracking Mode/Disabled'
+ * '<S167>' : 'pid_control_V1/PID PITCH//ELEVATOR/Tracking Mode Sum/Passthrough'
+ * '<S168>' : 'pid_control_V1/PID PITCH//ELEVATOR/Tsamp - Integral/TsSignalSpecification'
+ * '<S169>' : 'pid_control_V1/PID PITCH//ELEVATOR/Tsamp - Ngain/Passthrough'
+ * '<S170>' : 'pid_control_V1/PID PITCH//ELEVATOR/postSat Signal/Forward_Path'
+ * '<S171>' : 'pid_control_V1/PID PITCH//ELEVATOR/preInt Signal/Internal PreInt'
+ * '<S172>' : 'pid_control_V1/PID PITCH//ELEVATOR/preSat Signal/Forward_Path'
  * '<S173>' : 'pid_control_V1/PID TIIMON/Anti-windup'
  * '<S174>' : 'pid_control_V1/PID TIIMON/D Gain'
  * '<S175>' : 'pid_control_V1/PID TIIMON/External Derivative'
@@ -860,8 +975,48 @@ extern volatile boolean_T runModel;
  * '<S223>' : 'pid_control_V1/PID TIIMON/preInt Signal/Internal PreInt'
  * '<S224>' : 'pid_control_V1/PID TIIMON/preSat Signal/Forward_Path'
  * '<S225>' : 'pid_control_V1/Subscribe/Enabled Subsystem'
- * '<S226>' : 'pid_control_V1/Subscribe1/Enabled Subsystem'
- * '<S227>' : 'pid_control_V1/Subscribe2/Enabled Subsystem'
- * '<S228>' : 'pid_control_V1/Subsystem/MATLAB Function'
+ * '<S226>' : 'pid_control_V1/Subscribe-PITCH/Enabled Subsystem'
+ * '<S227>' : 'pid_control_V1/Subscribe-YAW/Enabled Subsystem'
+ * '<S228>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))'
+ * '<S229>' : 'pid_control_V1/Subsystem/MATLAB Function'
+ * '<S230>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Angle Conversion'
+ * '<S231>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates'
+ * '<S232>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities'
+ * '<S233>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Length Conversion'
+ * '<S234>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Length Conversion1'
+ * '<S235>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/RMS turbulence  intensities'
+ * '<S236>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates'
+ * '<S237>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities'
+ * '<S238>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths'
+ * '<S239>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Velocity Conversion'
+ * '<S240>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Velocity Conversion2'
+ * '<S241>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/White Noise'
+ * '<S242>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates/Hpgw'
+ * '<S243>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates/Hqgw'
+ * '<S244>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates/Hrgw'
+ * '<S245>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities/Hugw(s)'
+ * '<S246>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities/Hvgw(s)'
+ * '<S247>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities/Hwgw(s)'
+ * '<S248>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/RMS turbulence  intensities/High Altitude Intensity'
+ * '<S249>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/RMS turbulence  intensities/Low Altitude Intensity'
+ * '<S250>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Interpolate  rates'
+ * '<S251>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Low altitude  rates'
+ * '<S252>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Medium//High  altitude rates'
+ * '<S253>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Merge Subsystems'
+ * '<S254>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Interpolate  rates/wind to body transformation'
+ * '<S255>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Interpolate  rates/wind to body transformation/convert to earth coords'
+ * '<S256>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Low altitude  rates/wind to body transformation'
+ * '<S257>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Low altitude  rates/wind to body transformation/convert to earth coords'
+ * '<S258>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Interpolate  velocities'
+ * '<S259>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Low altitude  velocities'
+ * '<S260>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Medium//High  altitude velocities'
+ * '<S261>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Merge Subsystems'
+ * '<S262>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Interpolate  velocities/wind to body transformation'
+ * '<S263>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Interpolate  velocities/wind to body transformation/convert to earth coords'
+ * '<S264>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Low altitude  velocities/wind to body transformation'
+ * '<S265>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Low altitude  velocities/wind to body transformation/convert to earth coords'
+ * '<S266>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths/Low altitude scale length'
+ * '<S267>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths/Medium//High altitude scale length'
+ * '<S268>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths/Medium//High altitude scale length/Length Conversion'
  */
 #endif                                 /* pid_control_V1_h_ */
