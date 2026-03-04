@@ -11,3 +11,23 @@ ros2 topic pub /setpoint/yaw std_msgs/msg/Float64 "{data: 0.349}" -1
 
 # Endereza la nave
 ros2 topic pub /setpoint/yaw std_msgs/msg/Float64 "{data: 0.0}" -1
+
+
+#####GRABAR PARA GRAFICAR ###########
+ros2 bag record -o vuelo_ekranoplano_2 /setpoint/yaw /gazebo/model_states
+
+
+
+#####################  TECLADO ##########
+#comando leer valores teclado para timon_virtual.py
+
+source /opt/ros/humble/setup.bash
+
+
+
+#####################  CONTROL XBOX ONE ##########
+#comando leer valores control para timon_joystick.py
+
+ros2 run joy joy_node
+
+
