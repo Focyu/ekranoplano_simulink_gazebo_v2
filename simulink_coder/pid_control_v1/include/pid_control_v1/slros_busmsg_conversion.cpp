@@ -9,6 +9,7 @@
 #include <geometry_msgs/msg/quaternion.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <geometry_msgs/msg/vector3.hpp>
+#include <std_msgs/msg/bool.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include "pid_control_V1_types.h"
 #include "slros_msgconvert_utils.h"
@@ -37,6 +38,9 @@
 
 [[maybe_unused]] static void convertFromBus(geometry_msgs::msg::Vector3& msgPtr, SL_Bus_geometry_msgs_Vector3 const* busPtr);
 [[maybe_unused]] static void convertToBus(SL_Bus_geometry_msgs_Vector3* busPtr, const geometry_msgs::msg::Vector3& msgPtr);
+
+[[maybe_unused]] static void convertFromBus(std_msgs::msg::Bool& msgPtr, SL_Bus_std_msgs_Bool const* busPtr);
+[[maybe_unused]] static void convertToBus(SL_Bus_std_msgs_Bool* busPtr, const std_msgs::msg::Bool& msgPtr);
 
 [[maybe_unused]] static void convertFromBus(std_msgs::msg::Float64& msgPtr, SL_Bus_std_msgs_Float64 const* busPtr);
 [[maybe_unused]] static void convertToBus(SL_Bus_std_msgs_Float64* busPtr, const std_msgs::msg::Float64& msgPtr);
@@ -200,6 +204,23 @@
   busPtr->x =  msgPtr.x;
   busPtr->y =  msgPtr.y;
   busPtr->z =  msgPtr.z;
+}
+
+
+// Conversions between SL_Bus_std_msgs_Bool and std_msgs::msg::Bool
+
+[[maybe_unused]] static void convertFromBus(std_msgs::msg::Bool& msgPtr, SL_Bus_std_msgs_Bool const* busPtr)
+{
+  const std::string rosMessageType("std_msgs/Bool");
+
+  msgPtr.data =  busPtr->data;
+}
+
+[[maybe_unused]] static void convertToBus(SL_Bus_std_msgs_Bool* busPtr, const std_msgs::msg::Bool& msgPtr)
+{
+  const std::string rosMessageType("std_msgs/Bool");
+
+  busPtr->data =  msgPtr.data;
 }
 
 

@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.52
+ * Model version              : 12.54
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Tue Mar  3 15:30:29 2026
+ * C++ source code generated on : Tue Mar  3 20:33:58 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -24,6 +24,7 @@
 #include "rtw_solver.h"
 #include "slros2_initialize.h"
 #include "pid_control_V1_types.h"
+#include "rmw/qos_profiles.h"
 
 extern "C"
 {
@@ -176,10 +177,28 @@ struct B_EnabledSubsystem_pid_contro_T {
   SL_Bus_std_msgs_Float64 In1;         /* '<S225>/In1' */
 };
 
+/* Block signals for system '<S230>/Enabled Subsystem' */
+struct B_EnabledSubsystem_pid_cont_n_T {
+  SL_Bus_std_msgs_Bool In1;            /* '<S271>/In1' */
+};
+
+/* Block signals for system '<S230>/SourceBlock' */
+struct B_SourceBlock_pid_control_V1_T {
+  char_T b_zeroDelimTopic[22];
+  SL_Bus_std_msgs_Bool SourceBlock_o2; /* '<S230>/SourceBlock' */
+  boolean_T SourceBlock_o1;            /* '<S230>/SourceBlock' */
+};
+
+/* Block states (default storage) for system '<S230>/SourceBlock' */
+struct DW_SourceBlock_pid_control_V1_T {
+  ros_slros2_internal_block_Sub_T obj; /* '<S230>/SourceBlock' */
+  boolean_T objisempty;                /* '<S230>/SourceBlock' */
+};
+
 /* Block signals (default storage) */
 struct B_pid_control_V1_T {
   SL_Bus_gazebo_msgs_SetEntityStateRequest BusAssignment;/* '<Root>/Bus Assignment' */
-  uint8_T stringOut_l[128];            /* '<Root>/MATLAB Function' */
+  real_T x[12];                        /* '<S12>/Integrator' */
   real_T RotationAnglestoDirectionCo[9];
                         /* '<S12>/Rotation Angles to Direction Cosine Matrix' */
   real_T FA_b_tmp[9];
@@ -187,15 +206,43 @@ struct B_pid_control_V1_T {
   real_T TmpSignalConversionAtSFunct[5];/* '<S12>/MATLAB Function' */
   char_T b_zeroDelimTopic[25];
   real_T wbe_b[3];
-  real_T F_b[3];
+  real_T FA_b[3];
+  real_T Product_be[3];                /* '<S256>/Product' */
   real_T Dtot[3];
   char_T b_zeroDelimTopic_m[17];
-  char_T b_zeroDelimTopic_c[16];
   sJ4ih70VmKcvCeguWN0mNVF deadline;
+  sJ4ih70VmKcvCeguWN0mNVF lifespan;
+  sJ4ih70VmKcvCeguWN0mNVF liveliness_lease_duration;
+  sJ4ih70VmKcvCeguWN0mNVF deadline_c;
+  sJ4ih70VmKcvCeguWN0mNVF lifespan_k;
+  sJ4ih70VmKcvCeguWN0mNVF liveliness_lease_duration_c;
+  char_T b_zeroDelimTopic_b[16];
+  sJ4ih70VmKcvCeguWN0mNVF deadline_p;
+  sJ4ih70VmKcvCeguWN0mNVF lifespan_c;
+  sJ4ih70VmKcvCeguWN0mNVF liveliness_lease_duration_f;
+  sJ4ih70VmKcvCeguWN0mNVF deadline_g;
+  sJ4ih70VmKcvCeguWN0mNVF lifespan_g;
+  sJ4ih70VmKcvCeguWN0mNVF liveliness_lease_duration_m;
+  real_T w_g[2];                       /* '<S248>/w' */
+  real_T w_e[2];                       /* '<S248>/w ' */
+  real_T w1[2];                        /* '<S248>/w 1' */
+  real_T w_n[2];                       /* '<S247>/w' */
+  real_T w1_c[2];                      /* '<S247>/w1' */
+  real_T w_d[2];                       /* '<S246>/w' */
+  real_T w_e0[2];                      /* '<S245>/w' */
+  real_T UnaryMinus[2];                /* '<S245>/Unary Minus' */
+  real_T w_o[2];                       /* '<S244>/w' */
+  real_T sigma_w[2];                   /* '<S244>/sigma_w' */
+  uint8_T stringOut[128];              /* '<Root>/MATLAB Function1' */
+  uint8_T stringOut_l[128];            /* '<Root>/MATLAB Function' */
   real_T frac[2];
   real_T dv[2];
+  char_T b_zeroDelimTopic_n[14];
+  rmw_qos_profile_t qos_profile;
+  rmw_qos_profile_t qos_profile_p;
+  rmw_qos_profile_t qos_profile_l;
+  rmw_qos_profile_t qos_profile_j;
   real_T Switch;                       /* '<Root>/Switch' */
-  real_T x[12];                        /* '<S12>/Integrator' */
   real_T Gain;                         /* '<Root>/Gain' */
   real_T FilterCoefficient;            /* '<S104>/Filter Coefficient' */
   real_T Saturation;                   /* '<S108>/Saturation' */
@@ -220,23 +267,13 @@ struct B_pid_control_V1_T {
   real_T EnergykWh;                    /* '<S12>/Gain1' */
   real_T powerdemand;                  /* '<S12>/Divide' */
   real_T loadtorque;                   /* '<S12>/Divide1' */
-  real_T Product[4];                   /* '<S241>/Product' */
-  real_T Merge[3];                     /* '<S253>/Merge' */
-  real_T UnitConversion[3];            /* '<S228>/Unit Conversion' */
+  real_T Product[4];                   /* '<S243>/Product' */
+  real_T Switch_p[3];                  /* '<S12>/Switch' */
+  real_T Switch1_p[3];                 /* '<S12>/Switch1' */
   real_T XDOT[40];                     /* '<S12>/MATLAB Function' */
-  real_T w[2];                         /* '<S247>/w' */
-  real_T w_a[2];                       /* '<S247>/w ' */
-  real_T LwgV1[2];                     /* '<S247>/Lwg//V 1' */
-  real_T w_g[2];                       /* '<S246>/w' */
-  real_T w_e[2];                       /* '<S246>/w ' */
-  real_T w1[2];                        /* '<S246>/w 1' */
-  real_T w_n[2];                       /* '<S245>/w' */
-  real_T w1_c[2];                      /* '<S245>/w1' */
-  real_T w_d[2];                       /* '<S244>/w' */
-  real_T w_e0[2];                      /* '<S243>/w' */
-  real_T UnaryMinus[2];                /* '<S243>/Unary Minus' */
-  real_T w_o[2];                       /* '<S242>/w' */
-  real_T sigma_w[2];                   /* '<S242>/sigma_w' */
+  real_T w[2];                         /* '<S249>/w' */
+  real_T w_a[2];                       /* '<S249>/w ' */
+  real_T LwgV1[2];                     /* '<S249>/Lwg//V 1' */
   real_T u2;
   real_T Va;
   real_T Q;
@@ -256,6 +293,8 @@ struct B_pid_control_V1_T {
   real_T Sum_ks;                       /* '<S56>/Sum' */
   real_T Sum5;                         /* '<Root>/Sum5' */
   real_T SignPreSat_j;                 /* '<S145>/SignPreSat' */
+  real_T FA_b_tmp_d;
+  real_T FA_b_tmp_g;
   real_T FE1_b_idx_1;
   real_T Mcg_b_idx_2;
   real_T Mcg_b_idx_0;
@@ -264,11 +303,9 @@ struct B_pid_control_V1_T {
   real_T Fg_b_idx_2;
   real_T Fg_b_idx_1;
   real_T FE_b_idx_0;
-  real_T FA_b_idx_0;
   real_T unnamed_idx_1;
-  real_T FA_b_idx_1;
   real_T unnamed_idx_2;
-  real_T FA_b_idx_2;
+  real_T FA_b_l;
   real_T d;
   real_T d1;
   SL_Bus_std_msgs_Float64 SourceBlock_o2_e;/* '<S10>/SourceBlock' */
@@ -276,10 +313,9 @@ struct B_pid_control_V1_T {
   SL_Bus_std_msgs_Float64 SourceBlock_o2_l;/* '<S9>/SourceBlock' */
   uint32_T bpIndex[2];
   int32_T i;
-  int32_T i_k;
+  int32_T i_d;
   uint32_T lengthOut;                  /* '<Root>/MATLAB Function1' */
   uint32_T lengthOut_e;                /* '<Root>/MATLAB Function' */
-  uint8_T stringOut[128];              /* '<Root>/MATLAB Function1' */
   boolean_T AND3;                      /* '<S91>/AND3' */
   boolean_T Memory_e;                  /* '<S91>/Memory' */
   boolean_T AND3_j;                    /* '<S145>/AND3' */
@@ -287,6 +323,10 @@ struct B_pid_control_V1_T {
   boolean_T SourceBlock_o1;            /* '<S11>/SourceBlock' */
   boolean_T SourceBlock_o1_l;          /* '<S10>/SourceBlock' */
   boolean_T SourceBlock_o1_i;          /* '<S9>/SourceBlock' */
+  B_SourceBlock_pid_control_V1_T SourceBlock_a;/* '<S230>/SourceBlock' */
+  B_EnabledSubsystem_pid_cont_n_T EnabledSubsystem_g;/* '<S231>/Enabled Subsystem' */
+  B_SourceBlock_pid_control_V1_T SourceBlock_c;/* '<S230>/SourceBlock' */
+  B_EnabledSubsystem_pid_cont_n_T EnabledSubsystem_p;/* '<S230>/Enabled Subsystem' */
   B_EnabledSubsystem_pid_contro_T EnabledSubsystem_a;/* '<S11>/Enabled Subsystem' */
   B_EnabledSubsystem_pid_contro_T EnabledSubsystem_c;/* '<S10>/Enabled Subsystem' */
   B_EnabledSubsystem_pid_contro_T EnabledSubsystem;/* '<S9>/Enabled Subsystem' */
@@ -303,7 +343,7 @@ struct DW_pid_control_V1_T {
   real_T UnitDelay1_DSTATE;            /* '<Root>/Unit Delay1' */
   real_T Memory_PreviousInput[3];      /* '<S12>/Memory' */
   real_T Memory1_PreviousInput[3];     /* '<S12>/Memory1' */
-  real_T NextOutput[4];                /* '<S241>/White Noise' */
+  real_T NextOutput[4];                /* '<S243>/White Noise' */
   struct {
     void *LoggedData;
   } ToWorkspace_PWORK;                 /* '<Root>/To Workspace' */
@@ -445,16 +485,16 @@ struct DW_pid_control_V1_T {
   } ToWorkspace9_PWORK;                /* '<S12>/To Workspace9' */
 
   uint32_T PreLookUpIndexSearchprobofexcee;
-                        /* '<S248>/PreLook-Up Index Search  (prob of exceed)' */
+                        /* '<S250>/PreLook-Up Index Search  (prob of exceed)' */
   uint32_T PreLookUpIndexSearchaltitude_DW;
-                              /* '<S248>/PreLook-Up Index Search  (altitude)' */
-  uint32_T RandSeed[4];                /* '<S241>/White Noise' */
+                              /* '<S250>/PreLook-Up Index Search  (altitude)' */
+  uint32_T RandSeed[4];                /* '<S243>/White Noise' */
   robotics_slcore_internal_bloc_T obj_c;
                              /* '<Root>/Coordinate Transformation Conversion' */
   int8_T ifHeightMaxlowaltitudeelseifHei;
-  /* '<S236>/if Height < Max low altitude  elseif Height > Min isotropic altitude ' */
+  /* '<S238>/if Height < Max low altitude  elseif Height > Min isotropic altitude ' */
   int8_T ifHeightMaxlowaltitudeelseifH_k;
-  /* '<S237>/if Height < Max low altitude  elseif Height > Min isotropic altitude ' */
+  /* '<S239>/if Height < Max low altitude  elseif Height > Min isotropic altitude ' */
   boolean_T Memory_PreviousInput_p;    /* '<S91>/Memory' */
   boolean_T Memory_PreviousInput_d;    /* '<S145>/Memory' */
   boolean_T objisempty;                /* '<S11>/SourceBlock' */
@@ -462,12 +502,14 @@ struct DW_pid_control_V1_T {
   boolean_T objisempty_n;              /* '<S9>/SourceBlock' */
   boolean_T objisempty_d;    /* '<Root>/Coordinate Transformation Conversion' */
   boolean_T objisempty_f;              /* '<S2>/ServiceCaller' */
-  boolean_T Hwgws_MODE;                /* '<S232>/Hwgw(s)' */
-  boolean_T Hvgws_MODE;                /* '<S232>/Hvgw(s)' */
-  boolean_T Hugws_MODE;                /* '<S232>/Hugw(s)' */
-  boolean_T Hrgw_MODE;                 /* '<S231>/Hrgw' */
-  boolean_T Hqgw_MODE;                 /* '<S231>/Hqgw' */
-  boolean_T Hpgw_MODE;                 /* '<S231>/Hpgw' */
+  boolean_T Hwgws_MODE;                /* '<S234>/Hwgw(s)' */
+  boolean_T Hvgws_MODE;                /* '<S234>/Hvgw(s)' */
+  boolean_T Hugws_MODE;                /* '<S234>/Hugw(s)' */
+  boolean_T Hrgw_MODE;                 /* '<S233>/Hrgw' */
+  boolean_T Hqgw_MODE;                 /* '<S233>/Hqgw' */
+  boolean_T Hpgw_MODE;                 /* '<S233>/Hpgw' */
+  DW_SourceBlock_pid_control_V1_T SourceBlock_a;/* '<S230>/SourceBlock' */
+  DW_SourceBlock_pid_control_V1_T SourceBlock_c;/* '<S230>/SourceBlock' */
 };
 
 /* Continuous states (default storage) */
@@ -482,14 +524,14 @@ struct X_pid_control_V1_T {
   real_T Integrator_CSTATE_p;          /* '<S155>/Integrator' */
   real_T Filter_CSTATE_m;              /* '<S150>/Filter' */
   real_T Integrator1_CSTATE;           /* '<S12>/Integrator1' */
-  real_T wg_p1_CSTATE[2];              /* '<S247>/wg_p1' */
-  real_T wg_p2_CSTATE[2];              /* '<S247>/wg_p2' */
-  real_T vg_p1_CSTATE[2];              /* '<S246>/vg_p1' */
-  real_T vgw_p2_CSTATE[2];             /* '<S246>/vgw_p2' */
-  real_T ug_p_CSTATE[2];               /* '<S245>/ug_p' */
-  real_T rgw_p_CSTATE[2];              /* '<S244>/rgw_p' */
-  real_T qgw_p_CSTATE[2];              /* '<S243>/qgw_p' */
-  real_T pgw_p_CSTATE[2];              /* '<S242>/pgw_p' */
+  real_T wg_p1_CSTATE[2];              /* '<S249>/wg_p1' */
+  real_T wg_p2_CSTATE[2];              /* '<S249>/wg_p2' */
+  real_T vg_p1_CSTATE[2];              /* '<S248>/vg_p1' */
+  real_T vgw_p2_CSTATE[2];             /* '<S248>/vgw_p2' */
+  real_T ug_p_CSTATE[2];               /* '<S247>/ug_p' */
+  real_T rgw_p_CSTATE[2];              /* '<S246>/rgw_p' */
+  real_T qgw_p_CSTATE[2];              /* '<S245>/qgw_p' */
+  real_T pgw_p_CSTATE[2];              /* '<S244>/pgw_p' */
 };
 
 /* State derivatives (default storage) */
@@ -504,14 +546,14 @@ struct XDot_pid_control_V1_T {
   real_T Integrator_CSTATE_p;          /* '<S155>/Integrator' */
   real_T Filter_CSTATE_m;              /* '<S150>/Filter' */
   real_T Integrator1_CSTATE;           /* '<S12>/Integrator1' */
-  real_T wg_p1_CSTATE[2];              /* '<S247>/wg_p1' */
-  real_T wg_p2_CSTATE[2];              /* '<S247>/wg_p2' */
-  real_T vg_p1_CSTATE[2];              /* '<S246>/vg_p1' */
-  real_T vgw_p2_CSTATE[2];             /* '<S246>/vgw_p2' */
-  real_T ug_p_CSTATE[2];               /* '<S245>/ug_p' */
-  real_T rgw_p_CSTATE[2];              /* '<S244>/rgw_p' */
-  real_T qgw_p_CSTATE[2];              /* '<S243>/qgw_p' */
-  real_T pgw_p_CSTATE[2];              /* '<S242>/pgw_p' */
+  real_T wg_p1_CSTATE[2];              /* '<S249>/wg_p1' */
+  real_T wg_p2_CSTATE[2];              /* '<S249>/wg_p2' */
+  real_T vg_p1_CSTATE[2];              /* '<S248>/vg_p1' */
+  real_T vgw_p2_CSTATE[2];             /* '<S248>/vgw_p2' */
+  real_T ug_p_CSTATE[2];               /* '<S247>/ug_p' */
+  real_T rgw_p_CSTATE[2];              /* '<S246>/rgw_p' */
+  real_T qgw_p_CSTATE[2];              /* '<S245>/qgw_p' */
+  real_T pgw_p_CSTATE[2];              /* '<S244>/pgw_p' */
 };
 
 /* State disabled  */
@@ -526,36 +568,36 @@ struct XDis_pid_control_V1_T {
   boolean_T Integrator_CSTATE_p;       /* '<S155>/Integrator' */
   boolean_T Filter_CSTATE_m;           /* '<S150>/Filter' */
   boolean_T Integrator1_CSTATE;        /* '<S12>/Integrator1' */
-  boolean_T wg_p1_CSTATE[2];           /* '<S247>/wg_p1' */
-  boolean_T wg_p2_CSTATE[2];           /* '<S247>/wg_p2' */
-  boolean_T vg_p1_CSTATE[2];           /* '<S246>/vg_p1' */
-  boolean_T vgw_p2_CSTATE[2];          /* '<S246>/vgw_p2' */
-  boolean_T ug_p_CSTATE[2];            /* '<S245>/ug_p' */
-  boolean_T rgw_p_CSTATE[2];           /* '<S244>/rgw_p' */
-  boolean_T qgw_p_CSTATE[2];           /* '<S243>/qgw_p' */
-  boolean_T pgw_p_CSTATE[2];           /* '<S242>/pgw_p' */
+  boolean_T wg_p1_CSTATE[2];           /* '<S249>/wg_p1' */
+  boolean_T wg_p2_CSTATE[2];           /* '<S249>/wg_p2' */
+  boolean_T vg_p1_CSTATE[2];           /* '<S248>/vg_p1' */
+  boolean_T vgw_p2_CSTATE[2];          /* '<S248>/vgw_p2' */
+  boolean_T ug_p_CSTATE[2];            /* '<S247>/ug_p' */
+  boolean_T rgw_p_CSTATE[2];           /* '<S246>/rgw_p' */
+  boolean_T qgw_p_CSTATE[2];           /* '<S245>/qgw_p' */
+  boolean_T pgw_p_CSTATE[2];           /* '<S244>/pgw_p' */
 };
 
 /* Invariant block signals (default storage) */
 struct ConstB_pid_control_V1_T {
-  real_T UnitConversion;               /* '<S230>/Unit Conversion' */
-  real_T UnitConversion_k;             /* '<S240>/Unit Conversion' */
-  real_T sigma_wg;                     /* '<S249>/sigma_wg ' */
-  real_T UnitConversion_n;             /* '<S234>/Unit Conversion' */
-  real_T UnitConversion_c;             /* '<S268>/Unit Conversion' */
+  real_T UnitConversion;               /* '<S232>/Unit Conversion' */
+  real_T UnitConversion_k;             /* '<S242>/Unit Conversion' */
+  real_T sigma_wg;                     /* '<S251>/sigma_wg ' */
+  real_T UnitConversion_n;             /* '<S236>/Unit Conversion' */
+  real_T UnitConversion_c;             /* '<S270>/Unit Conversion' */
   real_T PreLookUpIndexSearchprobofe;
-                        /* '<S248>/PreLook-Up Index Search  (prob of exceed)' */
-  real_T Sqrt[4];                      /* '<S241>/Sqrt' */
-  real_T Sqrt1;                        /* '<S241>/Sqrt1' */
-  real_T Divide[4];                    /* '<S241>/Divide' */
+                        /* '<S250>/PreLook-Up Index Search  (prob of exceed)' */
+  real_T Sqrt[4];                      /* '<S243>/Sqrt' */
+  real_T Sqrt1;                        /* '<S243>/Sqrt1' */
+  real_T Divide[4];                    /* '<S243>/Divide' */
   real_T motorspeed;                   /* '<S12>/Gain2' */
-  real_T Sum;                          /* '<S258>/Sum' */
-  real_T Sum_a;                        /* '<S250>/Sum' */
-  real_T sqrt_a;                       /* '<S247>/sqrt' */
-  real_T w4;                           /* '<S242>/w4' */
-  real_T u16;                          /* '<S242>/u^1//6' */
+  real_T Sum;                          /* '<S260>/Sum' */
+  real_T Sum_a;                        /* '<S252>/Sum' */
+  real_T sqrt_a;                       /* '<S249>/sqrt' */
+  real_T w4;                           /* '<S244>/w4' */
+  real_T u16;                          /* '<S244>/u^1//6' */
   uint32_T PreLookUpIndexSearchprobo_g;
-                        /* '<S248>/PreLook-Up Index Search  (prob of exceed)' */
+                        /* '<S250>/PreLook-Up Index Search  (prob of exceed)' */
 };
 
 #ifndef ODE3_INTG
@@ -577,17 +619,17 @@ struct ConstP_pid_control_V1_T {
   real_T Integrator_IC[12];
 
   /* Expression: h_vec
-   * Referenced by: '<S248>/PreLook-Up Index Search  (altitude)'
+   * Referenced by: '<S250>/PreLook-Up Index Search  (altitude)'
    */
   real_T PreLookUpIndexSearchaltitude_Br[12];
 
   /* Expression: sigma_vec'
-   * Referenced by: '<S248>/Medium//High Altitude Intensity'
+   * Referenced by: '<S250>/Medium//High Altitude Intensity'
    */
   real_T MediumHighAltitudeIntensity_Tab[84];
 
   /* Computed Parameter: MediumHighAltitudeIntensity_max
-   * Referenced by: '<S248>/Medium//High Altitude Intensity'
+   * Referenced by: '<S250>/Medium//High Altitude Intensity'
    */
   uint32_T MediumHighAltitudeIntensity_max[2];
 };
@@ -690,12 +732,26 @@ class pid_control_V1
   static void pid_control_V1_EnabledSubsystem(boolean_T rtu_Enable, const
     SL_Bus_std_msgs_Float64 *rtu_In1, B_EnabledSubsystem_pid_contro_T *localB);
 
-  /* private member function(s) for subsystem '<Root>'*/
+  /* private member function(s) for subsystem '<S230>/Enabled Subsystem'*/
+  static void pid_con_EnabledSubsystem_i_Init(B_EnabledSubsystem_pid_cont_n_T
+    *localB);
+  static void pid_control__EnabledSubsystem_p(boolean_T rtu_Enable, const
+    SL_Bus_std_msgs_Bool *rtu_In1, B_EnabledSubsystem_pid_cont_n_T *localB);
+
+  /* private member function(s) for subsystem '<S230>/SourceBlock'*/
+  void pid_control_V_SourceBlock_Start(B_SourceBlock_pid_control_V1_T *localB,
+    DW_SourceBlock_pid_control_V1_T *localDW);
+  void pid_control_V1_SourceBlock(B_SourceBlock_pid_control_V1_T *localB);
+  void pid_control_V1_SourceBlock_Term(DW_SourceBlock_pid_control_V1_T *localDW);
   void pid_contro_Subscriber_setupImpl(const ros_slros2_internal_block_Sub_T
+    *obj, B_SourceBlock_pid_control_V1_T *localB);
+
+  /* private member function(s) for subsystem '<Root>'*/
+  void pid_cont_Subscriber_setupImpl_o(const ros_slros2_internal_block_Sub_T
+    *obj);
+  void pid_co_Subscriber_setupImpl_onh(const ros_slros2_internal_block_Sub_T
     *obj);
   void pid_con_Subscriber_setupImpl_on(const ros_slros2_internal_block_Sub_T
-    *obj);
-  void pid_cont_Subscriber_setupImpl_o(const ros_slros2_internal_block_Sub_T
     *obj);
   void pid_con_ServiceCaller_setupImpl(const ros_slros2_internal_block_Ser_T
     *obj);
@@ -727,12 +783,12 @@ extern volatile boolean_T runModel;
  * Block '<S228>/Cast To Double2' : Eliminate redundant data type conversion
  * Block '<S228>/Cast To Double3' : Eliminate redundant data type conversion
  * Block '<S228>/Cast To Double4' : Eliminate redundant data type conversion
- * Block '<S254>/Reshape' : Reshape block reduction
- * Block '<S254>/Reshape1' : Reshape block reduction
  * Block '<S256>/Reshape' : Reshape block reduction
- * Block '<S262>/Reshape' : Reshape block reduction
- * Block '<S262>/Reshape1' : Reshape block reduction
+ * Block '<S256>/Reshape1' : Reshape block reduction
+ * Block '<S258>/Reshape' : Reshape block reduction
  * Block '<S264>/Reshape' : Reshape block reduction
+ * Block '<S264>/Reshape1' : Reshape block reduction
+ * Block '<S266>/Reshape' : Reshape block reduction
  */
 
 /*-
@@ -979,44 +1035,48 @@ extern volatile boolean_T runModel;
  * '<S227>' : 'pid_control_V1/Subscribe-YAW/Enabled Subsystem'
  * '<S228>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))'
  * '<S229>' : 'pid_control_V1/Subsystem/MATLAB Function'
- * '<S230>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Angle Conversion'
- * '<S231>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates'
- * '<S232>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities'
- * '<S233>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Length Conversion'
- * '<S234>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Length Conversion1'
- * '<S235>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/RMS turbulence  intensities'
- * '<S236>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates'
- * '<S237>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities'
- * '<S238>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths'
- * '<S239>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Velocity Conversion'
- * '<S240>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Velocity Conversion2'
- * '<S241>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/White Noise'
- * '<S242>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates/Hpgw'
- * '<S243>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates/Hqgw'
- * '<S244>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates/Hrgw'
- * '<S245>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities/Hugw(s)'
- * '<S246>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities/Hvgw(s)'
- * '<S247>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities/Hwgw(s)'
- * '<S248>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/RMS turbulence  intensities/High Altitude Intensity'
- * '<S249>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/RMS turbulence  intensities/Low Altitude Intensity'
- * '<S250>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Interpolate  rates'
- * '<S251>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Low altitude  rates'
- * '<S252>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Medium//High  altitude rates'
- * '<S253>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Merge Subsystems'
- * '<S254>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Interpolate  rates/wind to body transformation'
- * '<S255>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Interpolate  rates/wind to body transformation/convert to earth coords'
- * '<S256>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Low altitude  rates/wind to body transformation'
- * '<S257>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Low altitude  rates/wind to body transformation/convert to earth coords'
- * '<S258>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Interpolate  velocities'
- * '<S259>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Low altitude  velocities'
- * '<S260>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Medium//High  altitude velocities'
- * '<S261>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Merge Subsystems'
- * '<S262>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Interpolate  velocities/wind to body transformation'
- * '<S263>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Interpolate  velocities/wind to body transformation/convert to earth coords'
- * '<S264>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Low altitude  velocities/wind to body transformation'
- * '<S265>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Low altitude  velocities/wind to body transformation/convert to earth coords'
- * '<S266>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths/Low altitude scale length'
- * '<S267>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths/Medium//High altitude scale length'
- * '<S268>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths/Medium//High altitude scale length/Length Conversion'
+ * '<S230>' : 'pid_control_V1/Subsystem/Subscribe'
+ * '<S231>' : 'pid_control_V1/Subsystem/Subscribe1'
+ * '<S232>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Angle Conversion'
+ * '<S233>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates'
+ * '<S234>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities'
+ * '<S235>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Length Conversion'
+ * '<S236>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Length Conversion1'
+ * '<S237>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/RMS turbulence  intensities'
+ * '<S238>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates'
+ * '<S239>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities'
+ * '<S240>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths'
+ * '<S241>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Velocity Conversion'
+ * '<S242>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Velocity Conversion2'
+ * '<S243>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/White Noise'
+ * '<S244>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates/Hpgw'
+ * '<S245>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates/Hqgw'
+ * '<S246>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on angular rates/Hrgw'
+ * '<S247>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities/Hugw(s)'
+ * '<S248>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities/Hvgw(s)'
+ * '<S249>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Filters on velocities/Hwgw(s)'
+ * '<S250>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/RMS turbulence  intensities/High Altitude Intensity'
+ * '<S251>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/RMS turbulence  intensities/Low Altitude Intensity'
+ * '<S252>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Interpolate  rates'
+ * '<S253>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Low altitude  rates'
+ * '<S254>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Medium//High  altitude rates'
+ * '<S255>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Merge Subsystems'
+ * '<S256>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Interpolate  rates/wind to body transformation'
+ * '<S257>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Interpolate  rates/wind to body transformation/convert to earth coords'
+ * '<S258>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Low altitude  rates/wind to body transformation'
+ * '<S259>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select angular rates/Low altitude  rates/wind to body transformation/convert to earth coords'
+ * '<S260>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Interpolate  velocities'
+ * '<S261>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Low altitude  velocities'
+ * '<S262>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Medium//High  altitude velocities'
+ * '<S263>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Merge Subsystems'
+ * '<S264>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Interpolate  velocities/wind to body transformation'
+ * '<S265>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Interpolate  velocities/wind to body transformation/convert to earth coords'
+ * '<S266>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Low altitude  velocities/wind to body transformation'
+ * '<S267>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Select velocities/Low altitude  velocities/wind to body transformation/convert to earth coords'
+ * '<S268>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths/Low altitude scale length'
+ * '<S269>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths/Medium//High altitude scale length'
+ * '<S270>' : 'pid_control_V1/Subsystem/Dryden Wind Turbulence Model  (Continuous (-q +r))/Turbulence scale lengths/Medium//High altitude scale length/Length Conversion'
+ * '<S271>' : 'pid_control_V1/Subsystem/Subscribe/Enabled Subsystem'
+ * '<S272>' : 'pid_control_V1/Subsystem/Subscribe1/Enabled Subsystem'
  */
 #endif                                 /* pid_control_V1_h_ */
