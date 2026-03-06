@@ -31,36 +31,44 @@ x0 = x_nom;
 % [XDOT] = Model(x_nom,u_nom) % debug
 %% PARAMETROS DE CONTROL PID (Lazo Cerrado)
 
-% 1. Lazo de Elevador (Control de Cabeceo / Pitch)
-theta_sp = 0.5 * (pi/180); % IGE, necesita ángulo de ataque.
-% Ganancias iniciales sugeridas:
+% 1. Lazo de Velocidad (Throttle / Motores) - NUEVO
+% Su único objetivo es vencer el drag y mantener la presión dinámica.
+u_sp = 28.0; % Setpoint: Velocidad de crucero deseada en m/s
+% Ganancias sugeridas: Los motores tienen inercia, mejor usar PI dominante.
+Kp_u = 0.05;    
+Ki_u = 0.01;  
+Kd_u = 0.005;   
+
+% 2. Lazo de Altura (Controla el Setpoint de Cabeceo) - REDISEÑADO
+% En lugar de mover el motor, dicta qué ángulo de nariz se necesita.
+h_sp = 1.0; % Setpoint: 1 metro de altura sobre el agua
+% Este PID calculará un theta_sp (ángulo deseado). Ganancias suaves para no cabecear bruscamente:
+Kp_h = 2.5;  % Si caigo 1m, pido 2.5 rad extra de pitch (luego se satura a valores seguros en Simulink)
+Ki_h = 0.1;
+Kd_h = 1.0;
+
+% Límite de seguridad para el setpoint de Pitch (para aplicar dentro de Simulink)
+theta_max =  8.0 * (pi/180); % Máximo cabeceo permitido hacia arriba
+theta_min = -2.0 * (pi/180); % Máximo cabeceo permitido hacia abajo
+
+% 3. Lazo Interno de Elevador (Control de Cabeceo / Pitch)
+% Sigue al theta_sp dictado por el lazo de altura.
+% Ganancias iniciales (negativas por convención de deflexión):
 Kp_pitch = -25.0;   
 Ki_pitch = -5.0;  
 Kd_pitch = -12.5;   
 
-% 2. Lazo de Acelerador (Control de Altura / h)
-% Recordar que Altura h = -z_NED
-h_sp = 1.0; % Setpoint: 1 metros de altura sobre el agua
-% Ganancias iniciales:
-Kp_h = 0.25;
-Ki_h = 0.02;
-Kd_h = 0.25;
-
-% 3. Lazo de Timón (Control de Dirección / Yaw)
+% 4. Lazo de Timón (Control de Dirección / Yaw)
 psi_sp = 0 * (pi/180); % Setpoint
-% Ganancias iniciales para el Rudder (Timón). 
-% Nota: El signo puede requerir inversión (+ o -) dependiendo de la convención aerodinámica de tu Modelo.
 Kp_yaw = -15.0;   
 Ki_yaw = -0.5;  
 Kd_yaw = -5.0;   
 
-% 4. Lazo de Alerones (Estabilización de Alabeo / Roll)
-phi_sp = 0.0; % Setpoint crítico: 0 radianes (alas siempre horizontales)
-% Ganancias iniciales para los Ailerons. Deben ser rápidas para rechazar la perturbación del timón.
+% 5. Lazo de Alerones (Estabilización de Alabeo / Roll)
+phi_sp = 0.0; % Alas horizontales
 Kp_roll = -15.0;   
 Ki_roll = -1.0;  
 Kd_roll = -10.0;   
-
 
 %% Simulation
 sim = sim('pid_control_V1.slx');
