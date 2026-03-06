@@ -1,5 +1,5 @@
 // Copyright 2022-2025 The MathWorks, Inc.
-// Generated 03-Mar-2026 20:34:15
+// Generated 06-Mar-2026 11:19:12
 #ifndef _SLROS2_INITIALIZE_H_
 #define _SLROS2_INITIALIZE_H_
 #include "pid_control_V1_types.h"
@@ -42,7 +42,7 @@ extern SimulinkSubscriber<std_msgs::msg::Float64,SL_Bus_std_msgs_Float64> Sub_pi
 // pid_control_V1/Subsystem/Subscribe
 extern SimulinkSubscriber<std_msgs::msg::Bool,SL_Bus_std_msgs_Bool> Sub_pid_control_V1_417;
 // pid_control_V1/Subsystem/Subscribe1
-extern SimulinkSubscriber<std_msgs::msg::Bool,SL_Bus_std_msgs_Bool> Sub_pid_control_V1_417;
+extern SimulinkSubscriber<std_msgs::msg::Bool,SL_Bus_std_msgs_Bool> Sub_pid_control_V1_423;
 // pid_control_V1/Call Service
 extern SimulinkServiceCaller<gazebo_msgs::srv::SetEntityState,SL_Bus_gazebo_msgs_SetEntityStateRequest,SL_Bus_gazebo_msgs_SetEntityStateResponse> ServCall_pid_control_V1_326;
 #endif

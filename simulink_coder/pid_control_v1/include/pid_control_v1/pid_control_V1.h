@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.54
+ * Model version              : 12.55
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Tue Mar  3 20:33:58 2026
+ * C++ source code generated on : Fri Mar  6 11:18:59 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -24,7 +24,6 @@
 #include "rtw_solver.h"
 #include "slros2_initialize.h"
 #include "pid_control_V1_types.h"
-#include "rmw/qos_profiles.h"
 
 extern "C"
 {
@@ -182,19 +181,6 @@ struct B_EnabledSubsystem_pid_cont_n_T {
   SL_Bus_std_msgs_Bool In1;            /* '<S271>/In1' */
 };
 
-/* Block signals for system '<S230>/SourceBlock' */
-struct B_SourceBlock_pid_control_V1_T {
-  char_T b_zeroDelimTopic[22];
-  SL_Bus_std_msgs_Bool SourceBlock_o2; /* '<S230>/SourceBlock' */
-  boolean_T SourceBlock_o1;            /* '<S230>/SourceBlock' */
-};
-
-/* Block states (default storage) for system '<S230>/SourceBlock' */
-struct DW_SourceBlock_pid_control_V1_T {
-  ros_slros2_internal_block_Sub_T obj; /* '<S230>/SourceBlock' */
-  boolean_T objisempty;                /* '<S230>/SourceBlock' */
-};
-
 /* Block signals (default storage) */
 struct B_pid_control_V1_T {
   SL_Bus_gazebo_msgs_SetEntityStateRequest BusAssignment;/* '<Root>/Bus Assignment' */
@@ -209,39 +195,13 @@ struct B_pid_control_V1_T {
   real_T FA_b[3];
   real_T Product_be[3];                /* '<S256>/Product' */
   real_T Dtot[3];
-  char_T b_zeroDelimTopic_m[17];
+  char_T b_zeroDelimTopic_m[22];
+  char_T b_zeroDelimTopic_c[22];
+  char_T b_zeroDelimTopic_k[17];
+  char_T b_zeroDelimTopic_cx[16];
   sJ4ih70VmKcvCeguWN0mNVF deadline;
-  sJ4ih70VmKcvCeguWN0mNVF lifespan;
-  sJ4ih70VmKcvCeguWN0mNVF liveliness_lease_duration;
-  sJ4ih70VmKcvCeguWN0mNVF deadline_c;
-  sJ4ih70VmKcvCeguWN0mNVF lifespan_k;
-  sJ4ih70VmKcvCeguWN0mNVF liveliness_lease_duration_c;
-  char_T b_zeroDelimTopic_b[16];
-  sJ4ih70VmKcvCeguWN0mNVF deadline_p;
-  sJ4ih70VmKcvCeguWN0mNVF lifespan_c;
-  sJ4ih70VmKcvCeguWN0mNVF liveliness_lease_duration_f;
-  sJ4ih70VmKcvCeguWN0mNVF deadline_g;
-  sJ4ih70VmKcvCeguWN0mNVF lifespan_g;
-  sJ4ih70VmKcvCeguWN0mNVF liveliness_lease_duration_m;
-  real_T w_g[2];                       /* '<S248>/w' */
-  real_T w_e[2];                       /* '<S248>/w ' */
-  real_T w1[2];                        /* '<S248>/w 1' */
-  real_T w_n[2];                       /* '<S247>/w' */
-  real_T w1_c[2];                      /* '<S247>/w1' */
-  real_T w_d[2];                       /* '<S246>/w' */
-  real_T w_e0[2];                      /* '<S245>/w' */
-  real_T UnaryMinus[2];                /* '<S245>/Unary Minus' */
-  real_T w_o[2];                       /* '<S244>/w' */
-  real_T sigma_w[2];                   /* '<S244>/sigma_w' */
-  uint8_T stringOut[128];              /* '<Root>/MATLAB Function1' */
-  uint8_T stringOut_l[128];            /* '<Root>/MATLAB Function' */
   real_T frac[2];
   real_T dv[2];
-  char_T b_zeroDelimTopic_n[14];
-  rmw_qos_profile_t qos_profile;
-  rmw_qos_profile_t qos_profile_p;
-  rmw_qos_profile_t qos_profile_l;
-  rmw_qos_profile_t qos_profile_j;
   real_T Switch;                       /* '<Root>/Switch' */
   real_T Gain;                         /* '<Root>/Gain' */
   real_T FilterCoefficient;            /* '<S104>/Filter Coefficient' */
@@ -274,6 +234,16 @@ struct B_pid_control_V1_T {
   real_T w[2];                         /* '<S249>/w' */
   real_T w_a[2];                       /* '<S249>/w ' */
   real_T LwgV1[2];                     /* '<S249>/Lwg//V 1' */
+  real_T w_g[2];                       /* '<S248>/w' */
+  real_T w_e[2];                       /* '<S248>/w ' */
+  real_T w1[2];                        /* '<S248>/w 1' */
+  real_T w_n[2];                       /* '<S247>/w' */
+  real_T w1_c[2];                      /* '<S247>/w1' */
+  real_T w_d[2];                       /* '<S246>/w' */
+  real_T w_e0[2];                      /* '<S245>/w' */
+  real_T UnaryMinus[2];                /* '<S245>/Unary Minus' */
+  real_T w_o[2];                       /* '<S244>/w' */
+  real_T sigma_w[2];                   /* '<S244>/sigma_w' */
   real_T u2;
   real_T Va;
   real_T Q;
@@ -293,8 +263,8 @@ struct B_pid_control_V1_T {
   real_T Sum_ks;                       /* '<S56>/Sum' */
   real_T Sum5;                         /* '<Root>/Sum5' */
   real_T SignPreSat_j;                 /* '<S145>/SignPreSat' */
-  real_T FA_b_tmp_d;
-  real_T FA_b_tmp_g;
+  real_T FA_b_tmp_b;
+  real_T FA_b_tmp_p;
   real_T FE1_b_idx_1;
   real_T Mcg_b_idx_2;
   real_T Mcg_b_idx_0;
@@ -305,7 +275,7 @@ struct B_pid_control_V1_T {
   real_T FE_b_idx_0;
   real_T unnamed_idx_1;
   real_T unnamed_idx_2;
-  real_T FA_b_l;
+  real_T FA_b_c;
   real_T d;
   real_T d1;
   SL_Bus_std_msgs_Float64 SourceBlock_o2_e;/* '<S10>/SourceBlock' */
@@ -313,19 +283,21 @@ struct B_pid_control_V1_T {
   SL_Bus_std_msgs_Float64 SourceBlock_o2_l;/* '<S9>/SourceBlock' */
   uint32_T bpIndex[2];
   int32_T i;
-  int32_T i_d;
+  int32_T i_f;
   uint32_T lengthOut;                  /* '<Root>/MATLAB Function1' */
   uint32_T lengthOut_e;                /* '<Root>/MATLAB Function' */
+  uint8_T stringOut[128];              /* '<Root>/MATLAB Function1' */
+  uint8_T stringOut_l[128];            /* '<Root>/MATLAB Function' */
   boolean_T AND3;                      /* '<S91>/AND3' */
   boolean_T Memory_e;                  /* '<S91>/Memory' */
   boolean_T AND3_j;                    /* '<S145>/AND3' */
   boolean_T Memory_n;                  /* '<S145>/Memory' */
-  boolean_T SourceBlock_o1;            /* '<S11>/SourceBlock' */
+  boolean_T SourceBlock_o1;            /* '<S231>/SourceBlock' */
+  boolean_T SourceBlock_o1_h;          /* '<S230>/SourceBlock' */
+  boolean_T SourceBlock_o1_g;          /* '<S11>/SourceBlock' */
   boolean_T SourceBlock_o1_l;          /* '<S10>/SourceBlock' */
   boolean_T SourceBlock_o1_i;          /* '<S9>/SourceBlock' */
-  B_SourceBlock_pid_control_V1_T SourceBlock_a;/* '<S230>/SourceBlock' */
   B_EnabledSubsystem_pid_cont_n_T EnabledSubsystem_g;/* '<S231>/Enabled Subsystem' */
-  B_SourceBlock_pid_control_V1_T SourceBlock_c;/* '<S230>/SourceBlock' */
   B_EnabledSubsystem_pid_cont_n_T EnabledSubsystem_p;/* '<S230>/Enabled Subsystem' */
   B_EnabledSubsystem_pid_contro_T EnabledSubsystem_a;/* '<S11>/Enabled Subsystem' */
   B_EnabledSubsystem_pid_contro_T EnabledSubsystem_c;/* '<S10>/Enabled Subsystem' */
@@ -335,9 +307,11 @@ struct B_pid_control_V1_T {
 /* Block states (default storage) for system '<Root>' */
 struct DW_pid_control_V1_T {
   ros_slros2_internal_block_Ser_T obj; /* '<S2>/ServiceCaller' */
+  ros_slros2_internal_block_Sub_T obj_h;/* '<S231>/SourceBlock' */
+  ros_slros2_internal_block_Sub_T obj_hq;/* '<S230>/SourceBlock' */
   ros_slros2_internal_block_Sub_T obj_k;/* '<S11>/SourceBlock' */
   ros_slros2_internal_block_Sub_T obj_j;/* '<S10>/SourceBlock' */
-  ros_slros2_internal_block_Sub_T obj_h;/* '<S9>/SourceBlock' */
+  ros_slros2_internal_block_Sub_T obj_hw;/* '<S9>/SourceBlock' */
   real_T UnitDelay_DSTATE;             /* '<Root>/Unit Delay' */
   real_T UnitDelay2_DSTATE;            /* '<Root>/Unit Delay2' */
   real_T UnitDelay1_DSTATE;            /* '<Root>/Unit Delay1' */
@@ -497,8 +471,10 @@ struct DW_pid_control_V1_T {
   /* '<S239>/if Height < Max low altitude  elseif Height > Min isotropic altitude ' */
   boolean_T Memory_PreviousInput_p;    /* '<S91>/Memory' */
   boolean_T Memory_PreviousInput_d;    /* '<S145>/Memory' */
-  boolean_T objisempty;                /* '<S11>/SourceBlock' */
-  boolean_T objisempty_a;              /* '<S10>/SourceBlock' */
+  boolean_T objisempty;                /* '<S231>/SourceBlock' */
+  boolean_T objisempty_a;              /* '<S230>/SourceBlock' */
+  boolean_T objisempty_g;              /* '<S11>/SourceBlock' */
+  boolean_T objisempty_aq;             /* '<S10>/SourceBlock' */
   boolean_T objisempty_n;              /* '<S9>/SourceBlock' */
   boolean_T objisempty_d;    /* '<Root>/Coordinate Transformation Conversion' */
   boolean_T objisempty_f;              /* '<S2>/ServiceCaller' */
@@ -508,8 +484,6 @@ struct DW_pid_control_V1_T {
   boolean_T Hrgw_MODE;                 /* '<S233>/Hrgw' */
   boolean_T Hqgw_MODE;                 /* '<S233>/Hqgw' */
   boolean_T Hpgw_MODE;                 /* '<S233>/Hpgw' */
-  DW_SourceBlock_pid_control_V1_T SourceBlock_a;/* '<S230>/SourceBlock' */
-  DW_SourceBlock_pid_control_V1_T SourceBlock_c;/* '<S230>/SourceBlock' */
 };
 
 /* Continuous states (default storage) */
@@ -738,22 +712,18 @@ class pid_control_V1
   static void pid_control__EnabledSubsystem_p(boolean_T rtu_Enable, const
     SL_Bus_std_msgs_Bool *rtu_In1, B_EnabledSubsystem_pid_cont_n_T *localB);
 
-  /* private member function(s) for subsystem '<S230>/SourceBlock'*/
-  void pid_control_V_SourceBlock_Start(B_SourceBlock_pid_control_V1_T *localB,
-    DW_SourceBlock_pid_control_V1_T *localDW);
-  void pid_control_V1_SourceBlock(B_SourceBlock_pid_control_V1_T *localB);
-  void pid_control_V1_SourceBlock_Term(DW_SourceBlock_pid_control_V1_T *localDW);
-  void pid_contro_Subscriber_setupImpl(const ros_slros2_internal_block_Sub_T
-    *obj, B_SourceBlock_pid_control_V1_T *localB);
-
   /* private member function(s) for subsystem '<Root>'*/
-  void pid_cont_Subscriber_setupImpl_o(const ros_slros2_internal_block_Sub_T
-    *obj);
-  void pid_co_Subscriber_setupImpl_onh(const ros_slros2_internal_block_Sub_T
+  void pid_contro_Subscriber_setupImpl(const ros_slros2_internal_block_Sub_T
     *obj);
   void pid_con_Subscriber_setupImpl_on(const ros_slros2_internal_block_Sub_T
     *obj);
+  void pid_cont_Subscriber_setupImpl_o(const ros_slros2_internal_block_Sub_T
+    *obj);
   void pid_con_ServiceCaller_setupImpl(const ros_slros2_internal_block_Ser_T
+    *obj);
+  void pid_co_Subscriber_setupImpl_onh(const ros_slros2_internal_block_Sub_T
+    *obj);
+  void pid_c_Subscriber_setupImpl_onhg(const ros_slros2_internal_block_Sub_T
     *obj);
   real_T pid_control_V1_rt_powd_snf(real_T u0, real_T u1);
 

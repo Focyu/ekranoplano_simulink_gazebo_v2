@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.54
+ * Model version              : 12.55
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Tue Mar  3 20:33:58 2026
+ * C++ source code generated on : Fri Mar  6 11:18:59 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -156,19 +156,6 @@ struct sJ4ih70VmKcvCeguWN0mNVF
 
 #endif                                 /* struct_sJ4ih70VmKcvCeguWN0mNVF */
 
-#ifndef struct_ros_slros2_internal_block_Sub_T
-#define struct_ros_slros2_internal_block_Sub_T
-
-struct ros_slros2_internal_block_Sub_T
-{
-  boolean_T matlabCodegenIsDeleted;
-  int32_T isInitialized;
-  boolean_T isSetupComplete;
-  boolean_T QOSAvoidROSNamespaceConventions;
-};
-
-#endif                              /* struct_ros_slros2_internal_block_Sub_T */
-
 #ifndef struct_ros_slros2_internal_block_Ser_T
 #define struct_ros_slros2_internal_block_Ser_T
 
@@ -191,6 +178,19 @@ struct robotics_slcore_internal_bloc_T
 };
 
 #endif                              /* struct_robotics_slcore_internal_bloc_T */
+
+#ifndef struct_ros_slros2_internal_block_Sub_T
+#define struct_ros_slros2_internal_block_Sub_T
+
+struct ros_slros2_internal_block_Sub_T
+{
+  boolean_T matlabCodegenIsDeleted;
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  boolean_T QOSAvoidROSNamespaceConventions;
+};
+
+#endif                              /* struct_ros_slros2_internal_block_Sub_T */
 
 /* Forward declaration for rtModel */
 typedef struct tag_RTM_pid_control_V1_T RT_MODEL_pid_control_V1_T;
