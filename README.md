@@ -6,8 +6,9 @@ Este repositorio contiene el entorno de simulación tridimensional y las arquite
 
 ```text
 ekranoplano_simulink_gazebo_v2/
-├── MODELO GAZEBO/         # Modelos 3D (.sdf, .urdf) y mundos de simulación para Gazebo
-├── ekranoplano_sim/       # Paquete de ROS (nodos, launch files, topics)
-├── matlab_scripts/        # Scripts de inicialización (.m) y cálculos matemáticos (ej. rot_body_to_ned.m)
-└── simulink_coder/        # Código C++ autogenerado por Simulink para los controladores (PID, etc.)
+├── MODELO GAZEBO/               # Modelos 3D (.sdf, .urdf) y mundos para Gazebo
+├── ekranoplano_sim/             # Paquete principal de ROS 2 (launch, mundos, config)
+├── matlab_scripts/              # Scripts matemáticos e inicialización de ganancias
+└── pid_controllers_simulink/    # Controladores C++ autogenerados por Simulink
+    └── pid_control_v1/          # Paquete ROS 2 del nodo controlador PID
 
