@@ -7,11 +7,11 @@ Tp = 0.125e-03; % motor PWM switching frequency
 max_thrust_force_per_motor =  Tp;
 
 % Test 1
-tsim = 100;
+tsim = 10;
 step = 0.01;
 x_nom = zeros(12,1);
 % 1. Velocidad inicial de crucero (basada en vc del Model.m)
-x_nom(1) = 27;     % 'u' = 28 m/s (Velocidad de sustentación adecuada)
+x_nom(1) = 28;     % 'u' = 28 m/s (Velocidad de sustentación adecuada)
 x_nom(3) = 0;      % 'w' = 0 (Sin velocidad vertical inicial)
 
 % 2. Ángulo de ataque de equilibrio (Pitch trim inicial)
@@ -31,32 +31,33 @@ x0 = x_nom;
 % [XDOT] = Model(x_nom,u_nom) % debug
 %% PARAMETROS DE CONTROL PID (Lazo Cerrado)
 
-% 1. Lazo de Velocidad (Throttle / Motores) - NUEVO
+% 1. Lazo de Velocidad (Throttle / Motores) 
 % Su único objetivo es vencer el drag y mantener la presión dinámica.
 u_sp = 28.0; % Setpoint: Velocidad de crucero deseada en m/s
-% Ganancias sugeridas: Los motores tienen inercia, mejor usar PI dominante.
+% Los motores tienen inercia, usamos PI dominante.
 Kp_u = 0.05;    
 Ki_u = 0.01;  
 Kd_u = 0.005;   
 
-% 2. Lazo de Altura (Controla el Setpoint de Cabeceo) - REDISEÑADO
-% En lugar de mover el motor, dicta qué ángulo de nariz se necesita.
-h_sp = 1.0; % Setpoint: 1 metro de altura sobre el agua
-% Este PID calculará un theta_sp (ángulo deseado). Ganancias suaves para no cabecear bruscamente:
-Kp_h = 2.5;  % Si caigo 1m, pido 2.5 rad extra de pitch (luego se satura a valores seguros en Simulink)
-Ki_h = 0.1;
-Kd_h = 1.0;
+% 2. Lazo de Altura (Controla el Setpoint de Cabeceo) 
+% En lugar de mover el motor, dicta qué ángulo de nariz se necesita a
+% travez del aleron superior de la cola
+h_sp = 1.0; % Setpoint de altura sobre el agua
+% Este PID calculará un theta_sp (ángulo deseado). 
+Kp_h = 1.0;  
+Ki_h = 0.05;
+Kd_h = 0.0;
 
-% Límite de seguridad para el setpoint de Pitch (para aplicar dentro de Simulink)
+% Límite de seguridad para el setpoint de Pitch 
 theta_max =  8.0 * (pi/180); % Máximo cabeceo permitido hacia arriba
 theta_min = -2.0 * (pi/180); % Máximo cabeceo permitido hacia abajo
 
 % 3. Lazo Interno de Elevador (Control de Cabeceo / Pitch)
 % Sigue al theta_sp dictado por el lazo de altura.
 % Ganancias iniciales (negativas por convención de deflexión):
-Kp_pitch = -25.0;   
-Ki_pitch = -5.0;  
-Kd_pitch = -12.5;   
+Kp_pitch = -5.0;   
+Ki_pitch = -1.0;  
+Kd_pitch = -2.5;   
 
 % 4. Lazo de Timón (Control de Dirección / Yaw)
 psi_sp = 0 * (pi/180); % Setpoint
