@@ -64,7 +64,7 @@ target_compile_options(pid_control_V1 PRIVATE
   $<$<OR:$<COMPILE_LANGUAGE:CXX>,$<COMPILE_LANGUAGE:C>>:
   -DMODEL=pid_control_V1
   -DNUMST=2
-  -DNCSTATES=37
+  -DNCSTATES=39
   -DHAVESTDIO
   -DMODEL_HAS_DYNAMICALLY_LOADED_SFCNS=0
   -DCLASSIC_INTERFACE=0
@@ -116,4 +116,4 @@ add_custom_command(
 				   )				   
 endforeach(file_i)
 ament_package()
-# Generated on Fri Mar 06 11:19:29 2026
+# Generated on Sat Mar 07 10:15:17 2026
