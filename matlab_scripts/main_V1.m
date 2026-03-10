@@ -7,7 +7,7 @@ Tp = 0.125e-03; % motor PWM switching frequency
 max_thrust_force_per_motor =  Tp;
 
 % Test 1
-tsim = 10;
+tsim = 1;
 step = 0.01;
 x_nom = zeros(12,1);
 % 1. Velocidad inicial de crucero (basada en vc del Model.m)
@@ -20,11 +20,11 @@ x_nom(8) = 1.0 * (pi/180);  % Theta (Pitch) para generar Lift
 % 3. Posición inicial
 x_nom(10) = 0;     % x_NED
 x_nom(11) = 0;     % y_NED
-x_nom(12) = -1.80;  % altura inicial (invertida)
+x_nom(12) = -1.0;  % altura inicial (invertida)
 
 u_nom = zeros(5,1);
 u_nom(2) = -1.5 * pi/180; % Ligero elevador hacia arriba para compensar el Pitch-down del IGE
-u_nom(4:5) = Tp * 0.6;      % Acelerador al 60% inicial (No al máximo)
+u_nom(4:5) = 0.6;      % Acelerador al 60% inicial (No al máximo)
 
 x0 = x_nom;
 % file_name = 'test_1.csv';
@@ -55,21 +55,21 @@ theta_min = -2.0 * (pi/180); % Máximo cabeceo permitido hacia abajo
 % 3. Lazo Interno de Elevador (Control de Cabeceo / Pitch)
 % Sigue al theta_sp dictado por el lazo de altura.
 % Ganancias iniciales (negativas por convención de deflexión):
-Kp_pitch = -5.0;   
-Ki_pitch = -1.0;  
-Kd_pitch = -2.5;   
+Kp_pitch = -1.0;   
+Ki_pitch = -0.50;  
+Kd_pitch = -1.0;   
 
 % 4. Lazo de Timón (Control de Dirección / Yaw)
 psi_sp = 0 * (pi/180); % Setpoint
-Kp_yaw = -15.0;   
-Ki_yaw = -0.5;  
-Kd_yaw = -5.0;   
+Kp_yaw = -3.0;   
+Ki_yaw = -0.05;  
+Kd_yaw = -1.0;   
 
 % 5. Lazo de Alerones (Estabilización de Alabeo / Roll)
 phi_sp = 0.0; % Alas horizontales
-Kp_roll = -15.0;   
-Ki_roll = -1.0;  
-Kd_roll = -10.0;   
+Kp_roll = -5.0;   
+Ki_roll = -0.10;  
+Kd_roll = -1.50;   
 
 %% Simulation
 sim = sim('pid_control_V1.slx');
