@@ -7,7 +7,7 @@ Tp = 0.125e-03; % motor PWM switching frequency
 max_thrust_force_per_motor =  Tp;
 
 % Test 1
-tsim = 1;
+tsim = 100;
 step = 0.01;
 x_nom = zeros(12,1);
 % 1. Velocidad inicial de crucero (basada en vc del Model.m)

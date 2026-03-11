@@ -65,24 +65,6 @@ zw = 0.363; % Wing Offset
 zh = 2.50;  % HTP Offset (CORREGIDO: Altura realista de cola en T para AirFish 8)
 CD_0 = 0.0306; % Zero Lift Drag Coefficient
 
-% ---- Derivadas de estabilidad lateral-direccional (NUEVO) ----
-% Roll
-Cl_beta = -0.0005;  % Diedro efectivo (ya existía, centralizado aquí)
-Cl_da   =  0.12;    % Autoridad del alerón en roll [1/rad]  (ARw=7.5 → ~0.10-0.14)
-Cl_p    = -0.45;    % Amortiguación en roll [1/rad]         (típico ala alta AR)
-Cl_r    =  0.08;    % Acoplamiento roll-yaw (efecto beta)
-
-% Yaw
-Cn_beta =  0.002;   % Estabilidad direccional estática [1/rad] (ya existía)
-Cn_da   = -0.008;   % Momento adverso del alerón (yaw adverso)
-Cn_dr   =  0.060;   % Autoridad del timón en yaw [1/rad]    (cola en T, Sh=1.128 m²)
-Cn_r    = -0.090;   % Amortiguación en yaw [1/rad]          (cola en T)
-Cn_p    = -0.010;   % Acoplamiento yaw-roll
-
-% Fuerza lateral
-CQ_beta = -0.019;   % Fuerza lateral por resbalamiento (ya existía)
-CQ_dr   =  0.080;   % Fuerza lateral del timón [1/rad]
-
 %-----------CONTROL LIMITS SATURATION------------------------------
 
 % aileron
@@ -221,7 +203,6 @@ mu_Dw = 1 - (1 - 0.157*max(0, (TRw^0.757 - 0.373))*max(0,(ARw^0.417 - 1.27)))*ex
 mu_Dh = 1 - (1 - 0.157*max(0, (TRh^0.757 - 0.373))*max(0,(ARh^0.417 - 1.27)))*exp(-4.74*max(0,abs(hh/bh)^0.814))-abs(hh/bh)^2*exp(-3.88*max(0,abs(hh/bh)^0.758));
 
 C_D_e = -0.0000108*u2^2+0.000715*u2;
-C_D_r =  0.0000080*u3^2;  % drag parásito del timón (NUEVO, simétrico)
 
 CD_iw_IGE = CL_w_IGE^2*mu_Dw/(pi*e0w*ARw);
 CD_ih_IGE = CL_h_IGE^2*mu_Dh/(pi*e0h*ARh);
@@ -229,8 +210,7 @@ CD_ih_IGE = CL_h_IGE^2*mu_Dh/(pi*e0h*ARh);
 Dtot = 0.5*rho*Va^2*(CD_0*Sw + CD_iw_IGE*Sw + CD_ih_IGE*Sh + C_D_e*Sh);
 
 % Side forces
-CQ = CQ_beta*beta*180/pi + CQ_dr*u3; % steady-state
-
+CQ = -0.019*beta*180/pi; % steady-state
 LD_ratio = Ltot/Dtot;
 
 %------------------------Dimensional Aero Forces--------------------
@@ -258,22 +238,12 @@ Cm_de = -3.0;     % Autoridad del elevador
 Cm_h = 0.05;      % Constante empírica del desplazamiento del AC
 Delta_Cm_IGE = -Cm_h * exp(-4.0 * abs(hw/bw)); % Momento inducido por el suelo
 
-% ---- Cl: Roll (alerón + diedro + amortiguación p + acoplamiento r) ----
-Cl = Cl_beta*(beta*180/pi) ...
-   + Cl_da*u1 ...
-   + Cl_p*(x4*bw/(2*Va)) ...
-   + Cl_r*(x6*bw/(2*Va));
+Cl = -0.0005*beta*180/pi; % Eje de alabeo (Roll)
 
-% ---- Cm: Pitch (sin cambios) ----
-Cm = Cm_alpha*alpha + Delta_Cm_IGE + Cm_q*(x5*cbar/(2*Va)) + Cm_de*u2;
+% Nuevo Cm: Momento por alfa + Momento por IGE + Momento de velocidad de cabeceo (q) + Elevador
+Cm = Cm_alpha*alpha + Delta_Cm_IGE + Cm_q*(x5*cbar/(2*Va)) + Cm_de*u2; 
 
-% ---- Cn: Yaw (timón + estabilidad + amortiguación r + yaw adverso del alerón) ----
-Cn = -Cn_beta*(beta*180/pi) ...
-   + Cn_dr*u3 ...
-   + Cn_r*(x6*bw/(2*Va)) ...
-   + Cn_p*(x4*bw/(2*Va)) ...
-   + Cn_da*u1;
-
+Cn = -0.002*beta*180/pi; % Eje de guiñada (Yaw)
 
 CMac_b = [Cl;Cm;Cn];% steady-state
 %-------------------------Aero moment about CG--------------------------
