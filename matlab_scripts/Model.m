@@ -163,20 +163,19 @@ else
     alpha = atan2(w_r, u_r);
     beta = asin(v_r / Va);
 end
-
-% h = -x12;
-% hw = max(0.2, h - zw); % Límite de seguridad para IGE
-% hh = max(0.2, h + zh); % Límite de seguridad para IGE
-A_wave  = 0.20;
-T_wave  = 6.5;
-lambda  = 50.0;
-k_wave  = 2*pi / lambda;
-omega_w = 2*pi / T_wave;
-eta     = A_wave * cos(k_wave * x10 - omega_w * t_sim);
-
-h  = -x12 - eta;
-hw = max(0.2, h - zw);
-hh = max(0.2, h + zh);
+h = -x12;
+hw = max(0.2, h - zw); % Límite de seguridad para IGE
+hh = max(0.2, h + zh); % Límite de seguridad para IGE
+% A_wave  = 0.20;
+% T_wave  = 6.5;
+% lambda  = 50.0;
+% k_wave  = 2*pi / lambda;
+% omega_w = 2*pi / T_wave;
+% eta     = A_wave * cos(k_wave * x10 - omega_w * t_sim);
+% 
+% h  = -x12 - eta;
+% hw = max(0.2, h - zw);
+% hh = max(0.2, h + zh);
 
 
 Q = 0.5*rho*Va^2;     %dynamic pressure

@@ -45,8 +45,8 @@ Kd_u = 0.005;
 h_sp = 1.0; % Setpoint de altura sobre el agua
 % Este PID calculará un theta_sp (ángulo deseado). 
 Kp_h = 1.0;  
-Ki_h = 0.05;
-Kd_h = 0.0;
+Ki_h = 0.01;
+Kd_h = 0.5;
 
 % Límite de seguridad para el setpoint de Pitch 
 theta_max =  8.0 * (pi/180); % Máximo cabeceo permitido hacia arriba
