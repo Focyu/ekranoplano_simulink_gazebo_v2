@@ -1,6 +1,5 @@
-%%%MATLAB Function - Subsystem -> "pid_control_V1.slx"
-
-function [XDOT, Va_out] = Model(X, U, U_wind, W_wind, t_sim)%#codegen
+function [XDOT, Va_out] = Model(X, U, U_wind, W_wind)
+%#codegen
 %#codegen
 coder.varsize('XDOT', [40, 1], [0, 0]);
 coder.varsize('Va_out', [1, 1], [0, 0]);
@@ -55,23 +54,9 @@ p_aero = x4 + p_wg;
 q_aero = x5 + q_wg;
 r_aero = x6 + r_wg;
 %========
-% h = -x12;
-% hw = max(0.001, h-zw); 
-% hh = max(0.001, h+zh); % CORREGIDO: añadido límite para evitar logaritmos negativos
-% Superficie del mar (Sea State 2)
-A_wave  = 0.20;       % Amplitud [m]
-T_wave  = 6.5;        % Período [s]
-lambda  = 50.0;       % Longitud de onda [m]
-k_wave  = 2*pi / lambda;
-omega_w = 2*pi / T_wave;
-eta     = A_wave * cos(k_wave * x10 - omega_w * t_sim);
-
-h  = -x12 - eta;           % altura real sobre la ola
-hw = max(0.001, h - zw);
-hh = max(0.001, h + zh);
-
-
-
+h = -x12;
+hw = max(0.001, h-zw); 
+hh = max(0.001, h+zh); % CORREGIDO: añadido límite para evitar logaritmos negativos
 Q = 0.5*rho*Va^2;
 wbe_b = [x4;x5;x6];
 V_b = [x1;x2;x3];
@@ -130,9 +115,8 @@ q_dot = (M - (Ixx - Izz)*p*r - Ixz*(p^2 - r^2)) / Iyy;
 r_dot = (Ixz*L + Ixx*N + (Ixz*(Iyy - Ixx - Izz)*r + (Ixz^2 + Ixx*(Ixx - Iyy))*p)*q) / Gamma;
 x4to6dot = [p_dot; q_dot; r_dot];
 H_phi = [1 sin(phi)*tan(theta) cos(phi)*tan(theta);
-         0 cos(phi)            -sin(phi);
-         0 sin(phi)/cos(theta)  cos(phi)/cos(theta)];
-
+         0 cos(phi) -sin(phi);
+         0 sin(phi)/cos(theta) cos(phi)/cos(theta)];
 x7to9dot = H_phi*wbe_b;
 x10to12dot = rot_body_to_ned(X); % Llamada a la cinemática
 LD_ratio = Ltot / Dtot;
