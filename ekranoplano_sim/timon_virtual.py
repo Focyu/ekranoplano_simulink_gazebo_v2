@@ -62,9 +62,9 @@ def main(stdscr):
                 tecla_pulsada = True
                 
                 if c == curses.KEY_LEFT:
-                    node.yaw_deg += node.step_deg
-                elif c == curses.KEY_RIGHT:
                     node.yaw_deg -= node.step_deg
+                elif c == curses.KEY_RIGHT:
+                    node.yaw_deg += node.step_deg
                 elif c == curses.KEY_UP:
                     node.pitch_deg += node.step_deg
                 elif c == curses.KEY_DOWN:
