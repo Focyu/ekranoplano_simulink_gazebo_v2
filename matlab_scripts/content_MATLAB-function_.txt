@@ -1,5 +1,7 @@
+%%%MATLAB Function - Subsystem -> "pid_control_V1.slx" %%%
+
 function [XDOT, Va_out] = Model(X, U, U_wind, W_wind)
-%#codegen
+
 %#codegen
 coder.varsize('XDOT', [40, 1], [0, 0]);
 coder.varsize('Va_out', [1, 1], [0, 0]);
@@ -19,8 +21,8 @@ Xapt2 = -0.519; Yapt2 = -0.6; Zapt2 = 0.285;
 rho = 1.225; g = 9.81;
 e0w = 0.9; e0h = 0.9;
 alpha_0w = -3.75*pi/180; alpha_0h = -4.25*pi/180;
-iw = 2.5*pi/180; % Incidencia moderada para no dispararse
-ih = 1.5*pi/180; 
+iw = 1.0*pi/180; % Incidencia moderada para no dispararse
+ih = 0.5*pi/180; 
 eps = 0; zw = 0.363; 
 zh = 2.50; % CORREGIDO: Altura realista de cola en T para AirFish 8
 CD_0 = 0.0306;
