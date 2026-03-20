@@ -16,7 +16,7 @@ class JoyToEkranoplano(Node):
         
         # Publicadores hacia Simulink (QoS = 1)
         self.pub_alt = self.create_publisher(Float64, '/setpoint/altura', 1)
-        self.pub_pitch = self.create_publisher(Float64, '/setpoint/pitch', 1)
+
         self.pub_yaw = self.create_publisher(Float64, '/setpoint/yaw', 1)
         self.pub_turb = self.create_publisher(Bool, '/setpoint/turbulencia', 1)
 

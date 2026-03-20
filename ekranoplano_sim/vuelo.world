@@ -72,6 +72,15 @@
       </grid>
     </gui>
 
+    <!-- Rosa de referencia XY cargada externamente -->
+    <include>
+      <name>ejes_radiales</name>
+      <uri>model://rosa_referencia</uri>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+
   </world>
+  
 </sdf>
 

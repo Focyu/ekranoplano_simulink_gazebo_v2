@@ -11,13 +11,13 @@ class VirtualRudder(Node):
         super().__init__('virtual_rudder')
         # QoS en 1
         self.pub_alt = self.create_publisher(Float64, '/setpoint/altura', 1)
-        self.pub_pitch = self.create_publisher(Float64, '/setpoint/pitch', 1)
+
         self.pub_yaw = self.create_publisher(Float64, '/setpoint/yaw', 1)
         # Nuevo publicador para turbulencia
         self.pub_turb = self.create_publisher(Bool, '/setpoint/turbulencia', 1)
 
         self.alt_m = 1.0
-        self.pitch_deg = 0.0
+
         self.yaw_deg = 0.0
         self.turb_enabled = False  # Empieza apagada
 
@@ -29,9 +29,6 @@ class VirtualRudder(Node):
         m_alt.data = float(self.alt_m)
         self.pub_alt.publish(m_alt)
         
-        m_pitch = Float64()
-        m_pitch.data = math.radians(self.pitch_deg)
-        self.pub_pitch.publish(m_pitch)
         
         m_yaw = Float64()
         m_yaw.data = math.radians(self.yaw_deg)
@@ -65,17 +62,14 @@ def main(stdscr):
                     node.yaw_deg -= node.step_deg
                 elif c == curses.KEY_RIGHT:
                     node.yaw_deg += node.step_deg
-                elif c == curses.KEY_UP:
-                    node.pitch_deg += node.step_deg
-                elif c == curses.KEY_DOWN:
-                    node.pitch_deg -= node.step_deg
+
                 elif c in (ord('w'), ord('W')):
                     node.alt_m += node.step_alt
                 elif c in (ord('s'), ord('S')):
                     node.alt_m -= node.step_alt
                 elif c == ord(' '):
                     node.yaw_deg = 0.0
-                    node.pitch_deg = 0.0
+
                 elif c in (ord('t'), ord('T')):
                     # Cambia el estado de la turbulencia (On/Off)
                     node.turb_enabled = not node.turb_enabled
@@ -83,7 +77,7 @@ def main(stdscr):
                     break
                     
                 node.alt_m = round(node.alt_m, 2)
-                node.pitch_deg = round(node.pitch_deg, 2)
+
                 node.yaw_deg = round(node.yaw_deg, 2)
 
             current_time = time.time()
@@ -96,12 +90,12 @@ def main(stdscr):
             # Interfaz compacta
             stdscr.erase()
             stdscr.addstr(0, 0, "=== TIMON VIRTUAL ===")
-            stdscr.addstr(1, 0, f"[W/S] Altura (+/- {node.step_alt} m) | [↑/↓] Pitch | [←/→] Yaw (+/- {node.step_deg} deg)")
+            stdscr.addstr(1, 0, f"[W/S] Altura (+/- {node.step_alt} m) |  [←/→] Yaw (+/- {node.step_deg} deg)")
             stdscr.addstr(2, 0, "[ESPACIO] Centrar | [T] Turbulencia On/Off | [Q] Salir")
             
             stdscr.addstr(4, 0, "--- ESTADO ACTUAL ---")
             stdscr.addstr(5, 0, f"Altura: {node.alt_m:.2f} m")
-            stdscr.addstr(6, 0, f"Pitch : {node.pitch_deg:.2f} deg  (ROS: {math.radians(node.pitch_deg):.4f} rad)")
+
             stdscr.addstr(7, 0, f"Yaw   : {node.yaw_deg:.2f} deg  (ROS: {math.radians(node.yaw_deg):.4f} rad)")
             
             turb_text = "ENCENDIDA (Cuidado)" if node.turb_enabled else "APAGADA (Calma)"

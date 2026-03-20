@@ -1,7 +1,5 @@
-%%%MATLAB Function - Subsystem -> "pid_control_V1.slx" %%%
-
 function [XDOT, Va_out] = Model(X, U, U_wind, W_wind)
-
+%#codegen
 %#codegen
 coder.varsize('XDOT', [40, 1], [0, 0]);
 coder.varsize('Va_out', [1, 1], [0, 0]);
@@ -58,7 +56,7 @@ r_aero = x6 + r_wg;
 %========
 h = -x12;
 hw = max(0.001, h-zw); 
-hh = max(0.001, h+zh); % CORREGIDO: añadido límite para evitar logaritmos negativos
+hh = max(0.001, h+zh); 
 Q = 0.5*rho*Va^2;
 wbe_b = [x4;x5;x6];
 V_b = [x1;x2;x3];
@@ -89,9 +87,11 @@ Cn_dr = -0.3;   % Autoridad del timón sobre el Yaw
 Cl_p  = -2.0;   % Amortiguación del Roll (Damping)
 Cn_r  = -1.5;   % Amortiguación del Yaw (Damping)
 % Momentos aerodinámicos
-Cl = -0.0005*beta*180/pi + Cl_p*(p_aero*bw/(2*Va)) + Cl_da*u1;
+% Cl = -0.0005*beta*180/pi + Cl_p*(p_aero*bw/(2*Va)) + Cl_da*u1;
+Cl = -0.0286*beta + Cl_p*(p_aero*bw/(2*Va)) + Cl_da*u1;
 Cm = Cm_alpha*alpha + Delta_Cm_IGE + Cm_q*(q_aero*cbar/(2*Va)) + Cm_de*u2; 
-Cn = -0.002*beta*180/pi  + Cn_r*(r_aero*bw/(2*Va)) + Cn_dr*u3;
+% Cn = -0.002*beta*180/pi  + Cn_r*(r_aero*bw/(2*Va)) + Cn_dr*u3;
+Cn = -0.1146*beta + Cn_r*(r_aero*bw/(2*Va)) + Cn_dr*u3;
 MAcg_b = [Cl;Cm;Cn].*[bw*Q*Sw; cbar*Q*Sw; bw*Q*Sw];
 % Motores (CORREGIDO: Sin la división por Tp)
 km = 37.42; Cp = 0.57; D = 0.635; Sp = pi*(D^2/4);
