@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.92
+ * Model version              : 12.93
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Fri Mar 20 11:01:45 2026
+ * C++ source code generated on : Fri Mar 20 12:02:13 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -231,8 +231,8 @@ struct B_pid_control_V1_T {
   real_T Saturation_f;                 /* '<S166>/Saturation' */
   real_T Switch4;                      /* '<Root>/Switch4' */
   real_T Switch5;                      /* '<Root>/Switch5' */
-  real_T Switch2;                      /* '<Root>/Switch2' */
   real_T Switch6;                      /* '<Root>/Switch6' */
+  real_T Switch2;                      /* '<Root>/Switch2' */
   real_T Switch;                       /* '<Root>/Switch' */
   real_T FilterCoefficient_p;          /* '<S214>/Filter Coefficient' */
   real_T Saturation_m;                 /* '<S218>/Saturation' */
@@ -261,7 +261,7 @@ struct B_pid_control_V1_T {
   real_T w_g[2];                       /* '<S311>/w' */
   real_T w_e[2];                       /* '<S311>/w ' */
   real_T w1[2];                        /* '<S311>/w 1' */
-  real_T err;
+  real_T chi;
   real_T u2;
   real_T Q;
   real_T Dtot;
@@ -301,8 +301,8 @@ struct B_pid_control_V1_T {
   SL_Bus_std_msgs_Float64 SourceBlock_o2_k;/* '<S294>/SourceBlock' */
   SL_Bus_std_msgs_Float64 SourceBlock_o2_p;/* '<S293>/SourceBlock' */
   SL_Bus_std_msgs_Float64 SourceBlock_o2_g2;/* '<S12>/SourceBlock' */
-  SL_Bus_std_msgs_Int64 SourceBlock_o2;/* '<S15>/SourceBlock' */
   SL_Bus_std_msgs_Int64 SourceBlock_o2_g;/* '<S14>/SourceBlock' */
+  SL_Bus_std_msgs_Int64 SourceBlock_o2;/* '<S15>/SourceBlock' */
   uint32_T bpIndex[2];
   uint32_T lengthOut;                  /* '<Root>/MATLAB Function1' */
   uint32_T lengthOut_e;                /* '<Root>/MATLAB Function' */
@@ -347,8 +347,8 @@ struct DW_pid_control_V1_T {
   real_T UnitDelay3_DSTATE;            /* '<Root>/Unit Delay3' */
   real_T UnitDelay4_DSTATE;            /* '<Root>/Unit Delay4' */
   real_T UnitDelay5_DSTATE;            /* '<Root>/Unit Delay5' */
-  real_T UnitDelay2_DSTATE;            /* '<Root>/Unit Delay2' */
   real_T UnitDelay6_DSTATE;            /* '<Root>/Unit Delay6' */
+  real_T UnitDelay2_DSTATE;            /* '<Root>/Unit Delay2' */
   real_T Memory_PreviousInput[3];      /* '<S16>/Memory' */
   real_T Memory1_PreviousInput[3];     /* '<S16>/Memory1' */
   real_T NextOutput;                   /* '<S288>/White Noise' */
@@ -778,9 +778,9 @@ class pid_control_V1
     *obj);
   void pid_co_Subscriber_setupImpl_onh(const ros_slros2_internal_block_Sub_T
     *obj);
-  void pid_cont_Subscriber_setupImpl_o(const ros_slros2_internal_block_Sub_T
-    *obj);
   void pid_c_Subscriber_setupImpl_onhg(const ros_slros2_internal_block_Sub_T
+    *obj);
+  void pid_cont_Subscriber_setupImpl_o(const ros_slros2_internal_block_Sub_T
     *obj);
   void pid_con_ServiceCaller_setupImpl(const ros_slros2_internal_block_Ser_T
     *obj);
