@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.87
+ * Model version              : 12.92
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Thu Mar 12 23:05:57 2026
+ * C++ source code generated on : Fri Mar 20 11:01:45 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -129,6 +129,16 @@ struct SL_Bus_gazebo_msgs_SetEntityStateResponse
 #define DEFINED_TYPEDEF_FOR_SL_Bus_std_msgs_Float64_
 
 struct SL_Bus_std_msgs_Float64
+{
+  real_T data;
+};
+
+#endif
+
+#ifndef DEFINED_TYPEDEF_FOR_SL_Bus_std_msgs_Int64_
+#define DEFINED_TYPEDEF_FOR_SL_Bus_std_msgs_Int64_
+
+struct SL_Bus_std_msgs_Int64
 {
   real_T data;
 };

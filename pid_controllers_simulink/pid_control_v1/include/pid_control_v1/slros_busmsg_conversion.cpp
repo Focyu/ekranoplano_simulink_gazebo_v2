@@ -11,6 +11,7 @@
 #include <geometry_msgs/msg/vector3.hpp>
 #include <std_msgs/msg/bool.hpp>
 #include <std_msgs/msg/float64.hpp>
+#include <std_msgs/msg/int64.hpp>
 #include "pid_control_V1_types.h"
 #include "slros_msgconvert_utils.h"
 
@@ -44,6 +45,9 @@
 
 [[maybe_unused]] static void convertFromBus(std_msgs::msg::Float64& msgPtr, SL_Bus_std_msgs_Float64 const* busPtr);
 [[maybe_unused]] static void convertToBus(SL_Bus_std_msgs_Float64* busPtr, const std_msgs::msg::Float64& msgPtr);
+
+[[maybe_unused]] static void convertFromBus(std_msgs::msg::Int64& msgPtr, SL_Bus_std_msgs_Int64 const* busPtr);
+[[maybe_unused]] static void convertToBus(SL_Bus_std_msgs_Int64* busPtr, const std_msgs::msg::Int64& msgPtr);
 
 
 
@@ -238,6 +242,23 @@
   const std::string rosMessageType("std_msgs/Float64");
 
   busPtr->data =  msgPtr.data;
+}
+
+
+// Conversions between SL_Bus_std_msgs_Int64 and std_msgs::msg::Int64
+
+[[maybe_unused]] static void convertFromBus(std_msgs::msg::Int64& msgPtr, SL_Bus_std_msgs_Int64 const* busPtr)
+{
+  const std::string rosMessageType("std_msgs/Int64");
+
+  msgPtr.data = (int64_t) busPtr->data;
+}
+
+[[maybe_unused]] static void convertToBus(SL_Bus_std_msgs_Int64* busPtr, const std_msgs::msg::Int64& msgPtr)
+{
+  const std::string rosMessageType("std_msgs/Int64");
+
+  busPtr->data = (real_T) msgPtr.data;
 }
 
 
