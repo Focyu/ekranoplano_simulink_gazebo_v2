@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.93
+ * Model version              : 12.96
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Fri Mar 20 12:02:13 2026
+ * C++ source code generated on : Mon Mar 23 00:33:26 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -22,8 +22,8 @@
 #include "pid_control_V1_types.h"
 #include <string.h>
 #include "pid_control_V1_private.h"
-#include <math.h>
 #include <emmintrin.h>
+#include <math.h>
 
 extern "C"
 {
@@ -876,46 +876,23 @@ void pid_control_V1::step()
 
   /* End of Saturate: '<S114>/Saturation' */
 
-  /* Gain: '<Root>/Gain6' incorporates:
-   *  Constant: '<Root>/Constant1'
-   *  Sum: '<Root>/Sum6'
-   */
-  pid_control_V1_B.Saturation1 = (0.0 - pid_control_V1_B.x[10]) * 0.02;
-
-  /* Saturate: '<Root>/Saturation1' */
-  if (pid_control_V1_B.Saturation1 > 0.35) {
-    /* Gain: '<Root>/Gain6' incorporates:
-     *  Saturate: '<Root>/Saturation1'
-     */
-    pid_control_V1_B.Saturation1 = 0.35;
-  } else if (pid_control_V1_B.Saturation1 < -0.35) {
-    /* Gain: '<Root>/Gain6' incorporates:
-     *  Saturate: '<Root>/Saturation1'
-     */
-    pid_control_V1_B.Saturation1 = -0.35;
-  }
-
-  /* End of Saturate: '<Root>/Saturation1' */
-
-  /* Gain: '<S50>/Integral Gain' incorporates:
-   *  Sum: '<Root>/Sum4'
-   */
-  pid_control_V1_B.Switch_n = pid_control_V1_B.Saturation1 - pid_control_V1_B.x
-    [6];
-
   /* Gain: '<S56>/Filter Coefficient' incorporates:
+   *  Constant: '<Root>/Constant1'
    *  Gain: '<S46>/Derivative Gain'
    *  Integrator: '<S48>/Filter'
+   *  Sum: '<Root>/Sum4'
    *  Sum: '<S48>/SumD'
    */
-  pid_control_V1_B.FilterCoefficient_c = (-0.1 * pid_control_V1_B.Switch_n -
+  pid_control_V1_B.FilterCoefficient_c = ((0.0 - pid_control_V1_B.x[6]) * -0.1 -
     pid_control_V1_X.Filter_CSTATE_g) * 100.0;
 
   /* Sum: '<S62>/Sum' incorporates:
+   *  Constant: '<Root>/Constant1'
    *  Gain: '<S58>/Proportional Gain'
    *  Integrator: '<S53>/Integrator'
+   *  Sum: '<Root>/Sum4'
    */
-  pid_control_V1_B.SignPreSat_a = (-pid_control_V1_B.Switch_n +
+  pid_control_V1_B.SignPreSat_a = (-(0.0 - pid_control_V1_B.x[6]) +
     pid_control_V1_X.Integrator_CSTATE_m) + pid_control_V1_B.FilterCoefficient_c;
 
   /* Saturate: '<S60>/Saturation' */
@@ -1026,8 +1003,22 @@ void pid_control_V1::step()
   }
 
   /* MATLAB Function: '<Root>/MATLAB Function2' */
-  pid_control_V1_B.chi = rt_atan2d_snf(pid_control_V1_B.Switch5 -
-    pid_control_V1_B.x[10], pid_control_V1_B.Switch4 - pid_control_V1_B.x[9]);
+  tmp_2 = _mm_sub_pd(_mm_set_pd(pid_control_V1_B.Switch5,
+    pid_control_V1_B.Switch4), _mm_loadu_pd(&pid_control_V1_B.x[9]));
+  _mm_storeu_pd(&pid_control_V1_B.dv[0], tmp_2);
+
+  /* MATLAB Function: '<Root>/MATLAB Function2' */
+  if ((fabs(pid_control_V1_B.dv[0]) < 0.01) && (fabs(pid_control_V1_B.dv[1]) <
+       0.01)) {
+    pid_control_V1_B.Switch = pid_control_V1_B.x[8];
+  } else {
+    pid_control_V1_B.chi = rt_atan2d_snf(pid_control_V1_B.dv[1],
+      pid_control_V1_B.dv[0]);
+    pid_control_V1_B.Switch = rt_atan2d_snf(sin(pid_control_V1_B.chi -
+      pid_control_V1_B.x[8]), cos(pid_control_V1_B.chi - pid_control_V1_B.x[8]))
+      + pid_control_V1_B.x[8];
+  }
+
   if (tmp_0) {
     /* MATLABSystem: '<S15>/SourceBlock' */
     pid_control_V1_B.SourceBlock_o1_d = Sub_pid_control_V1_476.getLatestMessage(
@@ -1077,14 +1068,7 @@ void pid_control_V1::step()
   }
 
   /* Switch: '<Root>/Switch' */
-  if (pid_control_V1_B.Switch6 > 0.0) {
-    /* Switch: '<Root>/Switch' incorporates:
-     *  MATLAB Function: '<Root>/MATLAB Function2'
-     */
-    pid_control_V1_B.Switch = rt_atan2d_snf(sin(pid_control_V1_B.chi -
-      pid_control_V1_B.x[8]), cos(pid_control_V1_B.chi - pid_control_V1_B.x[8]))
-      + pid_control_V1_B.x[8];
-  } else {
+  if (!(pid_control_V1_B.Switch6 > 0.0)) {
     /* Switch: '<Root>/Switch' */
     pid_control_V1_B.Switch = pid_control_V1_B.Switch2;
   }
@@ -1226,8 +1210,11 @@ void pid_control_V1::step()
 
   /* End of DeadZone: '<S45>/DeadZone' */
 
-  /* Gain: '<S50>/Integral Gain' */
-  pid_control_V1_B.Switch_n *= -0.01;
+  /* Gain: '<S50>/Integral Gain' incorporates:
+   *  Constant: '<Root>/Constant1'
+   *  Sum: '<Root>/Sum4'
+   */
+  pid_control_V1_B.Switch_n = (0.0 - pid_control_V1_B.x[6]) * -0.01;
 
   /* Signum: '<S43>/SignPreSat' */
   if (rtIsNaN(pid_control_V1_B.SignPreSat_a)) {

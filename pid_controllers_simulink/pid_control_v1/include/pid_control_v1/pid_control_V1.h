@@ -6,9 +6,9 @@
  *
  * Code generation for model "pid_control_V1".
  *
- * Model version              : 12.93
+ * Model version              : 12.96
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Fri Mar 20 12:02:13 2026
+ * C++ source code generated on : Mon Mar 23 00:33:26 2026
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -208,14 +208,12 @@ struct B_pid_control_V1_T {
   sJ4ih70VmKcvCeguWN0mNVF deadline;
   sJ4ih70VmKcvCeguWN0mNVF deadline_f;
   sJ4ih70VmKcvCeguWN0mNVF deadline_g;
-  real_T w_n[2];                       /* '<S310>/w' */
   real_T w1_c[2];                      /* '<S310>/w1' */
   real_T w_d[2];                       /* '<S309>/w' */
   real_T w_e0[2];                      /* '<S308>/w' */
   real_T UnaryMinus[2];                /* '<S308>/Unary Minus' */
   real_T w_o[2];                       /* '<S307>/w' */
   real_T sigma_w[2];                   /* '<S307>/sigma_w' */
-  uint8_T stringOut[128];              /* '<Root>/MATLAB Function1' */
   uint8_T stringOut_l[128];            /* '<Root>/MATLAB Function' */
   real_T frac[2];
   real_T dv[2];
@@ -223,7 +221,6 @@ struct B_pid_control_V1_T {
   real_T Gain;                         /* '<Root>/Gain' */
   real_T FilterCoefficient;            /* '<S110>/Filter Coefficient' */
   real_T Saturation;                   /* '<S114>/Saturation' */
-  real_T Saturation1;                  /* '<Root>/Saturation1' */
   real_T FilterCoefficient_c;          /* '<S56>/Filter Coefficient' */
   real_T Saturation_k;                 /* '<S60>/Saturation' */
   real_T Saturation_i;                 /* '<Root>/Saturation' */
@@ -261,6 +258,7 @@ struct B_pid_control_V1_T {
   real_T w_g[2];                       /* '<S311>/w' */
   real_T w_e[2];                       /* '<S311>/w ' */
   real_T w1[2];                        /* '<S311>/w 1' */
+  real_T w_n[2];                       /* '<S310>/w' */
   real_T chi;
   real_T u2;
   real_T Q;
@@ -301,11 +299,12 @@ struct B_pid_control_V1_T {
   SL_Bus_std_msgs_Float64 SourceBlock_o2_k;/* '<S294>/SourceBlock' */
   SL_Bus_std_msgs_Float64 SourceBlock_o2_p;/* '<S293>/SourceBlock' */
   SL_Bus_std_msgs_Float64 SourceBlock_o2_g2;/* '<S12>/SourceBlock' */
-  SL_Bus_std_msgs_Int64 SourceBlock_o2_g;/* '<S14>/SourceBlock' */
   SL_Bus_std_msgs_Int64 SourceBlock_o2;/* '<S15>/SourceBlock' */
+  SL_Bus_std_msgs_Int64 SourceBlock_o2_g;/* '<S14>/SourceBlock' */
   uint32_T bpIndex[2];
   uint32_T lengthOut;                  /* '<Root>/MATLAB Function1' */
   uint32_T lengthOut_e;                /* '<Root>/MATLAB Function' */
+  uint8_T stringOut[128];              /* '<Root>/MATLAB Function1' */
   boolean_T AND3;                      /* '<S43>/AND3' */
   boolean_T Memory_a;                  /* '<S43>/Memory' */
   boolean_T AND3_e;                    /* '<S97>/AND3' */
